@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fac8d63014845aba5b1e33eee45581d, type: 3}
+  m_Name: Elf
+  m_EditorClassIdentifier: 
+  Name: Elf
+  Icon: {fileID: 7409653341989596904, guid: 2bd21e7d33f6b1746a19723d4ddaa915, type: 3}
+  AvailableNames:
+  - VIlliam
+  - Cristopher
+  AvailableCovenants:
+  - {fileID: 11400000, guid: 87005c343ae1deb418a8a34701dcc99e, type: 2}
+  - {fileID: 11400000, guid: cf0bebc607ebd9d4cbe00e7fd8401288, type: 2}
+  - {fileID: 11400000, guid: eba02fa3613933942a59d7ee5c2bb2ae, type: 2}
+  - {fileID: 11400000, guid: 003758ad22576b34eaf230e8935ee0f0, type: 2}
+  - {fileID: 11400000, guid: 44cc935a5256b55429e0036f59ca5da5, type: 2}
+  - {fileID: 11400000, guid: 844062dcddef4714e8e6291ee3682b8c, type: 2}

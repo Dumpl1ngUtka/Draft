@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cbcfffa5f94f1e889b744d806f5fc3, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: 
+  Name: Warrior
+  LineIndex: 1
+  Races:
+  - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
+  - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}
+  - {fileID: 11400000, guid: 14b413c795a09834083080b372e8f9f4, type: 2}
+  - {fileID: 11400000, guid: 542e8cdcab891d4479a4663d0097631e, type: 2}

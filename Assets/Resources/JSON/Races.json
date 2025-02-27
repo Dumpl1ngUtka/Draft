@@ -1,0 +1,32 @@
+{
+  "Races": [
+    {
+      "Id": 0,
+      "Name": "Human"
+    },
+    {
+      "Id": 1,
+      "Name": "Elf"
+    },
+    {
+      "Id": 2,
+      "Name": "Orc"
+    },
+    {
+      "Id": 3,
+      "Name": "Goblin"
+    },
+    {
+      "Id": 4,
+      "Name": "Gnome"
+    },
+    {
+      "Id": 5,
+      "Name": "Dwarf"
+    },
+    {
+      "Id": 6,
+      "Name": "Halfling"
+    }
+  ]
+}
