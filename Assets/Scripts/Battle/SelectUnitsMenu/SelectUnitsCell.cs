@@ -16,6 +16,11 @@ namespace Battle.SelectUnitsMenu
         [Header("Icons")]
         [SerializeField] private Image _raceIcon;
         [SerializeField] private Image _covenantIcon;
+        [Header("Attributes")]
+        [SerializeField] private TMP_Text _healthText;
+        [SerializeField] private TMP_Text _strengthText;
+        [SerializeField] private TMP_Text _dexterityText;
+        [SerializeField] private TMP_Text _intelligenceText;
         private SelectUnitsMenu _selectUnitsMenu;
         
         public Unit Unit { get; private set; } 
@@ -30,6 +35,11 @@ namespace Battle.SelectUnitsMenu
             _nameField.text = unit.Name;
             _raceIcon.sprite = unit.Race.Icon;
             _covenantIcon.sprite = unit.Covenant.Icon;
+            
+            _healthText.text = unit.Attributes.Health.ToString();
+            _strengthText.text = unit.Attributes.Strength.ToString();
+            _dexterityText.text = unit.Attributes.Dexterity.ToString();
+            _intelligenceText.text = unit.Attributes.Intelligence.ToString();
         }
 
         public void SetOutline(bool isSelected)

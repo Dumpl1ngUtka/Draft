@@ -7,6 +7,7 @@ namespace Battle.Units
     public class Unit
     {
         private const int _maxChem = 10;
+        private const int _startAttributePoints = 40;
         
         public string Name { get; private set; }
         public Class Class { get; private set; }
@@ -14,6 +15,7 @@ namespace Battle.Units
         public Covenant Covenant { get; private set; }
         public int Chemestry { get; private set; }
         public int Level { get; private set; }
+        public Attributes Attributes { get; private set; }
        
         public Action ParametersChanged;
         public bool IsMaxChem => Chemestry == _maxChem;
@@ -24,6 +26,7 @@ namespace Battle.Units
             Race = Class.Races[Random.Range(0, Class.Races.Length)];
             Name = Race.AvailableNames[Random.Range(0, Race.AvailableNames.Length)];
             Covenant = Race.AvailableCovenants[Random.Range(0, Race.AvailableCovenants.Length)];
+            Attributes = new Attributes(_startAttributePoints);
             Level = level;
         }
 
