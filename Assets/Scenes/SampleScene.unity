@@ -1451,14 +1451,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8787397176255129756, guid: 80b9553e15cb53a46a047658f9b75bed, type: 3}
         m_TargetAssemblyTypeName: Battle.InfoPanel.InfoPanel, Assembly-CSharp
-        m_MethodName: Render
-        m_Mode: 1
+        m_MethodName: Instantiate
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: chemistry
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &519420028
@@ -2003,14 +2003,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8787397176255129756, guid: 80b9553e15cb53a46a047658f9b75bed, type: 3}
         m_TargetAssemblyTypeName: Battle.InfoPanel.InfoPanel, Assembly-CSharp
-        m_MethodName: Render
-        m_Mode: 1
+        m_MethodName: Instantiate
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: level
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &802613275
@@ -4587,7 +4587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.397949, y: -13.3289795}
+  m_AnchoredPosition: {x: 8.397949, y: -13.329102}
   m_SizeDelta: {x: 441.534, y: 2019.309}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461383106
