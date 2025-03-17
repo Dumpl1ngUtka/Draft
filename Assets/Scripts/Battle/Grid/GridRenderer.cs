@@ -12,13 +12,13 @@ namespace Battle.Grid
         public void Init(Grid grid)
         {
             _grid = grid;
-            _grid.TeamChanged += Render;
+            //_grid.TeamChanged += Render;
         }
 
         private void Render()
         {
-            _totalChemText.text = _grid.AllTeamChem.ToString();
-            _avaregeLevelText.text = (_grid.AllTeamSumLevel / _grid.FillCellsCount).ToString();
+            //_totalChemText.text = _grid.AllTeamChem.ToString();
+            //_avaregeLevelText.text = (_grid.AllTeamSumLevel / _grid.FillCellsCount).ToString();
         }
     }
 }

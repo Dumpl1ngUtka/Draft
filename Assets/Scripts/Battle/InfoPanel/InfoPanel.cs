@@ -7,7 +7,7 @@ namespace Battle.InfoPanel
     public class InfoPanel : MonoBehaviour
     {
         [SerializeField] private Image _itemIcon;
-        [SerializeField] private TextTest _textField;
+        [SerializeField] private TextWithLinks _textField;
         private Dictionary<string, string> testData = new Dictionary<string, string>()
         {
             {"level", "The higher the duck's level, the greater its power\n+1 to the main characteristic for every 5 levels\n+1 to the secondary characteristic for every 10 levels\n+1 to the rest of the stats for every 20 levels"}, 

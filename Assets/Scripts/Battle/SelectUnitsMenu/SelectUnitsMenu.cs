@@ -8,10 +8,10 @@ namespace Battle.SelectUnitsMenu
     {
         [SerializeField] private SelectUnitsCell[] _selectUnitsCells;
         private SelectUnitsCell _selectedCell;
-        private Grid.Grid _grid;
+        private Grid.DraftGrid _grid;
         private int _gridCellID;
         
-        public void Init(Grid.Grid grid, int targetCellID)
+        public void Init(Grid.DraftGrid grid, int targetCellID)
         {
             _grid = grid;
             _gridCellID = targetCellID;

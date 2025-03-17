@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f9fb63045805d1a4a9bb1d75b248c5ce
+guid: 8561a3acef0d04748a16eafdc0909018
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -341932676665991959
-    second: Dexterity_0
+      213: 7795967534560759828
+    second: Dexterity 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dexterity_0
+      name: Dexterity 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 108
-        height: 115
+        width: 127
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ec993eca06314bf0800000000000000
-      internalID: -341932676665991959
+      spriteID: 410d8f9fa27d03c60800000000000000
+      internalID: 7795967534560759828
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Dexterity_0: -341932676665991959
+      Dexterity 1_0: 7795967534560759828
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

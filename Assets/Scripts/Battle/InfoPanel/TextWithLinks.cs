@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Battle.InfoPanel
 {
-    public class TextTest : MonoBehaviour, IPointerClickHandler
+    public class TextWithLinks : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private InfoPanel _infoPanelPrefab; 
         private const string _format = @"\[{1}\w+\]{1}";

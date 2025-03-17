@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Battle.Grid
 {
-    public class GridCell : MonoBehaviour, IPointerClickHandler
+    public class GridCell : MonoBehaviour, IPointerClickHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private DuckMeshController _duckMeshController;
@@ -16,20 +16,37 @@ namespace Battle.Grid
         public int LineIndex { get; private set; }
         public Unit Unit { get; private set; }
         
+        public Action<GridCell, GridCell> Dragged;
+        public Action<GridCell> Clicked;
+
         public void Init(int index, int lineIndex, Grid grid)
         {
             Index = index;
             LineIndex = lineIndex;
             _grid = grid;
             _duckMeshController.SetVisibility(false);
+            _renderer.SetActive(false);
         }
 
         public void AddUnit(Unit unit)
         {
             Unit = unit;
-            unit.ParametersChanged += UnitParametersChanged; 
+            Unit.ParametersChanged += UnitParametersChanged; 
             _duckMeshController.SetVisibility(true);
             _duckMeshController.SetClothes();
+            _renderer.SetActive(true);
+            UnitParametersChanged();
+        }
+
+        public void RemoveUnit()
+        {
+            if (Unit == null)
+                return;
+            
+            Unit.ParametersChanged -= UnitParametersChanged;
+            _duckMeshController.SetVisibility(false);
+            _renderer.SetActive(false);
+            Unit = null;
         }
 
         private void UnitParametersChanged()
@@ -39,8 +56,7 @@ namespace Battle.Grid
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (Unit == null)
-                _grid.ShowUnitSelectMenu(Index);
+            Clicked?.Invoke(this);
         }
 
         private void OnEnable()
@@ -57,6 +73,18 @@ namespace Battle.Grid
                 return;
             
             Unit.ParametersChanged -= UnitParametersChanged; 
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {   
+            var obj = eventData.pointerCurrentRaycast.gameObject;
+            if (obj.TryGetComponent(out GridCell cell))
+                Dragged?.Invoke(this, cell);
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            
         }
     }
 }
