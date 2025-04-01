@@ -7031,10 +7031,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1316793090}
   - component: {fileID: 1316793092}
+  - component: {fileID: 1316793095}
   - component: {fileID: 1316793093}
   - component: {fileID: 1316793094}
   m_Layer: 5
-  m_Name: PlayerGrid
+  m_Name: BattleGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7114,6 +7115,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &1316793095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316793089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453d02bd602e48659c5766552afb91f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startIndex: 0
+  Cells:
+  - {fileID: 1065926956}
+  - {fileID: 2112715244}
+  - {fileID: 1075049609}
+  - {fileID: 1915197946}
+  - {fileID: 994356485}
+  - {fileID: 1170553143}
+  - {fileID: 1699840719}
+  - {fileID: 802613278}
+  - {fileID: 1209755091}
+  _cardInfoPrefab: {fileID: 8410203781202937922, guid: 60a02f7c138abbf498edbde19de090f2, type: 3}
 --- !u!1001 &1332681719
 PrefabInstance:
   m_ObjectHideFlags: 0

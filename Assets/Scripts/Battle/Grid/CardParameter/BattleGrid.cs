@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Battle.InfoPanel;
 using Battle.Units;
 using UnityEngine;
@@ -9,14 +10,13 @@ namespace Battle.Grid.CardParameter
     {
         [SerializeField] private CardInfoPanel _cardInfoPrefab;
 
-        private void Start()
+        public void Fill(List<Unit> units)
         {
-            Fill();
-        }
-
-        private void Fill()
-        {
-            
+            var index = 0;
+            foreach (var cell in Cells)
+            {
+                cell.AddUnit(units[index++]);
+            }
         }
 
         protected override void Clicked(GridCell cell)

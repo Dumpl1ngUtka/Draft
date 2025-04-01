@@ -8,7 +8,6 @@ namespace Battle.Grid
     public class GridCell : MonoBehaviour, IPointerClickHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] private RectTransform _rectTransform;
-        [SerializeField] private DuckMeshController _duckMeshController;
         [SerializeField] private GridCellRenderer _renderer;
         private Grid _grid;
         public RectTransform RectTransform => _rectTransform;
@@ -24,7 +23,6 @@ namespace Battle.Grid
             Index = index;
             LineIndex = lineIndex;
             _grid = grid;
-            _duckMeshController.SetVisibility(false);
             _renderer.SetActive(false);
         }
 
@@ -32,8 +30,6 @@ namespace Battle.Grid
         {
             Unit = unit;
             Unit.ParametersChanged += UnitParametersChanged; 
-            _duckMeshController.SetVisibility(true);
-            _duckMeshController.SetClothes();
             _renderer.SetActive(true);
             UnitParametersChanged();
         }
@@ -44,7 +40,6 @@ namespace Battle.Grid
                 return;
             
             Unit.ParametersChanged -= UnitParametersChanged;
-            _duckMeshController.SetVisibility(false);
             _renderer.SetActive(false);
             Unit = null;
         }

@@ -10,7 +10,7 @@ namespace Battle.SelectUnitsMenu
 {
     public class SelectUnitsCell : MonoBehaviour, IPointerClickHandler
     {
-        
+        [SerializeField] private Image _duckIcon;
         [SerializeField] private TMP_Text _classField;
         [SerializeField] private TMP_Text _nameField;
         [SerializeField] private Parameter _levelField;
@@ -31,6 +31,7 @@ namespace Battle.SelectUnitsMenu
         {
             Unit = unit;
             
+            _duckIcon.sprite = unit.Class.Icon;
             _selectUnitsMenu = menu;
             _levelField.Render(unit.Level);
             _classField.text = unit.Class.Name;

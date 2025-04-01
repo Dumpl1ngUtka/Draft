@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37cbcfffa5f94f1e889b744d806f5fc3, type: 3}
   m_Name: Wizzard
   m_EditorClassIdentifier: 
+  Icon: {fileID: 1890715221491492552, guid: e2ee54690b9cd2a4996109366be92c81, type: 3}
   Name: Wizzard
   LineIndex: 2
   Races:

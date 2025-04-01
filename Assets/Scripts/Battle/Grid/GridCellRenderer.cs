@@ -8,6 +8,7 @@ namespace Battle.Grid
 {
     public class GridCellRenderer : MonoBehaviour
     {
+        [SerializeField] private Image _duckIcon;
         [SerializeField] private Parameter _chemistry;
         [SerializeField] private Image _covenantImage;
         [SerializeField] private Image _raceImage;
@@ -20,6 +21,7 @@ namespace Battle.Grid
 
         public void SetActive(bool active)
         {
+            _duckIcon.gameObject.SetActive(active);
             _level.gameObject.SetActive(active);
             _chemistry.gameObject.SetActive(active);
             _health.gameObject.SetActive(active);
@@ -32,6 +34,7 @@ namespace Battle.Grid
         
         public void Render(Unit unit)
         {
+            _duckIcon.sprite = unit.Class.Icon;
             _level.Render(unit.Level / 5) ;
             _chemistry.Render(unit.Chemestry);
             _covenantImage.sprite = unit.Covenant.Icon;

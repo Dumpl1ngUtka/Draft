@@ -13,9 +13,12 @@ namespace Battle.Grid
         [SerializeField] protected GridCell[] Cells;
         private readonly int _lineCount = 3;
         private readonly int _columnCount = 3;
+
+        protected GameManager Manager;
         
-        private void Awake()
+        public void Initialize(GameManager manager)
         {
+            Manager = manager;
             InitiateCells();
         }
         
