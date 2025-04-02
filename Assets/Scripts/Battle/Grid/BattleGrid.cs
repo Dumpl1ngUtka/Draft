@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Battle.InfoPanel;
 using Battle.Units;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace Battle.Grid.CardParameter
+namespace Battle.Grid
 {
     public class BattleGrid : Grid
     {
@@ -16,6 +17,16 @@ namespace Battle.Grid.CardParameter
             foreach (var cell in Cells)
             {
                 cell.AddUnit(units[index++]);
+            }
+            NewTurn();
+        }
+
+        public void NewTurn()
+        {
+            foreach (var cell in Cells)
+            {
+                var powerValue = Random.Range(1, 7);
+                cell.SetPower(powerValue);
             }
         }
 
@@ -32,7 +43,9 @@ namespace Battle.Grid.CardParameter
 
         protected override void Dragged(GridCell from, GridCell to)
         {
-            throw new System.NotImplementedException();
+            from.IsUnitFinished = true;
+            from.Unit.Race.Reaction.SetReaction(from, Cells);
+            from.Unit.Class.Abilities[0].SetAbility(from,to, Cells);
         }
     }
 }

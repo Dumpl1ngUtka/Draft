@@ -1,3 +1,4 @@
+using System;
 using Battle.Grid.CardParameter;
 using Battle.Units;
 using TMPro;
@@ -13,11 +14,21 @@ namespace Battle.Grid
         [SerializeField] private Image _covenantImage;
         [SerializeField] private Image _raceImage;
         [SerializeField] private Parameter _level;
+        [SerializeField] private Image _powerDiceImage;
         [Header("Attributes")]
         [SerializeField] private Parameter _health;
         [SerializeField] private Parameter _strength;
         [SerializeField] private Parameter _dexterity;
         [SerializeField] private Parameter _intelligence;
+        [Header("Health")]
+        [SerializeField] private TMP_Text _armorValue;
+        [SerializeField] private TMP_Text _healthValue;
+        private GridCell _cell;
+
+        private void Awake()
+        {
+            _cell = GetComponent<GridCell>();
+        }
 
         public void SetActive(bool active)
         {
@@ -30,6 +41,9 @@ namespace Battle.Grid
             _intelligence.gameObject.SetActive(active);
             _covenantImage.gameObject.SetActive(active);
             _raceImage.gameObject.SetActive(active);
+            _powerDiceImage.gameObject.SetActive(active);
+            _armorValue.gameObject.SetActive(active);
+            _healthValue.gameObject.SetActive(active);
         }
         
         public void Render(Unit unit)
@@ -43,6 +57,17 @@ namespace Battle.Grid
             _strength?.Render(unit.Attributes.Strength);
             _dexterity?.Render(unit.Attributes.Dexterity);
             _intelligence?.Render(unit.Attributes.Intelligence);
+            _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/Dice/" + _cell.DicePower);
+        }
+
+        public void RenderHealth(int currentHealth, int maxHealth)
+        {
+            _healthValue.text = currentHealth + "/" + maxHealth;
+        }
+
+        public void RenderArmor(int armorValue)
+        {
+            _armorValue.text = armorValue.ToString();
         }
     }
 }

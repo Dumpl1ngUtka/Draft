@@ -1,3 +1,4 @@
+using Battle.Abilities;
 using UnityEngine;
 
 namespace Battle.Units
@@ -9,6 +10,6 @@ namespace Battle.Units
         public string Name;
         [Range(0,2)] public int LineIndex;
         public Race[] Races;
-        
+        public Ability[] Abilities;
     }
 }

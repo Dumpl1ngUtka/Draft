@@ -34,7 +34,7 @@ namespace Battle.Grid
                 for (int column = 0; column < _columnCount; column++)
                 {
                     var cell = Cells[line * _lineCount + column];
-                    cell.Init(cardIndex++, line, this);
+                    cell.Init(cardIndex++, line, column ,this);
                     cell.Dragged += Dragged;
                     cell.Clicked += Clicked;
                 }

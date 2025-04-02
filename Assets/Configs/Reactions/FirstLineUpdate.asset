@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249e0c6db03c4fce970a2b8966b84c86, type: 3}
+  m_Name: FirstLineUpdate
+  m_EditorClassIdentifier: 
+  _value: 1
+  _islineUpgradable: 1
+  _isUnitLineUpgradable: 0
+  _line: 0
+  _isColumnUpgradable: 0
+  _isUnitColumnUpgradable: 0
+  _column: 0
