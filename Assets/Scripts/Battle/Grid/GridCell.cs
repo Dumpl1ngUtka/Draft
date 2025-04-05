@@ -15,6 +15,7 @@ namespace Battle.Grid
         private Grid _grid;
         public RectTransform RectTransform => _rectTransform;
         public int Index { get; private set; }
+        public int TeamIndex { get; private set; }
         public int LineIndex { get; private set; }
         public int ColumnIndex { get; private set; }
         public Unit Unit { get; private set; }
@@ -42,9 +43,10 @@ namespace Battle.Grid
             _renderer.SetActive(false);
         }
 
-        public void AddUnit(Unit unit)
+        public void AddUnit(Unit unit, int teamIndex)
         {
             Unit = unit;
+            TeamIndex = teamIndex;
             Unit.ParametersChanged += UnitParametersChanged; 
             _renderer.SetActive(true);
             Health = new GridCellHealth();
@@ -57,6 +59,7 @@ namespace Battle.Grid
 
         public void RemoveUnit()
         {
+            TeamIndex = -1;
             Health = new GridCellHealth();
             if (Unit == null)
                 return;

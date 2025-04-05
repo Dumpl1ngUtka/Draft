@@ -1,39 +1,24 @@
 using System;
+using System.Collections.Generic;
+using Battle.Abilities;
+using Battle.DamageSystem;
+using Battle.UseCardReactions;
+using UnityEngine;
 using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
 namespace Battle.Units
 {
-    public class Unit
+    public abstract class Unit : ScriptableObject
     {
-        private const int _maxChem = 10;
-        private const int _startAttributePoints = 40;
-        
-        public string Name { get; private set; }
-        public Class Class { get; private set; }
-        public Race Race { get; private set; } 
-        public Covenant Covenant { get; private set; }
-        public int Chemestry { get; private set; }
-        public int Level { get; private set; }
-        public Attributes Attributes { get; private set; }
-       
+        public abstract string Name { get; }
+        public abstract Sprite Icon { get; }
+        public abstract Attributes Attributes  { get; }
+        public abstract List<DamageType> Immunities  { get; }
+        public abstract List<DamageType> Resistances  { get; }
+        public abstract List<DamageType> Vulnerability { get; }
+        public abstract Ability[] Abilities { get; }
+        public abstract Reaction Reaction { get; }
         public Action ParametersChanged;
-        public bool IsMaxChem => Chemestry == _maxChem;
-        
-        public Unit(Class unitClass, int level)
-        {
-            Class = unitClass; 
-            Race = Class.Races[Random.Range(0, Class.Races.Length)];
-            Name = Race.AvailableNames[Random.Range(0, Race.AvailableNames.Length)];
-            Covenant = Race.AvailableCovenants[Random.Range(0, Race.AvailableCovenants.Length)];
-            Attributes = new Attributes(_startAttributePoints);
-            Level = level;
-        }
-
-        public void SetChemestry(int chemestry)
-        {
-            Chemestry = chemestry >_maxChem ? _maxChem : chemestry;
-            ParametersChanged?.Invoke();
-        }
     }
 }

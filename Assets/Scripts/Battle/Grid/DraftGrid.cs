@@ -58,35 +58,18 @@ namespace Battle.Grid
         private void ShowUnitSelectMenu(int cellID)
         {
             _selectUnitsMenu.Init(this, cellID);
-            var availableClasses = _availableClasses.Where(x => x.LineIndex == Cells[cellID].LineIndex).ToArray();
+            var availableClasses = _availableClasses.Where(x => x.LineIndex == PlayerCells[cellID].LineIndex).ToArray();
             _selectUnitsMenu.Enable();
-            CalculateLevel(out int midLevel, out int delta);
-            _selectUnitsMenu.GenerateCards(availableClasses, midLevel, delta);
+            _selectUnitsMenu.GenerateCards(availableClasses);
         }
+        
 
-        private void CalculateLevel(out int midLevel, out int delta)
+        public void AddCard(int cellID, PlayerUnit unit)
         {
-            if (FillCellsCount < Cells.Length / 2)
-            {
-                midLevel = _dungeonLevel/2;
-                delta =  midLevel / 2;
-            }
-            else
-            {
-                var averageLevel = AllTeamSumLevel / FillCellsCount;
-                
-                midLevel = averageLevel < _dungeonLevel / 8 * 6? _dungeonLevel / 8 * 7 : _dungeonLevel / 8 * 5;
-                delta = _dungeonLevel / 8;
-            }
-        }
-
-        public void AddCard(int cellID, Unit unit)
-        {
-            Cells[cellID].AddUnit(unit);
+            PlayerCells[cellID].AddUnit(unit, 0);
             CalculateChemistryFor(unit);
             AddChemistryToUnits();
             FillCellsCount++;
-            AllTeamSumLevel += unit.Level; 
             TeamChanged?.Invoke();
             Render();
         }
@@ -99,14 +82,19 @@ namespace Battle.Grid
             if (from.LineIndex != to.LineIndex)
                 return;
             
+            if (from.TeamIndex != to.TeamIndex)
+                return;
+
+            var teamIndex = to.TeamIndex;
+            
             var toUnit = to.Unit;
-            to.AddUnit(from.Unit);
+            to.AddUnit(from.Unit, teamIndex);
             from.RemoveUnit();
             if (toUnit != null)
-                from.AddUnit(toUnit);
+                from.AddUnit(toUnit, teamIndex);
         }
 
-        private void CalculateChemistryFor(Unit unit)
+        private void CalculateChemistryFor(PlayerUnit unit)
         {
             if (!_raceCounts.TryAdd(unit.Race, 1))
                 _raceCounts[unit.Race]++;
@@ -121,9 +109,9 @@ namespace Battle.Grid
         private void AddChemistryToUnits()
         {
             AllTeamChem = 0;
-            foreach (var cell in Cells)
+            foreach (var cell in PlayerCells)
             {
-                var unit = cell.Unit;
+                var unit = cell.Unit as PlayerUnit;
                 var totalChem = 0;
                 
                 if (unit == null)
@@ -138,14 +126,14 @@ namespace Battle.Grid
                 if (_covenantTypeCounts.TryGetValue(unit.Covenant.Type, out var covenantTypeVal))
                     totalChem += covenantTypeVal - 1;
                 
-                unit.SetChemestry(totalChem);
+                unit.SetChemistry(totalChem);
                 AllTeamChem += totalChem;
             }
         }
 
-        public List<Unit> GetUnits()
+        public List<PlayerUnit> GetUnits()
         {
-            return Cells.Select(cell => cell.Unit).ToList();
+            return PlayerCells.Select(cell => cell.Unit as PlayerUnit).ToList();
         } 
     }
 }

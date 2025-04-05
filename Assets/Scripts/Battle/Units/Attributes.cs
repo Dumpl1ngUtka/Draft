@@ -9,10 +9,10 @@ namespace Battle.Units
     {
         private const int maxLevel = 20;
 
-        private int _health;
-        private int _dexterity;
-        private int _strength;
-        private int _intelligence;
+        [SerializeField] private int _health;
+        [SerializeField] private int _dexterity;
+        [SerializeField] private int _strength;
+        [SerializeField] private int _intelligence;
 
         public int Health
         {

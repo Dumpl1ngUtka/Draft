@@ -9,9 +9,10 @@ namespace Battle
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private List<Enemy> _enemies;
         [SerializeField] private DraftGrid _draftGrid;
         [SerializeField] private BattleGrid _battleGrid;
-        private List<Unit> _units = new List<Unit>();
+        private List<PlayerUnit> _playerUnits = new List<PlayerUnit>();
 
         private void Awake()
         {
@@ -27,8 +28,8 @@ namespace Battle
                 return;
             
             _draftGrid.gameObject.SetActive(false);
-            _units = _draftGrid.GetUnits();
-            _battleGrid.Fill(_units);
+            _playerUnits = _draftGrid.GetUnits();
+            _battleGrid.Fill(_playerUnits, _enemies);
             _battleGrid.gameObject.SetActive(true);
         }
     }

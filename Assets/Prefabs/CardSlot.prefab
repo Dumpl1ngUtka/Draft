@@ -1164,10 +1164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64699af5ad6e44f58fe18d6c7245d469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health:
-    _immunities: 
-    _resistances: 
-    _vulnerability: 
   _rectTransform: {fileID: 7421837362807884559}
   _renderer: {fileID: 426114959665832530}
   IsUnitFinished: 0
@@ -1193,8 +1189,8 @@ MonoBehaviour:
   _strength: {fileID: 5603712248315053319}
   _dexterity: {fileID: 8413248603270733248}
   _intelligence: {fileID: 3833783203799270554}
-  _armorValue: {fileID: 2825900949817411841}
-  _healthValue: {fileID: 5061284569950364476}
+  _armorValue: {fileID: 5061284569950364476}
+  _healthValue: {fileID: 2825900949817411841}
 --- !u!1 &6626260266681531055
 GameObject:
   m_ObjectHideFlags: 0

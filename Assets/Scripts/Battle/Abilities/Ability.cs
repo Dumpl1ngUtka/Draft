@@ -5,6 +5,9 @@ namespace Battle.Abilities
 {
     public abstract class Ability : ScriptableObject 
     {
-        public abstract void SetAbility(GridCell casterCell, GridCell target, GridCell[] cells);
+        public string Name;
+        public Sprite Icon;
+        
+        public abstract bool TryUseAbility(GridCell casterCell, GridCell target, GridCell[] cells);
     }
 }

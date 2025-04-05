@@ -45,7 +45,7 @@ namespace Battle.DamageSystem
                 _currentHealth = 0;
                 OnDead?.Invoke();
             }
-            OnHealthChanged?.Invoke(_currentHealth, _currentHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
         private int CalculateArmor(int value)
@@ -63,11 +63,11 @@ namespace Battle.DamageSystem
         
         private int CalculateResistance(Damage damage)
         {
-            if (_unit.Race.Immunities.Contains(damage.DamageType))
+            if (_unit.Immunities.Contains(damage.DamageType))
                 return 0;
-            if (_unit.Race.Resistances.Contains(damage.DamageType))
+            if (_unit.Resistances.Contains(damage.DamageType))
                 return damage.Value / 2;
-            if (_unit.Race.Vulnerability.Contains(damage.DamageType))
+            if (_unit.Vulnerability.Contains(damage.DamageType))
                 return damage.Value * 2;
             return damage.Value;
         }

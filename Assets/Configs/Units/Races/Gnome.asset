@@ -24,4 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 003758ad22576b34eaf230e8935ee0f0, type: 2}
   - {fileID: 11400000, guid: 44cc935a5256b55429e0036f59ca5da5, type: 2}
   - {fileID: 11400000, guid: 844062dcddef4714e8e6291ee3682b8c, type: 2}
-  Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}
+  Reaction: {fileID: 11400000, guid: 0f8ddffbedb5a5048b3099991163526d, type: 2}
+  Immunities: 
+  Resistances: 
+  Vulnerability: 

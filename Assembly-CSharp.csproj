@@ -51,7 +51,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\ChangeRowOrColumn.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
-    <Compile Include="Assets\Scripts\Battle\Units\DuckMeshController.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\DamageType.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\DraftGrid.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -59,7 +58,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\Ability.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Scripts\Battle\UseCardReactions\SameRaceReaction.cs" />
     <Compile Include="Assets\Scripts\Battle\GameManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\Parameter.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\GridCell.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\PlayerUnit.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />

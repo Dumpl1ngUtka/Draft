@@ -45,19 +45,26 @@ namespace Battle.Grid
             _armorValue.gameObject.SetActive(active);
             _healthValue.gameObject.SetActive(active);
         }
+
+        public void Render(PlayerUnit playerUnit)
+        {
+            Render(playerUnit as Unit);
+            _chemistry.Render(playerUnit.Chemistry);
+            _covenantImage.sprite = playerUnit.Covenant.Icon;
+            _raceImage.sprite = playerUnit.Race.Icon;
+        }
         
         public void Render(Unit unit)
         {
-            _duckIcon.sprite = unit.Class.Icon;
-            _level.Render(unit.Level / 5) ;
-            _chemistry.Render(unit.Chemestry);
-            _covenantImage.sprite = unit.Covenant.Icon;
-            _raceImage.sprite = unit.Race.Icon;
+            _duckIcon.sprite = unit.Icon;
             _health?.Render(unit.Attributes.Health);
             _strength?.Render(unit.Attributes.Strength);
             _dexterity?.Render(unit.Attributes.Dexterity);
             _intelligence?.Render(unit.Attributes.Intelligence);
-            _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/Dice/" + _cell.DicePower);
+            if (_cell.IsUnitFinished) 
+                _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/None");
+            else
+                _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/Dice/" + _cell.DicePower);
         }
 
         public void RenderHealth(int currentHealth, int maxHealth)

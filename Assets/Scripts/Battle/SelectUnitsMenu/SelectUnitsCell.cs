@@ -25,15 +25,14 @@ namespace Battle.SelectUnitsMenu
         [SerializeField] private Parameter _intelligence;
         private SelectUnitsMenu _selectUnitsMenu;
         
-        public Unit Unit { get; private set; } 
+        public PlayerUnit Unit { get; private set; } 
             
-        public void Init(SelectUnitsMenu menu ,Unit unit)
+        public void Init(SelectUnitsMenu menu ,PlayerUnit unit)
         {
             Unit = unit;
             
             _duckIcon.sprite = unit.Class.Icon;
             _selectUnitsMenu = menu;
-            _levelField.Render(unit.Level);
             _classField.text = unit.Class.Name;
             _nameField.text = unit.Name;
             _raceIcon.sprite = unit.Race.Icon;

@@ -10,30 +10,30 @@ namespace Battle.Grid
     public abstract class Grid : MonoBehaviour
     {
         [SerializeField] private int _startIndex = 0;
-        [SerializeField] protected GridCell[] Cells;
+        [SerializeField] protected GridCell[] PlayerCells;
         private readonly int _lineCount = 3;
         private readonly int _columnCount = 3;
 
         protected GameManager Manager;
         
-        public void Initialize(GameManager manager)
+        public virtual void Initialize(GameManager manager)
         {
             Manager = manager;
-            InitiateCells();
+            InitiateCells(_startIndex, PlayerCells);
         }
         
-        private void InitiateCells()
+        protected void InitiateCells(int startIndex, GridCell[] cells)
         {
-            if (_lineCount * _columnCount > Cells.Length)
+            if (_lineCount * _columnCount > cells.Length)
                 throw new Exception("Cell count is too small");
             
-            var cardIndex = _startIndex;
+            var cardIndex = startIndex;
 
             for (int line = 0; line < _lineCount; line++)
             {
                 for (int column = 0; column < _columnCount; column++)
                 {
-                    var cell = Cells[line * _lineCount + column];
+                    var cell = cells[line * _lineCount + column];
                     cell.Init(cardIndex++, line, column ,this);
                     cell.Dragged += Dragged;
                     cell.Clicked += Clicked;

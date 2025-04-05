@@ -24,12 +24,12 @@ namespace Battle.SelectUnitsMenu
             gameObject.SetActive(true);
         }
 
-        public void GenerateCards(Class[] classes, int midLevel, int delta = 0)
+        public void GenerateCards(Class[] classes)
         {
             foreach (var cell in _selectUnitsCells)
             {
-                var level = midLevel + Random.Range(-delta, delta);
-                var unit = new Unit(classes[Random.Range(0, classes.Length)], level);
+                var unit = ScriptableObject.CreateInstance<PlayerUnit>();
+                unit.Init(classes[Random.Range(0, classes.Length)]);
                 cell.Init(this, unit);
             }
         }
