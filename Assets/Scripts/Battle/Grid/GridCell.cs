@@ -8,68 +8,46 @@ namespace Battle.Grid
 {
     public class GridCell : MonoBehaviour, IPointerClickHandler, IEndDragHandler, IDragHandler
     {
-        private const int _maxPower = 6;
-        
-        [SerializeField] private RectTransform _rectTransform;
-        [SerializeField] private GridCellRenderer _renderer;
-        private Grid _grid;
-        public RectTransform RectTransform => _rectTransform;
-        public int Index { get; private set; }
+        private GridCellRenderer _renderer;
         public int TeamIndex { get; private set; }
         public int LineIndex { get; private set; }
         public int ColumnIndex { get; private set; }
         public Unit Unit { get; private set; }
-        public GridCellHealth Health { get; private set; }
-        public int DicePower { get; private set; }
+
         public Action<GridCell, GridCell> Dragged;
         public Action<GridCell> Clicked;
-
-        public bool IsUnitDead { get; private set; } = false;
-        public bool IsUnitFinished = false;
-
-        public void Init(int index, int lineIndex, int columnIndex, Grid grid)
+        
+        public void Init(int lineIndex, int columnIndex,int teamIndex)
         {
-            Index = index;
+            _renderer = GetComponent<GridCellRenderer>();
+            
             LineIndex = lineIndex;
             ColumnIndex = columnIndex;
-            _grid = grid;
-            
+            TeamIndex = teamIndex;
+
             _renderer.SetActive(false);
         }
-
-        private void OnDead()
-        {
-            IsUnitDead = true;
-            _renderer.SetActive(false);
-        }
-
-        public void AddUnit(Unit unit, int teamIndex)
+        
+        public void AddUnit(Unit unit)
         {
             Unit = unit;
-            TeamIndex = teamIndex;
-            Unit.ParametersChanged += UnitParametersChanged; 
+            Unit.SetTeam(TeamIndex);
+            Unit.ParametersChanged += ParametersChanged; 
             _renderer.SetActive(true);
-            Health = new GridCellHealth();
-            Health.OnDead += OnDead;
-            Health.OnHealthChanged += _renderer.RenderHealth;
-            Health.OnArmorChanged += _renderer.RenderArmor;
-            Health.Init(unit);
-            UnitParametersChanged();
+            ParametersChanged();
         }
 
         public void RemoveUnit()
         {
-            TeamIndex = -1;
-            Health = new GridCellHealth();
             if (Unit == null)
                 return;
             
-            Unit.ParametersChanged -= UnitParametersChanged;
+            Unit.ParametersChanged -= ParametersChanged;
             _renderer.SetActive(false);
             Unit = null;
         }
 
-        private void UnitParametersChanged()
+        private void ParametersChanged()
         {
             _renderer.Render(Unit);
         }
@@ -84,7 +62,7 @@ namespace Battle.Grid
             if (Unit == null)
                 return;
                 
-            Unit.ParametersChanged += UnitParametersChanged; 
+            Unit.ParametersChanged += ParametersChanged; 
         }
         
         private void OnDisable()
@@ -92,7 +70,7 @@ namespace Battle.Grid
             if (Unit == null)
                 return;
             
-            Unit.ParametersChanged -= UnitParametersChanged; 
+            Unit.ParametersChanged -= ParametersChanged; 
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -105,14 +83,6 @@ namespace Battle.Grid
         public void OnDrag(PointerEventData eventData)
         {
             
-        }
-        
-        public void SetPower(int newPower)
-        {
-            if (newPower > _maxPower)
-                newPower -= _maxPower;
-            DicePower = newPower;
-            UnitParametersChanged();
         }
     }
 }

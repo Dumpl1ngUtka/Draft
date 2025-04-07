@@ -1,4 +1,6 @@
-using Battle.Grid;
+using System.Collections.Generic;
+using Battle.Units;
+using Battle.Units.Interactors;
 using UnityEngine;
 
 namespace Battle.Abilities
@@ -8,6 +10,8 @@ namespace Battle.Abilities
         public string Name;
         public Sprite Icon;
         
-        public abstract bool TryUseAbility(GridCell casterCell, GridCell target, GridCell[] cells);
+        public abstract Response TryUseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies);
+        
+        public abstract Unit GetPreferredTarget(List<Unit> potentialTargets);
     }
 }

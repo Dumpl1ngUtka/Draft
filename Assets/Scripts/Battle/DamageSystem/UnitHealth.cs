@@ -3,7 +3,7 @@ using Unit = Battle.Units.Unit;
 
 namespace Battle.DamageSystem
 {
-    public class GridCellHealth
+    public class UnitHealth
     {
         private const int _healthPointsPerHealthAttribute = 3;
         
@@ -12,18 +12,19 @@ namespace Battle.DamageSystem
         private int _maxHealth;
         private Unit _unit;
         
-        public Action<int, int> OnHealthChanged;
-        public Action<int> OnArmorChanged;
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => _maxHealth;
+        public int ArmorValue => _armorValue;
+        
+        public Action OnValueChanged;
         public Action OnDead;
 
-        public void Init(Unit unit)
+        public UnitHealth(Unit unit)
         {
             _unit = unit;
             _armorValue = 0;
             _maxHealth = unit.Attributes.Health * _healthPointsPerHealthAttribute;
             _currentHealth = _maxHealth;
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
-            OnArmorChanged?.Invoke(_armorValue);
         }
 
         public void AddArmor(int value)
@@ -32,7 +33,7 @@ namespace Battle.DamageSystem
                 return;
             
             _armorValue += value;
-            OnArmorChanged?.Invoke(_armorValue);
+            OnValueChanged?.Invoke();
         }
         
         public void ApplyDamage(Damage damage)
@@ -45,7 +46,7 @@ namespace Battle.DamageSystem
                 _currentHealth = 0;
                 OnDead?.Invoke();
             }
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            OnValueChanged?.Invoke();
         }
 
         private int CalculateArmor(int value)
@@ -57,7 +58,7 @@ namespace Battle.DamageSystem
             }
 
             _armorValue = 0;
-            OnArmorChanged?.Invoke(_armorValue);
+            OnValueChanged?.Invoke();
             return value - _armorValue;
         }
         

@@ -24,21 +24,20 @@ namespace Battle.Grid
         [SerializeField] private TMP_Text _armorValue;
         [SerializeField] private TMP_Text _healthValue;
         private GridCell _cell;
+        private Sprite _noneIcon;
 
         private void Awake()
         {
             _cell = GetComponent<GridCell>();
+            _noneIcon = Resources.Load<Sprite>("Sprites/None");
         }
 
         public void SetActive(bool active)
         {
+            SetActiveParameters(active);
             _duckIcon.gameObject.SetActive(active);
             _level.gameObject.SetActive(active);
             _chemistry.gameObject.SetActive(active);
-            _health.gameObject.SetActive(active);
-            _strength.gameObject.SetActive(active);
-            _dexterity.gameObject.SetActive(active);
-            _intelligence.gameObject.SetActive(active);
             _covenantImage.gameObject.SetActive(active);
             _raceImage.gameObject.SetActive(active);
             _powerDiceImage.gameObject.SetActive(active);
@@ -46,25 +45,30 @@ namespace Battle.Grid
             _healthValue.gameObject.SetActive(active);
         }
 
-        public void Render(PlayerUnit playerUnit)
+        public void SetActiveParameters(bool active)
         {
-            Render(playerUnit as Unit);
-            _chemistry.Render(playerUnit.Chemistry);
-            _covenantImage.sprite = playerUnit.Covenant.Icon;
-            _raceImage.sprite = playerUnit.Race.Icon;
+            _health.gameObject.SetActive(active);
+            _strength.gameObject.SetActive(active);
+            _dexterity.gameObject.SetActive(active);
+            _intelligence.gameObject.SetActive(active);
         }
         
         public void Render(Unit unit)
         {
+            if (unit.IsDead)
+                SetActive(false);
             _duckIcon.sprite = unit.Icon;
             _health?.Render(unit.Attributes.Health);
             _strength?.Render(unit.Attributes.Strength);
             _dexterity?.Render(unit.Attributes.Dexterity);
             _intelligence?.Render(unit.Attributes.Intelligence);
-            if (_cell.IsUnitFinished) 
-                _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/None");
-            else
-                _powerDiceImage.sprite = Resources.Load<Sprite>("Sprites/Dice/" + _cell.DicePower);
+            //_chemistry.Render(unit.Chemistry);
+            _covenantImage.sprite = unit.Covenant == null? _noneIcon : unit.Covenant.Icon;
+            _raceImage.sprite = unit.Race == null? _noneIcon : unit.Race.Icon;
+            _powerDiceImage.sprite = unit.IsReady?
+               Resources.Load<Sprite>("Sprites/Dice/" + (unit.DicePower + 1)) :  _noneIcon;
+            RenderHealth(unit.Health.CurrentHealth, unit.Health.MaxHealth);
+            RenderArmor(unit.Health.ArmorValue);
         }
 
         public void RenderHealth(int currentHealth, int maxHealth)

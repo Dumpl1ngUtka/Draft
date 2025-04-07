@@ -9,12 +9,12 @@ namespace Battle.SelectUnitsMenu
         [SerializeField] private SelectUnitsCell[] _selectUnitsCells;
         private SelectUnitsCell _selectedCell;
         private Grid.DraftGrid _grid;
-        private int _gridCellID;
+        private GridCell _targetCell;
         
-        public void Init(Grid.DraftGrid grid, int targetCellID)
+        public void Init(Grid.DraftGrid grid, GridCell cell)
         {
             _grid = grid;
-            _gridCellID = targetCellID;
+            _targetCell = cell;
         }
         
         public void Enable()
@@ -28,8 +28,8 @@ namespace Battle.SelectUnitsMenu
         {
             foreach (var cell in _selectUnitsCells)
             {
-                var unit = ScriptableObject.CreateInstance<PlayerUnit>();
-                unit.Init(classes[Random.Range(0, classes.Length)]);
+                var preset = UnitPreset.Generate(classes[Random.Range(0, classes.Length)]);
+                var unit = new Unit(preset);
                 cell.Init(this, unit);
             }
         }
@@ -49,7 +49,7 @@ namespace Battle.SelectUnitsMenu
             if (_selectedCell == null)
                 return;
             
-            _grid.AddCard(_gridCellID, _selectedCell.Unit);
+            _grid.AddCard(_targetCell, _selectedCell.Unit);
             Disable();
         }
         

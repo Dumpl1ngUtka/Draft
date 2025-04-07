@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Battle\InfoPanel\CardInfoPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\UnitPreset.cs" />
+    <Compile Include="Assets\Scripts\Battle\Abilities\AddArmor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\ChangeRowOrColumn.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\Ability.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
-    <Compile Include="Assets\Scripts\Battle\Units\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\SameRaceReaction.cs" />
     <Compile Include="Assets\Scripts\Battle\GameManager.cs" />
@@ -76,9 +77,9 @@
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\Parameter.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\GridCell.cs" />
-    <Compile Include="Assets\Scripts\Battle\Units\PlayerUnit.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\Interactors\Response.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Class.cs" />
@@ -90,15 +91,19 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Battle\InfoPanel\InfoPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Scripts\Battle\DamageSystem\UnitHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\Interactors\Reaction\UseReactionInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\SoloTargetDamage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Covenant.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Grid.cs" />
+    <Compile Include="Assets\Scripts\Battle\InfoPanel\ErrorPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\ParameterCell.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\Interactors\Ability\UseAbilityInteractor.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -112,7 +117,6 @@
     <Compile Include="Assets\Scripts\Battle\Units\UnitParameters.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\CovenantType.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Attributes.cs" />
-    <Compile Include="Assets\Scripts\Battle\DamageSystem\GridCellHealth.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

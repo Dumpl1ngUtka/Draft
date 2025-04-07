@@ -20,26 +20,34 @@ namespace Battle.Grid
         [SerializeField] private CardInfoPanel _cardInfoPrefab;
         [SerializeField] private TMP_Text _totalChemText;
         [SerializeField] private TMP_Text _avaregeLevelText;
+        [SerializeField] private Transform _container;
         private readonly Dictionary<Race, int> _raceCounts = new Dictionary<Race, int>();
         private readonly Dictionary<Covenant, int> _covenantCounts = new Dictionary<Covenant, int>();
         private readonly Dictionary<CovenantType, int> _covenantTypeCounts = new Dictionary<CovenantType, int>();
-
+        private List<GridCell> _cells;
+        
         public int AllTeamChem {get; private set;}
         public int AllTeamSumLevel {get; private set;} = 0;
         public int FillCellsCount {get; private set;} = 0;
         
-        public Action TeamChanged;
+        public Action DraftFinished;
 
+
+        public override void Init()
+        {
+            _cells = InitiateCells(LineCount, ColumnCount, PlayerTeamID, _container);
+        }
+        
         private void Render()
         {
             _totalChemText.text = AllTeamChem.ToString();
             _avaregeLevelText.text = (AllTeamSumLevel / FillCellsCount).ToString();
         }
-        
+
         protected override void Clicked(GridCell cell)
         {
             if (cell.Unit == null)
-                ShowUnitSelectMenu(cell.Index);
+                ShowUnitSelectMenu(cell);
             else 
                 ShowCardInfo(cell.Unit);
         }
@@ -55,46 +63,52 @@ namespace Battle.Grid
             SwitchCard(from, to);
         }
 
-        private void ShowUnitSelectMenu(int cellID)
+        private void ShowUnitSelectMenu(GridCell cell)
         {
-            _selectUnitsMenu.Init(this, cellID);
-            var availableClasses = _availableClasses.Where(x => x.LineIndex == PlayerCells[cellID].LineIndex).ToArray();
+            _selectUnitsMenu.Init(this, cell);
+            var availableClasses = _availableClasses.Where(x => x.LineIndex == cell.LineIndex).ToArray();
             _selectUnitsMenu.Enable();
             _selectUnitsMenu.GenerateCards(availableClasses);
         }
         
 
-        public void AddCard(int cellID, PlayerUnit unit)
+        public void AddCard(GridCell cell, Unit unit)
         {
-            PlayerCells[cellID].AddUnit(unit, 0);
+            cell.AddUnit(unit);
             CalculateChemistryFor(unit);
             AddChemistryToUnits();
             FillCellsCount++;
-            TeamChanged?.Invoke();
             Render();
         }
 
         private void SwitchCard(GridCell from, GridCell to)
         {
             if (from.Unit == null)
+            {
+                InstantiateErrorPanel("unit_null_error");
                 return;
+            }
 
             if (from.LineIndex != to.LineIndex)
+            {
+                InstantiateErrorPanel("line_index_mismatch_error");
                 return;
-            
-            if (from.TeamIndex != to.TeamIndex)
-                return;
+            }
 
-            var teamIndex = to.TeamIndex;
+            if (from.TeamIndex != to.TeamIndex)
+            {
+                InstantiateErrorPanel("team_index_mismatch_error");
+                return;
+            }
             
             var toUnit = to.Unit;
-            to.AddUnit(from.Unit, teamIndex);
+            to.AddUnit(from.Unit);
             from.RemoveUnit();
             if (toUnit != null)
-                from.AddUnit(toUnit, teamIndex);
+                from.AddUnit(toUnit);
         }
 
-        private void CalculateChemistryFor(PlayerUnit unit)
+        private void CalculateChemistryFor(Unit unit)
         {
             if (!_raceCounts.TryAdd(unit.Race, 1))
                 _raceCounts[unit.Race]++;
@@ -109,9 +123,9 @@ namespace Battle.Grid
         private void AddChemistryToUnits()
         {
             AllTeamChem = 0;
-            foreach (var cell in PlayerCells)
+            foreach (var cell in _cells)
             {
-                var unit = cell.Unit as PlayerUnit;
+                var unit = cell.Unit;
                 var totalChem = 0;
                 
                 if (unit == null)
@@ -131,9 +145,20 @@ namespace Battle.Grid
             }
         }
 
-        public List<PlayerUnit> GetUnits()
+        public List<Unit> GetUnits()
         {
-            return PlayerCells.Select(cell => cell.Unit as PlayerUnit).ToList();
-        } 
+            return _cells.Select(cell => cell.Unit).ToList();
+        }
+
+        public void PressFinishButton()
+        {
+            if (FillCellsCount < 9)
+            {
+                InstantiateErrorPanel("draft_fill_cells_error");
+                return;
+            }
+            
+            DraftFinished?.Invoke();
+        }
     }
 }

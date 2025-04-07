@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
 using Battle.Units;
+using Battle.Units.Interactors;
 using UnityEngine;
 
 namespace Battle.UseCardReactions
@@ -12,15 +13,16 @@ namespace Battle.UseCardReactions
     {
         [SerializeField] private int _value;
         
-        public override void SetReaction(GridCell casterCell, GridCell[] cells)
+        public override Response TryUseReaction(GridCell caster, List<GridCell> allies)
         {
-            var casterRace = (casterCell.Unit as PlayerUnit)?.Race;
-            var upgradableCells = cells.Where(x => (x.Unit as PlayerUnit)?.Race == casterRace).ToList();
-            upgradableCells = upgradableCells.GroupBy(x => x.Index).Select(y => y.First()).ToList();
+            var casterRace = caster.Unit.Race;
+            var upgradableCells = allies.Where(x => x.Unit.Race == casterRace).ToList();
+            upgradableCells = upgradableCells.Distinct().ToList();;
             foreach (var cell in upgradableCells)
             {
-                cell.SetPower(cell.DicePower + _value);
+                cell.Unit.SetPower(cell.Unit.DicePower + _value);
             }
+            return new Response(true, "ReactionUsed");
         }
     }
 }

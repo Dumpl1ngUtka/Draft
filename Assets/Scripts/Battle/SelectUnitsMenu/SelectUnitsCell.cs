@@ -25,9 +25,9 @@ namespace Battle.SelectUnitsMenu
         [SerializeField] private Parameter _intelligence;
         private SelectUnitsMenu _selectUnitsMenu;
         
-        public PlayerUnit Unit { get; private set; } 
+        public Unit Unit { get; private set; } 
             
-        public void Init(SelectUnitsMenu menu ,PlayerUnit unit)
+        public void Init(SelectUnitsMenu menu ,Unit unit)
         {
             Unit = unit;
             

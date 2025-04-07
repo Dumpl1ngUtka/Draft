@@ -9,19 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c2e143c3ba46a5b127b0de3bf6fef0, type: 3}
+  m_Script: {fileID: 11500000, guid: ef72a01edfd94c79ab67ec296bce0539, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  _name: Slime
-  _icon: {fileID: -7282886668606283007, guid: 8c3b697f79282744ca79947020b3cee4, type: 3}
-  _attributes:
+  Name: Slime
+  Icon: {fileID: -7282886668606283007, guid: 8c3b697f79282744ca79947020b3cee4, type: 3}
+  Race: {fileID: 0}
+  Class: {fileID: 0}
+  Covenant: {fileID: 0}
+  Attributes:
     _health: 5
     _dexterity: 1
     _strength: 1
     _intelligence: 1
-  _immunities: 
-  _resistances: 
-  _vulnerabilities: 
-  _abilities:
-  - {fileID: 11400000, guid: 6a8c3355424e71946a563a85d3ff3218, type: 2}
-  _reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}
+  Immunities: 
+  Resistances: 
+  Vulnerabilities: 
+  Abilities:
+  - {fileID: 11400000, guid: 6e76fc57955f1cf4aaa89b75d53bed00, type: 2}
+  Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}

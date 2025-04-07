@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
+using Battle.Units.Interactors;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -21,27 +22,28 @@ namespace Battle.UseCardReactions
         [SerializeField] private bool _isUnitColumnUpgradable;
         [SerializeField, Range(0, 2)] private int _column;
         
-        public override void SetReaction(GridCell casterCell, GridCell[] cells)
+        public override Response TryUseReaction(GridCell casterCell, List<GridCell> cells)
         {
             var upgradableCells = new List<GridCell>();
             if (_islineUpgradable)
                 upgradableCells.AddRange(GetUpgradeLine(casterCell, cells));
             if (_isColumnUpgradable)
                 upgradableCells.AddRange(GetUpgradeColumn(casterCell, cells));
-            upgradableCells = upgradableCells.GroupBy(x => x.Index).Select(y => y.First()).ToList();
+            upgradableCells = upgradableCells.Distinct().ToList();
             foreach (var cell in upgradableCells)
             {
-                cell.SetPower(cell.DicePower + _value);
+                cell.Unit.SetPower(cell.Unit.DicePower + _value);
             }
+            return new Response(true, "ReactionUsed");
         }
 
-        private List<GridCell> GetUpgradeLine(GridCell casterCell, GridCell[] cells)
+        private List<GridCell> GetUpgradeLine(GridCell casterCell, List<GridCell> cells)
         {
             var upgradableLineIndex = _isUnitLineUpgradable?  casterCell.LineIndex : _line;
             return cells.Where(x => x.LineIndex == upgradableLineIndex).ToList();
         }
         
-        private List<GridCell> GetUpgradeColumn(GridCell casterCell, GridCell[] cells)
+        private List<GridCell> GetUpgradeColumn(GridCell casterCell, List<GridCell> cells)
         {
             var upgradableLineIndex = _isUnitColumnUpgradable?  casterCell.ColumnIndex : _column;
             return cells.Where(x => x.ColumnIndex == upgradableLineIndex).ToList();
