@@ -8,6 +8,11 @@ namespace Battle.Abilities
     public class AddArmor : Ability
     {
         [SerializeField] private int _additionalArmor;
+        public override float GetHitProbability(Unit caster, Unit target)
+        {
+            return 1f;
+        }
+
         public override Response TryUseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies)
         {
             if (caster.IsDead)

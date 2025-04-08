@@ -15,7 +15,12 @@ namespace Battle.Abilities
         [SerializeField] private int _damagePerStrength;
         [SerializeField] private int _damagePerIntelligence;
         [SerializeField] private DamageType _damageType;
-        
+
+        public override float GetHitProbability(Unit caster, Unit target)
+        {
+            return 1f;
+        }
+
         public override Response TryUseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies)
         {
             if (caster.IsDead)

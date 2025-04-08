@@ -9,6 +9,8 @@ namespace Battle.Abilities
     {
         public string Name;
         public Sprite Icon;
+
+        public abstract float GetHitProbability(Unit caster, Unit target);
         
         public abstract Response TryUseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies);
         

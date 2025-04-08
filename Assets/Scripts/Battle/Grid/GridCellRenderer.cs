@@ -23,6 +23,9 @@ namespace Battle.Grid
         [Header("Health")]
         [SerializeField] private TMP_Text _armorValue;
         [SerializeField] private TMP_Text _healthValue;
+        [Header("OverText")]
+        [SerializeField] private Image _overPanel;
+        [SerializeField] private TMP_Text _overText;
         private GridCell _cell;
         private Sprite _noneIcon;
 
@@ -32,9 +35,22 @@ namespace Battle.Grid
             _noneIcon = Resources.Load<Sprite>("Sprites/None");
         }
 
+        public void SetOverText(bool isActive, string text = "")
+        {
+            _overText.gameObject.SetActive(isActive);
+            _overPanel.gameObject.SetActive(isActive);
+            _overText.text = text;
+        }
+        
+        public void SetSize(float size)
+        {
+            transform.localScale = new Vector3(size, size, size);
+        }
+        
         public void SetActive(bool active)
         {
             SetActiveParameters(active);
+            SetOverText(false);
             _duckIcon.gameObject.SetActive(active);
             _level.gameObject.SetActive(active);
             _chemistry.gameObject.SetActive(active);

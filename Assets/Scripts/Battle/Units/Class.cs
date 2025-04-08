@@ -8,7 +8,7 @@ namespace Battle.Units
     {
         public Sprite Icon;
         public string Name;
-        [Range(0,2)] public int LineIndex;
+        public int[] LineIndexes;
         public Race[] Races;
         public Ability[] Abilities;
     }

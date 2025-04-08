@@ -7,6 +7,17 @@ namespace Battle.UseCardReactions
 {
     public abstract class Reaction : ScriptableObject
     {
-        public abstract Response TryUseReaction(GridCell caster, List<GridCell> allies);
+        [SerializeField] private int _value = 1;
+        
+        public abstract List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies);
+
+        public Response TryUseReaction(GridCell caster, List<GridCell> allies)
+        {
+            foreach (var cell in GetReactionCells(caster, allies))
+            {
+                cell.Unit.SetPower(cell.Unit.DicePower + _value);
+            }
+            return new Response(true, "ReactionUsed");
+        }
     }
 }

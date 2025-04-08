@@ -30,7 +30,9 @@ namespace Battle.Grid
                 {
                     var cell = Instantiate(_cellPrefab, container);
                     cell.Init( line, column ,teamIndex);
-                    cell.Dragged += Dragged;
+                    cell.DragFinished += DragFinished;
+                    cell.DragOverCell += DragOverCell;
+                    cell.DragBegin += DragBegin;
                     cell.Clicked += Clicked;
                     cells.Add(cell);
                 }
@@ -39,9 +41,13 @@ namespace Battle.Grid
             return cells;
         }
 
+        protected abstract void DragOverCell(GridCell from, GridCell over);
+
+        protected abstract void DragBegin(GridCell from);
+
         protected abstract void Clicked(GridCell cell);
 
-        protected abstract void Dragged(GridCell from, GridCell to);
+        protected abstract void DragFinished(GridCell from, GridCell to);
 
         protected void InstantiateErrorPanel(string errorID)
         {

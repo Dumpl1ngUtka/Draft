@@ -3358,6 +3358,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf30789cc1ca2cb41bd8b7323f60ae4e, type: 2}
   - {fileID: 11400000, guid: 0b4009f0e5b22734b8a3b81e3ad155bb, type: 2}
   - {fileID: 11400000, guid: 9d2f26c78a1bc1f42a5b8d2a4a31501c, type: 2}
+  - {fileID: 11400000, guid: 671f48a982a3c944586a5a03bce23cce, type: 2}
   _availableRaces:
   - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
   - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}

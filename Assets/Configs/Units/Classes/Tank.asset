@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 59755393b91a62e48ab1f5bc7778c116, type: 3}
   Name: Tank
-  LineIndex: 0
+  LineIndexes: 00000000
   Races:
   - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
   - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}

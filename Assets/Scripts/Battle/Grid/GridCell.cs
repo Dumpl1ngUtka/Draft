@@ -6,26 +6,28 @@ using UnityEngine.EventSystems;
 
 namespace Battle.Grid
 {
-    public class GridCell : MonoBehaviour, IPointerClickHandler, IEndDragHandler, IDragHandler
+    public class GridCell : MonoBehaviour, IPointerClickHandler, IEndDragHandler, IDragHandler, IBeginDragHandler
     {
-        private GridCellRenderer _renderer;
         public int TeamIndex { get; private set; }
         public int LineIndex { get; private set; }
         public int ColumnIndex { get; private set; }
         public Unit Unit { get; private set; }
-
-        public Action<GridCell, GridCell> Dragged;
+        public GridCellRenderer Renderer { get; private set; }
+        
+        public Action<GridCell> DragBegin;
+        public Action<GridCell, GridCell> DragOverCell;
+        public Action<GridCell, GridCell> DragFinished;
         public Action<GridCell> Clicked;
         
         public void Init(int lineIndex, int columnIndex,int teamIndex)
         {
-            _renderer = GetComponent<GridCellRenderer>();
+            Renderer = GetComponent<GridCellRenderer>();
             
             LineIndex = lineIndex;
             ColumnIndex = columnIndex;
             TeamIndex = teamIndex;
 
-            _renderer.SetActive(false);
+            Renderer.SetActive(false);
         }
         
         public void AddUnit(Unit unit)
@@ -33,7 +35,7 @@ namespace Battle.Grid
             Unit = unit;
             Unit.SetTeam(TeamIndex);
             Unit.ParametersChanged += ParametersChanged; 
-            _renderer.SetActive(true);
+            Renderer.SetActive(true);
             ParametersChanged();
         }
 
@@ -43,13 +45,13 @@ namespace Battle.Grid
                 return;
             
             Unit.ParametersChanged -= ParametersChanged;
-            _renderer.SetActive(false);
+            Renderer.SetActive(false);
             Unit = null;
         }
 
         private void ParametersChanged()
         {
-            _renderer.Render(Unit);
+            Renderer.Render(Unit);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -77,12 +79,19 @@ namespace Battle.Grid
         {   
             var obj = eventData.pointerCurrentRaycast.gameObject;
             if (obj.TryGetComponent(out GridCell cell))
-                Dragged?.Invoke(this, cell);
+                DragFinished?.Invoke(this, cell);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            
+            var obj = eventData.pointerCurrentRaycast.gameObject;
+            if (obj.TryGetComponent(out GridCell cell))
+                DragOverCell?.Invoke(this, cell);
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            DragBegin?.Invoke(this);
         }
     }
 }

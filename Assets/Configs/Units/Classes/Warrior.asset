@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: f7b12ed81c61f3d47842dec7aee030db, type: 3}
   Name: Warrior
-  LineIndex: 1
+  LineIndexes: 000000000100000002000000
   Races:
   - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
   - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}

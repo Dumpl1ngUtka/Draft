@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Battle.Abilities;
 using Battle.DamageSystem;
-using Battle.Units.Interactors.Ability;
 using Battle.UseCardReactions;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -36,6 +35,7 @@ namespace Battle.Units
         public bool IsReady { get; private set; } = true;
         
         public Action ParametersChanged;
+        public Ability CurrentAbility => Abilities[DicePower];
         
         public Unit(UnitPreset unitPreset)
         {
@@ -65,16 +65,6 @@ namespace Battle.Units
         public Dictionary<int, Ability> GetAbilities()
         {
             throw new NotImplementedException();
-        }
-
-        public Ability GetAbilityByPower(int power)
-        {
-            return Abilities.Length < power ? null : Abilities[power];
-        }
-
-        public void AddAbility(int power, Ability ability)
-        {
-            //_abilities[power] = ability;
         }
 
         public void SetTeam(int teamIndex)

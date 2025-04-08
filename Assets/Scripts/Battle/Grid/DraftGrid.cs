@@ -25,6 +25,7 @@ namespace Battle.Grid
         private readonly Dictionary<Covenant, int> _covenantCounts = new Dictionary<Covenant, int>();
         private readonly Dictionary<CovenantType, int> _covenantTypeCounts = new Dictionary<CovenantType, int>();
         private List<GridCell> _cells;
+        private bool _isDragBeginSuccess;
         
         public int AllTeamChem {get; private set;}
         public int AllTeamSumLevel {get; private set;} = 0;
@@ -44,6 +45,33 @@ namespace Battle.Grid
             _avaregeLevelText.text = (AllTeamSumLevel / FillCellsCount).ToString();
         }
 
+        protected override void DragOverCell(GridCell from, GridCell over)
+        {
+        }
+
+        protected override void DragBegin(GridCell from)
+        {
+            _isDragBeginSuccess = false;
+            if (from.Unit == null)
+            {
+                InstantiateErrorPanel("unit_null_error");
+                return;
+            }
+
+            foreach (var cell in GetSwichCells(from))
+            {
+                cell.Renderer.SetSize(1.1f);
+            }
+            _isDragBeginSuccess = true;
+        }
+
+        private List<GridCell> GetSwichCells(GridCell from)
+        {
+            var cells = _cells.Where(cell => from.Unit.Class.LineIndexes.Contains(cell.LineIndex)).ToList();
+            return cells.Where(cell => (cell.Unit != null && cell.Unit.Class.LineIndexes.Contains(from.LineIndex)) || cell.Unit == null).ToList();
+
+        }
+
         protected override void Clicked(GridCell cell)
         {
             if (cell.Unit == null)
@@ -58,15 +86,23 @@ namespace Battle.Grid
             _cardInfoPrefab.Render(cellUnit);
         }
 
-        protected override void Dragged(GridCell from, GridCell to)
+        protected override void DragFinished(GridCell from, GridCell to)
         {
+            if (!_isDragBeginSuccess)
+                return;
+            
+            foreach (var cell in GetSwichCells(from))
+            {
+                cell.Renderer.SetSize(1f);
+            }
+            
             SwitchCard(from, to);
         }
 
         private void ShowUnitSelectMenu(GridCell cell)
         {
             _selectUnitsMenu.Init(this, cell);
-            var availableClasses = _availableClasses.Where(x => x.LineIndex == cell.LineIndex).ToArray();
+            var availableClasses = _availableClasses.Where(x => x.LineIndexes.Contains(cell.LineIndex)).ToArray();
             _selectUnitsMenu.Enable();
             _selectUnitsMenu.GenerateCards(availableClasses);
         }
@@ -83,18 +119,12 @@ namespace Battle.Grid
 
         private void SwitchCard(GridCell from, GridCell to)
         {
-            if (from.Unit == null)
-            {
-                InstantiateErrorPanel("unit_null_error");
-                return;
-            }
-
-            if (from.LineIndex != to.LineIndex)
+            if (!GetSwichCells(from).Contains(to))
             {
                 InstantiateErrorPanel("line_index_mismatch_error");
                 return;
             }
-
+            
             if (from.TeamIndex != to.TeamIndex)
             {
                 InstantiateErrorPanel("team_index_mismatch_error");

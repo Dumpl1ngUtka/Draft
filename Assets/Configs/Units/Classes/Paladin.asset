@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37cbcfffa5f94f1e889b744d806f5fc3, type: 3}
   m_Name: Paladin
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 59755393b91a62e48ab1f5bc7778c116, type: 3}
+  Icon: {fileID: 21300000, guid: 25bd53729de0f9d43900ed9c8058c6ab, type: 3}
   Name: Paladin
-  LineIndex: 0
+  LineIndexes: 00000000
   Races:
   - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
   - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}

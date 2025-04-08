@@ -103,7 +103,6 @@
     <Compile Include="Assets\Scripts\Battle\InfoPanel\ErrorPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\ParameterCell.cs" />
-    <Compile Include="Assets\Scripts\Battle\Units\Interactors\Ability\UseAbilityInteractor.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />

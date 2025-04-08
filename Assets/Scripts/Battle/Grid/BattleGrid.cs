@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.InfoPanel;
 using Battle.Units;
-using Battle.Units.Interactors.Ability;
 using Battle.Units.Interactors.Reaction;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Battle.Grid
 {
@@ -20,12 +18,10 @@ namespace Battle.Grid
         private List<Unit> _playerUnits;
         private List<Unit> _enemyUnits;
         
-        private UseAbilityInteractor _useAbilityInteractor;
         private UseReactionInteractor _useReactionInteractor;
         
         public override void Init()
         {
-            _useAbilityInteractor = new UseAbilityInteractor();
             _useReactionInteractor = new UseReactionInteractor();
             _playerCells = InitiateCells(LineCount, ColumnCount, PlayerTeamID, _playerContainer);
             _enemyCells = InitiateCells(LineCount, ColumnCount, EnemyTeamID, _enemyContainer);
@@ -58,8 +54,8 @@ namespace Battle.Grid
                 if (enemy.IsDead)
                     return;
                 
-                var target = _useAbilityInteractor.GetPreferredTarget(0, enemy, _playerUnits);
-                _useAbilityInteractor.UseAbility(enemy.DicePower, enemy, target, _enemyUnits, _playerUnits);
+                var target = enemy.CurrentAbility.GetPreferredTarget(_playerUnits);
+                enemy.CurrentAbility.TryUseAbility(enemy, target, _enemyUnits, _playerUnits);
             }
             NewTurn();
         }
@@ -79,18 +75,13 @@ namespace Battle.Grid
             }
         }
 
-        protected override void Clicked(GridCell cell)
+        protected override void DragOverCell(GridCell from, GridCell over)
         {
-            ShowCardInfo(cell.Unit);
+            
         }
+        
 
-        private void ShowCardInfo(Unit cellUnit)
-        {
-            _cardInfoPrefab.Instantiate(cellUnit);
-            _cardInfoPrefab.Render(cellUnit);
-        }
-
-        protected override void Dragged(GridCell from, GridCell to)
+        protected override void DragBegin(GridCell from)
         {
             if (!from.Unit.IsReady)
             {
@@ -104,7 +95,53 @@ namespace Battle.Grid
                 return;
             }
             
-            var response = _useAbilityInteractor.UseAbility(0, from.Unit, to.Unit, _playerUnits, _enemyUnits);
+            foreach (var cell in _playerCells)
+            {
+                var probability = from.Unit.CurrentAbility.GetHitProbability(from.Unit, cell.Unit);
+                cell.Renderer.SetOverText(true, probability.ToString("0"));
+            }
+            
+            foreach (var cell in _enemyCells)
+            {
+                var probability = from.Unit.CurrentAbility.GetHitProbability(from.Unit, cell.Unit);
+                cell.Renderer.SetOverText(true, probability.ToString("0"));
+            }
+            
+            foreach (var cell in _useReactionInteractor.GetReactionCells(from, _playerCells))
+            {
+                cell.Renderer.SetSize(1.1f);
+            }
+        }
+
+        protected override void Clicked(GridCell cell)
+        {
+            ShowCardInfo(cell.Unit);
+        }
+
+        private void ShowCardInfo(Unit cellUnit)
+        {
+            _cardInfoPrefab.Instantiate(cellUnit);
+            _cardInfoPrefab.Render(cellUnit);
+        }
+
+        protected override void DragFinished(GridCell from, GridCell to)
+        {
+            foreach (var cell in _useReactionInteractor.GetReactionCells(from, _playerCells))
+            {
+                cell.Renderer.SetSize(1f);
+            }
+            
+            foreach (var cell in _playerCells)
+            {
+                cell.Renderer.SetOverText(false);
+            }
+
+            foreach (var cell in _enemyCells)
+            {
+                cell.Renderer.SetOverText(false);
+            }
+            
+            var response = from.Unit.CurrentAbility.TryUseAbility(from.Unit, to.Unit, _playerUnits, _enemyUnits);
             if (!response.Success)
             {
                 InstantiateErrorPanel(response.Message);

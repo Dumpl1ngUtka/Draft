@@ -11,18 +11,11 @@ namespace Battle.UseCardReactions
 
     public class SameRaceReaction : Reaction
     {
-        [SerializeField] private int _value;
-        
-        public override Response TryUseReaction(GridCell caster, List<GridCell> allies)
+        public override List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies)
         {
             var casterRace = caster.Unit.Race;
             var upgradableCells = allies.Where(x => x.Unit.Race == casterRace).ToList();
-            upgradableCells = upgradableCells.Distinct().ToList();;
-            foreach (var cell in upgradableCells)
-            {
-                cell.Unit.SetPower(cell.Unit.DicePower + _value);
-            }
-            return new Response(true, "ReactionUsed");
+            return upgradableCells.Distinct().ToList();
         }
     }
 }

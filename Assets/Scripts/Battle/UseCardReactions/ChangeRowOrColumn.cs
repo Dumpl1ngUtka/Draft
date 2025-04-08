@@ -11,8 +11,6 @@ namespace Battle.UseCardReactions
     [CreateAssetMenu(menuName = "Config/Reactions/ChangeRowOrColumn")]
     public class ChangeRowOrColumn : Reaction
     {
-        [Header("Value")]
-        [SerializeField] private int _value = 1;
         [Header("Line")]
         [SerializeField] private bool _islineUpgradable;
         [SerializeField] private bool _isUnitLineUpgradable;
@@ -21,20 +19,15 @@ namespace Battle.UseCardReactions
         [SerializeField] private bool _isColumnUpgradable;
         [SerializeField] private bool _isUnitColumnUpgradable;
         [SerializeField, Range(0, 2)] private int _column;
-        
-        public override Response TryUseReaction(GridCell casterCell, List<GridCell> cells)
+
+        public override List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies)
         {
             var upgradableCells = new List<GridCell>();
             if (_islineUpgradable)
-                upgradableCells.AddRange(GetUpgradeLine(casterCell, cells));
+                upgradableCells.AddRange(GetUpgradeLine(caster, allies));
             if (_isColumnUpgradable)
-                upgradableCells.AddRange(GetUpgradeColumn(casterCell, cells));
-            upgradableCells = upgradableCells.Distinct().ToList();
-            foreach (var cell in upgradableCells)
-            {
-                cell.Unit.SetPower(cell.Unit.DicePower + _value);
-            }
-            return new Response(true, "ReactionUsed");
+                upgradableCells.AddRange(GetUpgradeColumn(caster, allies));
+            return upgradableCells.Distinct().ToList();
         }
 
         private List<GridCell> GetUpgradeLine(GridCell casterCell, List<GridCell> cells)
