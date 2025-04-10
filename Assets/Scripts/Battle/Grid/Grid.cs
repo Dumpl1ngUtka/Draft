@@ -17,7 +17,7 @@ namespace Battle.Grid
         
         [SerializeField] private GridCell _cellPrefab;
         [SerializeField] private ErrorPanel _errorPanelPrefab;
-
+        
         public abstract void Init();
         
         protected List<GridCell> InitiateCells(int lineCount, int colunmCount, int teamIndex, Transform container)
@@ -32,18 +32,20 @@ namespace Battle.Grid
                     cell.Init( line, column ,teamIndex);
                     cell.DragFinished += DragFinished;
                     cell.DragOverCell += DragOverCell;
-                    cell.DragBegin += DragBegin;
+                    cell.HoldFinished += HoldFinished;
+                    cell.HoldBegin += HoldBegin;
                     cell.Clicked += Clicked;
                     cells.Add(cell);
                 }
             }
-            
             return cells;
         }
 
+        protected abstract void HoldFinished(GridCell cell);
+
         protected abstract void DragOverCell(GridCell from, GridCell over);
 
-        protected abstract void DragBegin(GridCell from);
+        protected abstract void HoldBegin(GridCell from);
 
         protected abstract void Clicked(GridCell cell);
 

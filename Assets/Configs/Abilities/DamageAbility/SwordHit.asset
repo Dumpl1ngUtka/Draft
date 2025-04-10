@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb7a96a56204cbdb14d14096ab32db0, type: 3}
+  m_Name: SwordHit
+  m_EditorClassIdentifier: 
+  Name: Sword Hit
+  Icon: {fileID: 0}
+  AbillityEffect: {fileID: 11400000, guid: 72fcaec8114288443a79b2bb75c38b2f, type: 2}
+  _targetFilter:
+    IsPlayerUnitTarget: 0
+    IsEnemyUnitTarget: 1
+    IsDeadPlayerUnitTarget: 0
+    IsDeadEnemyUnitTarget: 0
+  _rangeFilter:
+    _matrix:
+      c0:
+        x: 0
+        y: 1
+        z: 0
+      c1:
+        x: 1
+        y: 1
+        z: 1
+      c2:
+        x: 0
+        y: 1
+        z: 0
+    _lineRange: 0
+    _columnRange: 0
+    _isCornersInclude: 0
+  HitProbabilityCalculator:
+    _baseHitProbability: 0.4
+    _casterAttributType: 2
+    _additionProbabilityByAttribute: 0.2
+    _targetAttributeType: 3
+    _subtractionProbabilityByAttribute: 0.1
+    _additionProbabilityByDistance: -0.1

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Battle.Abilities;
 using Battle.DamageSystem;
+using Battle.PassiveEffects;
 using Battle.UseCardReactions;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -32,16 +33,20 @@ namespace Battle.Units
         public UnitHealth Health { get; private set; }
         public int DicePower { get; private set; }
         public bool IsDead { get; private set; } = false;
-        public bool IsReady { get; private set; } = true;
+        public bool IsReady { get; private set; } = false;
+        
+        public PassiveEffectsHolder PassiveEffectsHolder;
+        public Ability CurrentAbility => Abilities[DicePower];
         
         public Action ParametersChanged;
-        public Ability CurrentAbility => Abilities[DicePower];
+        public Action TurnEnded;
         
         public Unit(UnitPreset unitPreset)
         {
             _preset = unitPreset; 
             InitHealth();
             ParametersChanged?.Invoke();
+            PassiveEffectsHolder = new PassiveEffectsHolder(this);
         }
         
         private void InitHealth()
@@ -62,9 +67,9 @@ namespace Battle.Units
             ParametersChanged?.Invoke();
         }
 
-        public Dictionary<int, Ability> GetAbilities()
+        public void EndTurn()
         {
-            throw new NotImplementedException();
+            TurnEnded?.Invoke();
         }
 
         public void SetTeam(int teamIndex)

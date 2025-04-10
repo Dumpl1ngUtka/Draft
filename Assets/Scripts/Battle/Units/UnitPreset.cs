@@ -10,7 +10,7 @@ namespace Battle.Units
     [CreateAssetMenu(menuName = "Config/Units/UnitPreset")]
     public class UnitPreset : ScriptableObject
     {
-        private const int _startAttributePoints = 40;
+        private const int _startAttributePoints = 20;
         
         public string Name;
         public Sprite Icon;

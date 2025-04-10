@@ -26,5 +26,5 @@ MonoBehaviour:
   Resistances: 
   Vulnerabilities: 
   Abilities:
-  - {fileID: 11400000, guid: 6e76fc57955f1cf4aaa89b75d53bed00, type: 2}
+  - {fileID: 11400000, guid: 3ec1dce90a1f0594e80af35409c50574, type: 2}
   Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}

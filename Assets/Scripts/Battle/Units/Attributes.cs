@@ -64,6 +64,22 @@ namespace Battle.Units
             Strength = skillLevels[2];
             Intelligence = 1 + skillPoints;
         }
-        
+
+        public int GetAttributeValueByType(AttributesType type)
+        {
+            switch (type)
+            {
+                case AttributesType.Health:
+                    return Health;
+                case AttributesType.Intelligence:
+                    return Intelligence;
+                case AttributesType.Strength:
+                    return Strength;
+                case AttributesType.Dexterity:
+                    return Dexterity;
+            }
+
+            return -1;
+        }
     }
 }

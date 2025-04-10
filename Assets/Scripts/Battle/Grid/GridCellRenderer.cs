@@ -1,8 +1,10 @@
 using System;
 using Battle.Grid.CardParameter;
 using Battle.Units;
+using Battle.Visualization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Battle.Grid
@@ -14,7 +16,7 @@ namespace Battle.Grid
         [SerializeField] private Image _covenantImage;
         [SerializeField] private Image _raceImage;
         [SerializeField] private Parameter _level;
-        [SerializeField] private Image _powerDiceImage;
+        [SerializeField] private DiceRenderer _diceRenderer;
         [Header("Attributes")]
         [SerializeField] private Parameter _health;
         [SerializeField] private Parameter _strength;
@@ -56,7 +58,7 @@ namespace Battle.Grid
             _chemistry.gameObject.SetActive(active);
             _covenantImage.gameObject.SetActive(active);
             _raceImage.gameObject.SetActive(active);
-            _powerDiceImage.gameObject.SetActive(active);
+            _diceRenderer.SetActive(active);
             _armorValue.gameObject.SetActive(active);
             _healthValue.gameObject.SetActive(active);
         }
@@ -78,15 +80,20 @@ namespace Battle.Grid
             _strength?.Render(unit.Attributes.Strength);
             _dexterity?.Render(unit.Attributes.Dexterity);
             _intelligence?.Render(unit.Attributes.Intelligence);
-            //_chemistry.Render(unit.Chemistry);
+            _chemistry?.Render(unit.Chemistry);
             _covenantImage.sprite = unit.Covenant == null? _noneIcon : unit.Covenant.Icon;
             _raceImage.sprite = unit.Race == null? _noneIcon : unit.Race.Icon;
-            _powerDiceImage.sprite = unit.IsReady?
-               Resources.Load<Sprite>("Sprites/Dice/" + (unit.DicePower + 1)) :  _noneIcon;
+            _diceRenderer.SetActive(unit.IsReady);
+            _diceRenderer.SetDiceValue(unit.DicePower + 1);
             RenderHealth(unit.Health.CurrentHealth, unit.Health.MaxHealth);
             RenderArmor(unit.Health.ArmorValue);
         }
 
+        public void RenderDiceAdditionValue(int value)
+        {
+            _diceRenderer.SetAdditionalValue(value != 0, value);
+        }
+        
         public void RenderHealth(int currentHealth, int maxHealth)
         {
             _healthValue.text = currentHealth + "/" + maxHealth;

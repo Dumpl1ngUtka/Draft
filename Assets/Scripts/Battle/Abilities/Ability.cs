@@ -1,19 +1,55 @@
 using System.Collections.Generic;
+using Battle.Grid;
+using Battle.PassiveEffects;
 using Battle.Units;
 using Battle.Units.Interactors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Abilities
 {
-    public abstract class Ability : ScriptableObject 
+    [CreateAssetMenu(menuName = "Config/Ability")]
+    public class Ability : ScriptableObject 
     {
         public string Name;
         public Sprite Icon;
+        public PassiveEffect AbillityEffect;
+        public AbilityTargetFilter _targetFilter;
+        public AbilityRangeFilter _rangeFilter;
+        public HitProbabilityCalculator HitProbabilityCalculator;
 
-        public abstract float GetHitProbability(Unit caster, Unit target);
+        public float GetHitProbability(GridCell caster, GridCell target)
+        {
+            if (!_targetFilter.IsRightTarget(caster, target))
+                return 0;
+            return HitProbabilityCalculator.GetHitProbability(caster, target);
+        }
+
+        public List<GridCell> GetRange(GridCell caster, GridCell target, List<GridCell> allies, List<GridCell> enemies)
+        {
+            return _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
+        }
         
-        public abstract Response TryUseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies);
-        
-        public abstract Unit GetPreferredTarget(List<Unit> potentialTargets);
+        public bool IsRightTarget(GridCell caster, GridCell target) => _targetFilter.IsRightTarget(caster, target);
+
+        public Response TryUseAbility(GridCell caster, GridCell target, List<GridCell> allies, List<GridCell> enemies)
+        {
+            if (!_targetFilter.IsRightTarget(caster, target))
+                return new Response(false, "wrong_target_error");
+            
+            var rangeCells = _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            foreach (var cell in rangeCells)
+            {
+                var targetUnit = cell.Unit;
+                var effect = AbillityEffect.GetInstance(caster.Unit, targetUnit);
+                targetUnit.PassiveEffectsHolder.AddEffect(effect);
+            }
+            return new Response(true, "success");
+        }
+
+        public GridCell GetPreferredTarget(List<GridCell> potentialTargets)
+        {
+            return potentialTargets[Random.Range(0, potentialTargets.Count)];       
+        }
     }
 }
