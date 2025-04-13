@@ -998,8 +998,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7421837362807884559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.1, y: 0.1}
+  m_AnchorMax: {x: 0.9, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1073,7 +1073,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7421837362807884559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.75084835}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -1133,8 +1133,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 300
-  m_fontSizeBase: 300
+  m_fontSize: 200
+  m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1292,7 +1292,6 @@ MonoBehaviour:
   _covenantImage: {fileID: 4277826582199067144}
   _raceImage: {fileID: 4890151978136938616}
   _level: {fileID: 952820118708238692}
-  _diceRenderer: {fileID: 5216529862988829062}
   _health: {fileID: 482312216755526966}
   _strength: {fileID: 5603712248315053319}
   _dexterity: {fileID: 8413248603270733248}
@@ -1301,6 +1300,7 @@ MonoBehaviour:
   _healthValue: {fileID: 2825900949817411841}
   _overPanel: {fileID: 5419581382735740065}
   _overText: {fileID: 3249455532983646117}
+  DiceRenderer: {fileID: 5216529862988829062}
 --- !u!1 &6626260266681531055
 GameObject:
   m_ObjectHideFlags: 0

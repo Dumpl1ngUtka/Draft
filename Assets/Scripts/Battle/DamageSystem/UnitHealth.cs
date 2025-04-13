@@ -53,7 +53,7 @@ namespace Battle.DamageSystem
         {
             if (_armorValue >= value)
             {
-                _armorValue -= value;
+                RemoveArmor(value);
                 return 0; 
             }
 
@@ -71,6 +71,14 @@ namespace Battle.DamageSystem
             if (_unit.Vulnerability.Contains(damage.DamageType))
                 return damage.Value * 2;
             return damage.Value;
+        }
+
+        public void RemoveArmor(int value)
+        {
+            _armorValue -= value;
+            if (_armorValue < 0)
+                _armorValue = 0;
+            OnValueChanged?.Invoke();
         }
     }
 }

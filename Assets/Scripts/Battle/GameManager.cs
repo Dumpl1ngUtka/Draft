@@ -11,26 +11,50 @@ namespace Battle
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private List<UnitPreset> _enemyPresets;
+        [SerializeField] private List<UnitPreset> _enemyPresets2;
         [SerializeField] private DraftGrid _draftGrid;
         [SerializeField] private BattleGrid _battleGrid;
-        private List<Unit> _playerUnits = new List<Unit>();
 
         private void Awake()
         {
-            _draftGrid.Init();
-            _battleGrid.Init();
-            _battleGrid.gameObject.SetActive(false);
-            _draftGrid.gameObject.SetActive(true);
-            
             _draftGrid.DraftFinished += DraftFinished;
+            
+            _battleGrid.PlayerWin += PlayerWin;
+            _battleGrid.PlayerDefeated += PlayerDefeated;
+
+            LoadDraftLevel();
+        }
+
+        private void PlayerWin()
+        {
+            LoadBattleLevel(_enemyPresets2);
+        }
+
+        private void PlayerDefeated()
+        {
+            LoadDraftLevel();
         }
 
         private void DraftFinished()
         {
-            _draftGrid.gameObject.SetActive(false);
-            _playerUnits = _draftGrid.GetUnits();
-            _battleGrid.Fill(_playerUnits, GetEnemies(_enemyPresets));
-            _battleGrid.gameObject.SetActive(true);
+            LoadBattleLevel(_enemyPresets);
+        }
+
+        private void LoadDraftLevel()
+        {
+            _draftGrid.Init();
+            
+            _draftGrid.SetActive(true);
+            _battleGrid.SetActive(false);
+        }
+        
+        private void LoadBattleLevel(List<UnitPreset> presets)
+        {
+            _battleGrid.Init();
+            
+            _draftGrid.SetActive(false);
+            _battleGrid.Fill(_draftGrid.GetUnits(), GetEnemies(presets));
+            _battleGrid.SetActive(true);
         }
         
         private List<Unit> GetEnemies(List<UnitPreset> presets)

@@ -16,7 +16,6 @@ namespace Battle.Grid
         [SerializeField] private Image _covenantImage;
         [SerializeField] private Image _raceImage;
         [SerializeField] private Parameter _level;
-        [SerializeField] private DiceRenderer _diceRenderer;
         [Header("Attributes")]
         [SerializeField] private Parameter _health;
         [SerializeField] private Parameter _strength;
@@ -28,37 +27,53 @@ namespace Battle.Grid
         [Header("OverText")]
         [SerializeField] private Image _overPanel;
         [SerializeField] private TMP_Text _overText;
-        private GridCell _cell;
         private Sprite _noneIcon;
+        private SizeInteractor _sizeInteractor;
+        
+        public DiceRenderer DiceRenderer;
 
         private void Awake()
         {
-            _cell = GetComponent<GridCell>();
             _noneIcon = Resources.Load<Sprite>("Sprites/None");
+            _sizeInteractor = new SizeInteractor(transform);
         }
 
         public void SetOverText(bool isActive, string text = "")
         {
             _overText.gameObject.SetActive(isActive);
-            _overPanel.gameObject.SetActive(isActive);
             _overText.text = text;
         }
-        
-        public void SetSize(float size)
+
+        public void SetOverPanel(bool isActive, Color color = default)
         {
-            transform.localScale = new Vector3(size, size, size);
+            _overPanel.gameObject.SetActive(isActive);
+            _overPanel.color = color;
         }
         
+        public void SetSize(float size, bool instantly = false)
+        {
+            if (instantly)
+                _sizeInteractor.SetSizeInstantly(size);
+            else
+                _sizeInteractor.SetSize(size);
+        }
+
+        private void Update()
+        {
+            _sizeInteractor.Update();
+        }
+
         public void SetActive(bool active)
         {
             SetActiveParameters(active);
             SetOverText(false);
+            SetOverPanel(false);
             _duckIcon.gameObject.SetActive(active);
             _level.gameObject.SetActive(active);
             _chemistry.gameObject.SetActive(active);
             _covenantImage.gameObject.SetActive(active);
             _raceImage.gameObject.SetActive(active);
-            _diceRenderer.SetActive(active);
+            DiceRenderer.SetActive(active);
             _armorValue.gameObject.SetActive(active);
             _healthValue.gameObject.SetActive(active);
         }
@@ -83,15 +98,18 @@ namespace Battle.Grid
             _chemistry?.Render(unit.Chemistry);
             _covenantImage.sprite = unit.Covenant == null? _noneIcon : unit.Covenant.Icon;
             _raceImage.sprite = unit.Race == null? _noneIcon : unit.Race.Icon;
-            _diceRenderer.SetActive(unit.IsReady);
-            _diceRenderer.SetDiceValue(unit.DicePower + 1);
+            DiceRenderer.SetActive(unit.IsReady);
+            DiceRenderer.RenderDiceValue(unit.DicePower + 1);
             RenderHealth(unit.Health.CurrentHealth, unit.Health.MaxHealth);
             RenderArmor(unit.Health.ArmorValue);
         }
 
         public void RenderDiceAdditionValue(int value)
         {
-            _diceRenderer.SetAdditionalValue(value != 0, value);
+            var isZero = value == 0;
+            DiceRenderer.SetActiveAdditionalValue(!isZero);
+            if (!isZero)
+                DiceRenderer.RenderAdditionalValue(value);
         }
         
         public void RenderHealth(int currentHealth, int maxHealth)

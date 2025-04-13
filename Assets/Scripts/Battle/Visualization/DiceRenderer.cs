@@ -13,20 +13,22 @@ namespace Battle.Visualization
         public void SetActive(bool active)
         {
             _diceIcon.gameObject.SetActive(active);
-            SetAdditionalValue(false);
+            SetActiveAdditionalValue(false);
+        }
+        
+        public void SetActiveAdditionalValue(bool isActive)
+        {
+            _additionalValueImage.gameObject.SetActive(isActive);
+            _additionalValueText.gameObject.SetActive(isActive);
         }
 
-        public void SetDiceValue(int value)
+        public void RenderDiceValue(int value)
         {
             _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/" + value);
         }
 
-        public void SetAdditionalValue(bool isActive, int value = 0)
+        public void RenderAdditionalValue(int value)
         {
-            _additionalValueImage.gameObject.SetActive(isActive);
-            _additionalValueText.gameObject.SetActive(isActive);
-            if (value == 0) return;
-
             var isPositive = value > 0;
             _additionalValueText.text = (isPositive ? "+" : "") + value;
             _additionalValueImage.color = isPositive ? Color.green : Color.red;

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.InfoPanel;
-using Battle.PassiveEffects;
 using Battle.Units;
 using Battle.Units.Interactors.Reaction;
 using UnityEngine;
@@ -20,20 +19,26 @@ namespace Battle.Grid
         private List<Unit> _enemyUnits;
         
         private TurnInteractor _turnInteractor;
-        private GridVisualizer _gridVisualizer;
         private UseReactionInteractor _useReactionInteractor;
         
         private bool _isDragStartSeccess = false;
         
-        public void EndTurn() => _turnInteractor.EndTurn();
+        public Action PlayerDefeated;
+        public Action PlayerWin;
         
+        public void EndTurn()
+        {
+            InteractFinised();
+            _turnInteractor.EndTurn();
+        }
+
         public override void Init()
         {
-
+            base.Init();
             _useReactionInteractor = new UseReactionInteractor();
             _playerCells = InitiateCells(LineCount, ColumnCount, PlayerTeamID, _playerContainer);
             _enemyCells = InitiateCells(LineCount, ColumnCount, EnemyTeamID, _enemyContainer);
-            _gridVisualizer = new GridVisualizer(_playerCells, _enemyCells);
+            //_gridVisualizer = new GridVisualizer(_playerCells, _enemyCells);
             _turnInteractor = new TurnInteractor(_playerCells, _enemyCells);
         }
 
@@ -59,13 +64,23 @@ namespace Battle.Grid
         
         protected override void DragOverCell(GridCell from, GridCell over)
         {
-            _gridVisualizer.ResetSize();
-            _gridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, over, _playerCells, _enemyCells));
+            if (from.TeamIndex != PlayerTeamID)
+                return;
+            
+            GridVisualizer.ResetSize();
+            if (over != null)
+                GridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, over, _playerCells, _enemyCells));
         }
 
         protected override void HoldBegin(GridCell from)
         {
             _isDragStartSeccess = false;
+            if (from.Unit.IsDead)
+            {
+                InstantiateErrorPanel("unit_is_dead_error");
+                return;
+            }
+            
             if (!from.Unit.IsReady)
             {
                 InstantiateErrorPanel("unit_not_ready_error");
@@ -79,19 +94,26 @@ namespace Battle.Grid
             }
             
             _isDragStartSeccess = true;
-            _gridVisualizer.RenderDiceAdditionValueFor(1, from.Unit.Reaction.GetReactionCells(from, _playerCells));
-            _gridVisualizer.RenderHitProbability(from);
+            GridVisualizer.SetOverPanel(from, new Color(0.6f, 0,0, 0.4f));
+            GridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, from, _playerCells, _enemyCells));
+            GridVisualizer.RenderDiceAdditionValueFor(1, from.Unit.Reaction.GetReactionCells(from, _playerCells));
+            GridVisualizer.RenderHitProbability(from);
         }
-        
+
+        protected override void DoubleClicked(GridCell cell)
+        {
+            InteractFinised();
+            UseAbility(cell, cell);
+        }
+
         protected override void HoldFinished(GridCell from)
         {
-            _gridVisualizer.ResetDiceAdditionValue();
-            _gridVisualizer.ResetSize();
-            _gridVisualizer.HideOverText();
+            InteractFinised();
         }
 
         protected override void Clicked(GridCell cell)
         {
+            InteractFinised();
             ShowCardInfo(cell.Unit);
         }
 
@@ -103,13 +125,16 @@ namespace Battle.Grid
 
         protected override void DragFinished(GridCell from, GridCell to)
         {
-            _gridVisualizer.ResetDiceAdditionValue();
-            _gridVisualizer.ResetSize();
-            _gridVisualizer.HideOverText();
+            InteractFinised();
             
             if (!_isDragStartSeccess)
                 return;
-            
+
+            UseAbility(from, to);
+        }
+
+        private void UseAbility(GridCell from, GridCell to)
+        {
             var response = from.Unit.CurrentAbility.TryUseAbility(from, to, _playerCells, _enemyCells);
             if (response.Success)
             {
@@ -127,6 +152,29 @@ namespace Battle.Grid
                 InstantiateErrorPanel(response.Message);
                 return;
             }
+        }
+
+        private void InteractFinised()
+        {
+            GridVisualizer.ResetDiceAdditionValue();
+            GridVisualizer.ResetSize();
+            GridVisualizer.HideOverText();
+            GridVisualizer.ResetOverPanels();
+
+            CheckEndBattle();
+        }
+
+        private void CheckEndBattle()
+        {
+            HasAliveUnits(_playerUnits, PlayerDefeated);
+            HasAliveUnits(_enemyUnits, PlayerWin);
+        }
+
+        private void HasAliveUnits(List<Unit> units, Action callback)
+        {
+            var aliveUnitsCount =  units.Count(x => !x.IsDead);
+            if (aliveUnitsCount == 0)
+                callback?.Invoke();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Battle.DamageSystem;
 using Battle.Units;
 using UnityEngine;
@@ -6,11 +7,11 @@ using UnityEngine.EventSystems;
 
 namespace Battle.Grid
 {
-    public class GridCell : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler
+    public class GridCell : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
-        private float _holdTimer;
+        private int _clickCount;
+        private float _doubleClickTime = 0.1f;
         private float _holdTime = 0.2f;
-        private bool _isTimerFinished = true;
         private GridCell _dragOverCell;
         
         public int TeamIndex { get; private set; }
@@ -22,8 +23,19 @@ namespace Battle.Grid
         public Action<GridCell, GridCell> DragOverCell;
         public Action<GridCell, GridCell> DragFinished;
         public Action<GridCell> Clicked;
+        public Action<GridCell> DoubleClicked;
         public Action<GridCell> HoldBegin;
         public Action<GridCell> HoldFinished;
+
+        private Coroutine _doubleClickRoutine;
+        private Coroutine _holdRoutine;
+        private bool _isInteracting;
+        
+        private IEnumerator TimerRoutine(float time, Action callback)
+        {
+            yield return new WaitForSeconds(time);
+            callback.Invoke();
+        }
         
         public void Init(int lineIndex, int columnIndex,int teamIndex)
         {
@@ -45,17 +57,6 @@ namespace Battle.Grid
             ParametersChanged();
         }
 
-        private void Update()
-        {
-            if (_holdTimer > 0)
-                _holdTimer -= Time.deltaTime;
-            else if (!_isTimerFinished)
-            {
-                _isTimerFinished = true;
-                HoldBegin?.Invoke(this);
-            }
-        }
-
         public void RemoveUnit()
         {
             if (Unit == null)
@@ -69,11 +70,6 @@ namespace Battle.Grid
         private void ParametersChanged()
         {
             Renderer.Render(Unit);
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            //Clicked?.Invoke(this);
         }
 
         private void OnEnable()
@@ -92,49 +88,71 @@ namespace Battle.Grid
             Unit.ParametersChanged -= ParametersChanged; 
         }
 
-        public void OnEndDrag(PointerEventData eventData)
-        {   
-            /*var obj = eventData.pointerCurrentRaycast.gameObject;
-            if (obj.TryGetComponent(out GridCell cell))
-                DragFinished?.Invoke(this, cell);*/
-        }
-
         public void OnDrag(PointerEventData eventData)
         {
             var obj = eventData.pointerCurrentRaycast.gameObject;
-            
-            if (!obj.TryGetComponent(out GridCell cell)) return;
+
+            if (!obj.TryGetComponent(out GridCell cell))
+            {
+                DragOverCell?.Invoke(this, null);
+                return;
+            }
             if (_dragOverCell != null && _dragOverCell == cell) return;
             
             DragOverCell?.Invoke(this, cell);
             _dragOverCell = cell;
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-        }
-
         public void OnPointerDown(PointerEventData eventData)
         {
-            _isTimerFinished = false;
-            _holdTimer = _holdTime;
+            _holdRoutine = StartCoroutine(TimerRoutine(_holdTime, Hold));
+        }
+
+        private void Hold()
+        {
+            _isInteracting = true;
+            HoldBegin?.Invoke(this);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            _dragOverCell = null;
-            var obj = eventData.pointerCurrentRaycast.gameObject;
-            if (obj.TryGetComponent(out GridCell cell))
+            StopCoroutine(_holdRoutine);
+
+            if (eventData.pointerCurrentRaycast.gameObject.TryGetComponent(out GridCell cell) && cell != this)
             {
-                if (cell != this)
-                    DragFinished?.Invoke(this, cell); 
-                else if (_holdTimer > 0)
-                    Clicked?.Invoke(this);
-                else
-                    HoldFinished?.Invoke(this); 
+                DragFinished?.Invoke(this, cell);
+                return;
             }
-            _holdTimer = 0f;
-            _isTimerFinished = true;
+
+            if (_isInteracting)
+            {
+                HoldFinished?.Invoke(this);
+                _isInteracting = false;
+                return;
+            }
+
+            if (_clickCount++ == 0)
+            {
+                _doubleClickRoutine = StartCoroutine(TimerRoutine(_doubleClickTime * 2, OneTouch));
+            }
+            else
+            {
+                StopCoroutine(_doubleClickRoutine);
+                DoubleTouch();
+            }
+            
+        }
+        
+        private void OneTouch()
+        {
+            _clickCount = 0;
+            Clicked?.Invoke(this);
+        }
+
+        private void DoubleTouch()
+        {
+            _clickCount = 0;
+            DoubleClicked?.Invoke(this);
         }
     }
 }

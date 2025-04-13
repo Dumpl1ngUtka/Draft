@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Grid;
 using Battle.PassiveEffects;
 using Battle.Units;
@@ -20,14 +21,15 @@ namespace Battle.Abilities
 
         public float GetHitProbability(GridCell caster, GridCell target)
         {
-            if (!_targetFilter.IsRightTarget(caster, target))
+            if (!IsRightTarget(caster, target))
                 return 0;
             return HitProbabilityCalculator.GetHitProbability(caster, target);
         }
 
         public List<GridCell> GetRange(GridCell caster, GridCell target, List<GridCell> allies, List<GridCell> enemies)
         {
-            return _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            var rangeCells = _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            return rangeCells.Where(x =>  _targetFilter.IsRightTarget(caster, x)).ToList();
         }
         
         public bool IsRightTarget(GridCell caster, GridCell target) => _targetFilter.IsRightTarget(caster, target);

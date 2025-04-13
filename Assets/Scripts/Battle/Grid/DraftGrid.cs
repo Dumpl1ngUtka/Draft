@@ -19,7 +19,6 @@ namespace Battle.Grid
         private List<GridCell> _cells;
         private bool _isDragBeginSuccess;
         
-        private GridVisualizer _gridVisualizer;
         private ChemestryInteractor _chemestryInteractor;
         
         public Action DraftFinished;
@@ -27,12 +26,12 @@ namespace Battle.Grid
 
         public override void Init()
         {
+            base.Init();
             _cells = InitiateCells(LineCount, ColumnCount, PlayerTeamID, _container);
             _chemestryInteractor = new ChemestryInteractor(_cells);
             UnitAdded += _chemestryInteractor.UnitAdded; 
-            _gridVisualizer = new GridVisualizer(_cells);
         }
-        
+
         protected override void DragOverCell(GridCell from, GridCell over)
         {
         }
@@ -46,13 +45,18 @@ namespace Battle.Grid
                 return;
             }
 
-            _gridVisualizer.SetSizeFor(1.1f, GetSwichCells(from));
+            GridVisualizer.SetSizeFor(1.1f, GetSwichCells(from));
             _isDragBeginSuccess = true;
         }
-        
+
+        protected override void DoubleClicked(GridCell cell)
+        {
+            
+        }
+
         protected override void HoldFinished(GridCell from)
         {
-            _gridVisualizer.ResetSize();
+            GridVisualizer.ResetSize();
         }
 
         private List<GridCell> GetSwichCells(GridCell from)
@@ -80,7 +84,7 @@ namespace Battle.Grid
             if (!_isDragBeginSuccess)
                 return;
             
-            _gridVisualizer.ResetSize();
+            GridVisualizer.ResetSize();
             SwitchCard(from, to);
         }
 

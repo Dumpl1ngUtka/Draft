@@ -24,19 +24,16 @@ MonoBehaviour:
     _matrix:
       c0:
         x: 0
-        y: 1
+        y: 0
         z: 0
       c1:
-        x: 1
-        y: 1
-        z: 1
-      c2:
         x: 0
         y: 1
         z: 0
-    _lineRange: 0
-    _columnRange: 0
-    _isCornersInclude: 0
+      c2:
+        x: 0
+        y: 0
+        z: 0
   HitProbabilityCalculator:
     _baseHitProbability: 0.4
     _casterAttributType: 2
