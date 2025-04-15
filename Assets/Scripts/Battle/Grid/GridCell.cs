@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Battle.DamageSystem;
+using Battle.Grid.Visualization;
 using Battle.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,6 +31,7 @@ namespace Battle.Grid
         private Coroutine _doubleClickRoutine;
         private Coroutine _holdRoutine;
         private bool _isInteracting;
+        private CellPresetType _cellPresetType;
         
         private IEnumerator TimerRoutine(float time, Action callback)
         {
@@ -37,24 +39,26 @@ namespace Battle.Grid
             callback.Invoke();
         }
         
-        public void Init(int lineIndex, int columnIndex,int teamIndex)
+        public void Init(int lineIndex, int columnIndex,int teamIndex, CellPresetType preset)
         {
             Renderer = GetComponent<GridCellRenderer>();
+            Renderer.Init();
+            _cellPresetType = preset;
             
             LineIndex = lineIndex;
             ColumnIndex = columnIndex;
             TeamIndex = teamIndex;
 
-            Renderer.SetActive(false);
+            Renderer.SetActive(CellPresetType.None);
         }
         
         public void AddUnit(Unit unit)
         {
             Unit = unit;
             Unit.SetTeam(TeamIndex);
-            Unit.ParametersChanged += ParametersChanged; 
-            Renderer.SetActive(true);
-            ParametersChanged();
+            Renderer.SetActive(_cellPresetType);
+            Renderer.SubscribeToUnit(unit);
+            Renderer.Render(unit);
         }
 
         public void RemoveUnit()
@@ -62,30 +66,10 @@ namespace Battle.Grid
             if (Unit == null)
                 return;
             
-            Unit.ParametersChanged -= ParametersChanged;
-            Renderer.SetActive(false);
+            Renderer.UnsubscribeFromUnit();
+            Renderer.SetActive(CellPresetType.None);
+            Renderer.Render(null);
             Unit = null;
-        }
-
-        private void ParametersChanged()
-        {
-            Renderer.Render(Unit);
-        }
-
-        private void OnEnable()
-        {
-            if (Unit == null)
-                return;
-                
-            Unit.ParametersChanged += ParametersChanged; 
-        }
-        
-        private void OnDisable()
-        {
-            if (Unit == null)
-                return;
-            
-            Unit.ParametersChanged -= ParametersChanged; 
         }
 
         public void OnDrag(PointerEventData eventData)

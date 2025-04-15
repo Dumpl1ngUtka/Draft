@@ -15,7 +15,7 @@ namespace Battle.UseCardReactions
         {
             foreach (var cell in GetReactionCells(caster, allies))
             {
-                cell.Unit.SetPower(cell.Unit.DicePower + _value);
+                cell.Unit.SetDicePower(cell.Unit.DicePower + _value);
             }
             return new Response(true, "ReactionUsed");
         }

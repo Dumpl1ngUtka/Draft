@@ -13,6 +13,9 @@ namespace Battle.PassiveEffects
         public override PassiveEffect GetInstance(Unit caster, Unit owner)
         {
             var effect = ScriptableObject.CreateInstance<AddArmor>();
+            effect._turnCount = _turnCount;
+            effect._icon = _icon;
+            effect._color = _color;
             effect.Caster = caster;
             effect.Owner = owner;
             effect.Value = Value;

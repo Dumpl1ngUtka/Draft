@@ -27,6 +27,20 @@ namespace Battle.Grid
 
         public void EndTurn()
         {
+            EnemyAttack();
+            UnitEndTurn(_playerCells.Select(x => x.Unit).ToList());
+            UnitEndTurn(_enemyCells.Select(x => x.Unit).ToList());
+            StartTurn();
+        }
+
+        private void UnitEndTurn(List<Unit> units)
+        {
+            foreach (var unit in units.Where(unit => !unit.IsDead))
+                unit.EndTurn();
+        }
+        
+        private void EnemyAttack()
+        {
             foreach (var enemy in _enemyCells)
             {
                 var unit = enemy.Unit;
@@ -36,14 +50,13 @@ namespace Battle.Grid
                 var target = unit.CurrentAbility.GetPreferredTarget(_playerCells);
                 unit.CurrentAbility.TryUseAbility(enemy, target, _enemyCells, _playerCells);
             }
-            StartTurn();
         }
         
         private void SetReady(List<Unit> units)
         {
             foreach (var unit in units.Where(unit => !unit.IsDead))
             {
-                unit.SetRandomPower();
+                unit.SetRandomDicePower();
                 unit.SetReady(true);
             }
         }

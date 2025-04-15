@@ -1,18 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Units;
-using UnityEngine;
 
 namespace Battle.PassiveEffects
 {
     public class PassiveEffectsHolder
     {
-        private readonly Unit _unit;
-        private readonly List<PassiveEffect> _passiveEffects;
+        private List<PassiveEffect> _passiveEffects;
+        
+        public Action PassiveEffectsChanged;
         
         public PassiveEffectsHolder(Unit unit)
         {
-            _unit = unit;
-            _unit.TurnEnded += OnTurnEnded;
+            unit.TurnEnded += OnTurnEnded;
             _passiveEffects = new List<PassiveEffect>();
         }
         
@@ -20,9 +21,14 @@ namespace Battle.PassiveEffects
         {
             effect.OnAdd();
             if (effect.TurnCount == 0)
+            {
                 effect.Destroy();
+            }
             else
+            {
                 _passiveEffects.Add(effect);
+                PassiveEffectsChanged?.Invoke();
+            }
         }
 
         private void OnTurnEnded()
@@ -31,9 +37,16 @@ namespace Battle.PassiveEffects
             {
                 effect.OnTurnEnded();
                 effect.ReduceCount();
-                if (effect.TurnCount == 0)
+                if (effect.TurnCount <= 0)
                     effect.Destroy();
             }  
+            _passiveEffects = _passiveEffects.Where(effect => effect != null).ToList();
+            PassiveEffectsChanged?.Invoke();
+        }
+
+        public List<PassiveEffect> GetPassiveEffects()
+        {
+            return _passiveEffects;
         }
     }
 }

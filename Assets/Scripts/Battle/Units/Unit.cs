@@ -39,7 +39,12 @@ namespace Battle.Units
         public Ability CurrentAbility => Abilities[DicePower];
         
         public Action ParametersChanged;
+        public Action HealthChanged;
+        public Action ChemistryChanged;
+        public Action ReadyStatusChanged;
+        public Action DicePowerChanged;
         public Action TurnEnded;
+        public Action PassiveEffectsChanged;
         
         public Unit(UnitPreset unitPreset)
         {
@@ -47,13 +52,14 @@ namespace Battle.Units
             InitHealth();
             ParametersChanged?.Invoke();
             PassiveEffectsHolder = new PassiveEffectsHolder(this);
+            PassiveEffectsHolder.PassiveEffectsChanged += () => PassiveEffectsChanged?.Invoke();
         }
         
         private void InitHealth()
         {
             Health = new UnitHealth(this);
             Health.OnDead += OnDead;
-            Health.OnValueChanged += () => ParametersChanged?.Invoke();
+            Health.OnValueChanged += () => HealthChanged?.Invoke();
         }
 
         private void OnDead()
@@ -63,8 +69,8 @@ namespace Battle.Units
 
         public void SetChemistry(int chemestry)
         {
-            _chemistry = chemestry >_maxChem ? _maxChem : chemestry;
-            ParametersChanged?.Invoke();
+            _chemistry = chemestry > _maxChem ? _maxChem : chemestry;
+            ChemistryChanged?.Invoke();
         }
 
         public void EndTurn()
@@ -80,21 +86,21 @@ namespace Battle.Units
         public void SetReady(bool isReady)
         {
             IsReady = isReady;
-            ParametersChanged?.Invoke();
+            ReadyStatusChanged?.Invoke();
         }
         
-        public void SetPower(int newPower)
+        public void SetDicePower(int newPower)
         {
             if (newPower >= Abilities.Length)
                 newPower -=  Abilities.Length;
             DicePower = newPower;
-            ParametersChanged?.Invoke();
+            DicePowerChanged?.Invoke();
         }
 
-        public void SetRandomPower()
+        public void SetRandomDicePower()
         {
             DicePower = Random.Range(0,  Abilities.Length);
-            ParametersChanged?.Invoke();
+            DicePowerChanged?.Invoke();
         }
     }
 }

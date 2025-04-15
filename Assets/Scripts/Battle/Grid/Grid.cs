@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Grid.Visualization;
 using Battle.InfoPanel;
 using Battle.Units;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Battle.Grid
         protected const int EnemyTeamID = 1;
         protected GridVisualizer GridVisualizer;
         
+        [SerializeField] private CellPresetType _cellPreset;
         [SerializeField] private GridCell _cellPrefab;
         [SerializeField] private ErrorPanel _errorPanelPrefab;
 
@@ -42,7 +44,7 @@ namespace Battle.Grid
                 for (int column = 0; column < colunmCount; column++)
                 {
                     var cell = Instantiate(_cellPrefab, container);
-                    cell.Init( line, column ,teamIndex);
+                    cell.Init( line, column ,teamIndex, _cellPreset);
                     cell.DragFinished += DragFinished;
                     cell.DragOverCell += DragOverCell;
                     cell.HoldFinished += HoldFinished;

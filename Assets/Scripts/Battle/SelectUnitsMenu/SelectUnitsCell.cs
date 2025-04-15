@@ -13,16 +13,16 @@ namespace Battle.SelectUnitsMenu
         [SerializeField] private Image _duckIcon;
         [SerializeField] private TMP_Text _classField;
         [SerializeField] private TMP_Text _nameField;
-        [SerializeField] private Parameter _levelField;
+        [SerializeField] private CircleParameter _levelField;
         [SerializeField] private Image _outlineImage;
         [Header("Icons")]
         [SerializeField] private Image _raceIcon;
         [SerializeField] private Image _covenantIcon;
         [Header("Attributes")]
-        [SerializeField] private Parameter _health;
-        [SerializeField] private Parameter _strength;
-        [SerializeField] private Parameter _dexterity;
-        [SerializeField] private Parameter _intelligence;
+        [SerializeField] private CircleParameter _health;
+        [SerializeField] private CircleParameter _strength;
+        [SerializeField] private CircleParameter _dexterity;
+        [SerializeField] private CircleParameter _intelligence;
         private SelectUnitsMenu _selectUnitsMenu;
         
         public Unit Unit { get; private set; } 

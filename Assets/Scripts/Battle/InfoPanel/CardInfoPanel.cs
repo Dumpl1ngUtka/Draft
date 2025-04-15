@@ -9,10 +9,10 @@ namespace Battle.InfoPanel
     {
         [SerializeField] private TMP_Text _name;
         [Header("Parameter")]
-        [SerializeField] private Parameter _health;
-        [SerializeField] private Parameter _strength;
-        [SerializeField] private Parameter _dexterity;
-        [SerializeField] private Parameter _intelligence;
+        [SerializeField] private CircleParameter _health;
+        [SerializeField] private CircleParameter _strength;
+        [SerializeField] private CircleParameter _dexterity;
+        [SerializeField] private CircleParameter _intelligence;
         
         public void Instantiate(Unit unit)
         {
