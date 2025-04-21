@@ -1,20 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
-using Battle.Grid.CardParameter;
 using Battle.Units;
 using UnityEngine;
 
-namespace Battle
+namespace Services.GameControlService
 {
-    public class GameManager : MonoBehaviour
+    public class GameControlService : MonoBehaviour
     {
         [SerializeField] private List<UnitPreset> _enemyPresets;
         [SerializeField] private List<UnitPreset> _enemyPresets2;
-        [SerializeField] private DraftGrid _draftGrid;
-        [SerializeField] private BattleGrid _battleGrid;
+        private DraftGrid _draftGrid;
+        private BattleGrid _battleGrid;
 
+        public GameControlService Instance {get; private set;}
+
+        public void Init(DraftGrid draftGrid, BattleGrid battleGrid)
+        {
+            Instance = FindFirstObjectByType<GameControlService>();
+            _draftGrid = draftGrid;
+            _battleGrid = battleGrid;
+        }
+        
         private void Awake()
         {
             _draftGrid.DraftFinished += DraftFinished;
@@ -23,6 +30,11 @@ namespace Battle
             _battleGrid.PlayerDefeated += PlayerDefeated;
 
             LoadDraftLevel();
+        }
+
+        public void StartDraft(List<UnitPreset> enemyPresets)
+        {
+            
         }
 
         private void PlayerWin()

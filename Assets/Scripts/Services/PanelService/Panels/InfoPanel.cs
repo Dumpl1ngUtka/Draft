@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Battle.InfoPanel
+namespace Services.PanelService.Panels
 {
     public class InfoPanel : MonoBehaviour
     {
@@ -21,14 +21,9 @@ namespace Battle.InfoPanel
             return _testData.GetValueOrDefault(key, "invalid_key");
         }
         
-        public void Instantiate(string id)
+        public void Init(string id)
         {
-            var canvas = FindFirstObjectByType(typeof(Canvas)) as Canvas;
-            if (canvas != null)
-            {
-                var panel = Instantiate(this, canvas.transform);
-                panel.Render(GetString(id));
-            }
+            Render(GetString(id));
         }
         
         public void Render(string text)

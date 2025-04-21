@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid.Visualization;
-using Battle.InfoPanel;
 using Battle.Units;
+using Services.PanelService;
+using Services.PanelService.Panels;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,7 +20,6 @@ namespace Battle.Grid
         
         [SerializeField] private CellPresetType _cellPreset;
         [SerializeField] private GridCell _cellPrefab;
-        [SerializeField] private ErrorPanel _errorPanelPrefab;
 
         public virtual void Init()
         {
@@ -46,7 +46,8 @@ namespace Battle.Grid
                     var cell = Instantiate(_cellPrefab, container);
                     cell.Init( line, column ,teamIndex, _cellPreset);
                     cell.DragFinished += DragFinished;
-                    cell.DragOverCell += DragOverCell;
+                    cell.DraggedToCell += DraggedToCell;
+                    cell.DraggedFromCell += DraggedFromCell;
                     cell.HoldFinished += HoldFinished;
                     cell.HoldBegin += HoldBegin;
                     cell.Clicked += Clicked;
@@ -66,21 +67,18 @@ namespace Battle.Grid
             }
         }
 
+        protected abstract void DraggedFromCell(GridCell startDraggingCell, GridCell overCell);
+
+        protected abstract void DraggedToCell(GridCell startDraggingCell, GridCell overCell);
+        
         protected abstract void DoubleClicked(GridCell cell);
 
         protected abstract void HoldFinished(GridCell cell);
-
-        protected abstract void DragOverCell(GridCell from, GridCell over);
-
+        
         protected abstract void HoldBegin(GridCell from);
 
         protected abstract void Clicked(GridCell cell);
 
         protected abstract void DragFinished(GridCell from, GridCell to);
-
-        protected void InstantiateErrorPanel(string errorID)
-        {
-            _errorPanelPrefab.Instantiate(errorID);
-        }
     }
 }

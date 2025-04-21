@@ -3,28 +3,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Battle.InfoPanel
+namespace Services.PanelService.Panels
 {
     public class TextWithLinks : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private InfoPanel _infoPanelPrefab; 
-        private const string _format = @"\[{1}\w+\]{1}";
-    
         private TMP_Text _textMessage;
+        private const string _format = @"\[{1}\w+\]{1}";
+
+        private TMP_Text TextMessage
+        {
+            get
+            {
+                if (!_textMessage)
+                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+                    _textMessage = GetComponent<TMP_Text>();
+                return _textMessage;
+            }
+        }
 
         public void Render(string text)
         {
-            _textMessage = GetComponent<TMP_Text>();
-            _textMessage.text = text;
+            TextMessage.text = text;
             CheckLinks();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            int linkIndex = TMP_TextUtilities.FindIntersectingLink(_textMessage, eventData.position, eventData.pressEventCamera);
+            int linkIndex = TMP_TextUtilities.FindIntersectingLink(TextMessage, eventData.position, eventData.pressEventCamera);
             if (linkIndex == -1) 
                 return;
-            TMP_LinkInfo linkInfo = _textMessage.textInfo.linkInfo[linkIndex];
+            TMP_LinkInfo linkInfo = TextMessage.textInfo.linkInfo[linkIndex];
             string selectedLink = linkInfo.GetLinkID();
         
             if (selectedLink != "")
@@ -34,14 +42,14 @@ namespace Battle.InfoPanel
         private void ClickToLink(string link)
         {
             link = Regex.Replace(link, @"\[|\]", "");
-            _infoPanelPrefab.Instantiate(link);
+            PanelService.Instance.InstantiateInfoPanel(link);
         }
     
         private void CheckLinks () {
             Regex regx = new Regex (_format , RegexOptions.IgnoreCase | RegexOptions.Singleline); 
-            MatchCollection matches = regx.Matches (_textMessage.text); 
+            MatchCollection matches = regx.Matches (TextMessage.text); 
             foreach (Match match in matches) 
-                _textMessage.text = _textMessage.text.Replace(match.Value, FormatLink(match.Value));     	
+                TextMessage.text = TextMessage.text.Replace(match.Value, FormatLink(match.Value));     	
         }
     
         private string FormatLink (string link) {

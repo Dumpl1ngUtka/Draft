@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Battle.InfoPanel;
 using Battle.Units;
 using Battle.Units.Interactors.Reaction;
+using Services.PanelService;
+using Services.PanelService.Panels;
 using UnityEngine;
 
 namespace Battle.Grid
@@ -38,7 +39,6 @@ namespace Battle.Grid
             _useReactionInteractor = new UseReactionInteractor();
             _playerCells = InitiateCells(LineCount, ColumnCount, PlayerTeamID, _playerContainer);
             _enemyCells = InitiateCells(LineCount, ColumnCount, EnemyTeamID, _enemyContainer);
-            //_gridVisualizer = new GridVisualizer(_playerCells, _enemyCells);
             _turnInteractor = new TurnInteractor(_playerCells, _enemyCells);
         }
 
@@ -51,6 +51,8 @@ namespace Battle.Grid
             _enemyUnits = enemyUnits;
             
             _turnInteractor.StartTurn();
+            GridVisualizer.ResetOverPanels();
+            
         }
 
         private void FillCells(List<Unit> units, List<GridCell> cells)
@@ -61,43 +63,43 @@ namespace Battle.Grid
                 cell.AddUnit(units[index++]);
             }
         }
-        
-        protected override void DragOverCell(GridCell from, GridCell over)
-        {
-            if (from.TeamIndex != PlayerTeamID)
-                return;
-            
-            GridVisualizer.ResetSize();
-            if (over != null)
-                GridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, over, _playerCells, _enemyCells));
-        }
 
         protected override void HoldBegin(GridCell from)
         {
             _isDragStartSeccess = false;
             if (from.Unit.IsDead)
             {
-                InstantiateErrorPanel("unit_is_dead_error");
+                PanelService.Instance.InstantiateErrorPanel("unit_is_dead_error");
                 return;
             }
             
             if (!from.Unit.IsReady)
             {
-                InstantiateErrorPanel("unit_not_ready_error");
+                PanelService.Instance.InstantiateErrorPanel("unit_not_ready_error");
                 return;
             }
 
             if (from.TeamIndex != PlayerTeamID)
             {
-                InstantiateErrorPanel("no_player_unit_error");
+                PanelService.Instance.InstantiateErrorPanel("no_player_unit_error");
                 return;
             }
             
             _isDragStartSeccess = true;
-            GridVisualizer.SetOverPanel(from, new Color(0.6f, 0,0, 0.4f));
+            GridVisualizer.SetOverPanelColor(from, new Color(0.6f, 0,0, 0.4f));
             GridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, from, _playerCells, _enemyCells));
             GridVisualizer.RenderDiceAdditionValueFor(1, from.Unit.Reaction.GetReactionCells(from, _playerCells));
-            GridVisualizer.RenderHitProbability(from);
+            GridVisualizer.RenderHitProbabilityForAll(from);
+        }
+
+        protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)
+        {
+            GridVisualizer.SetSizeFor(1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
+        }
+
+        protected override void DraggedToCell(GridCell startDraggingCell, GridCell overCell)
+        {
+            GridVisualizer.SetSizeFor(1.1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
         }
 
         protected override void DoubleClicked(GridCell cell)
@@ -114,13 +116,7 @@ namespace Battle.Grid
         protected override void Clicked(GridCell cell)
         {
             InteractFinised();
-            ShowCardInfo(cell.Unit);
-        }
-
-        private void ShowCardInfo(Unit cellUnit)
-        {
-            _cardInfoPrefab.Instantiate(cellUnit);
-            _cardInfoPrefab.Render(cellUnit);
+            PanelService.Instance.InstantiateCardInfoPanel(cell.Unit);
         }
 
         protected override void DragFinished(GridCell from, GridCell to)
@@ -142,14 +138,14 @@ namespace Battle.Grid
             }
             else
             {
-                InstantiateErrorPanel(response.Message);
+                PanelService.Instance.InstantiateErrorPanel(response.Message);
                 return;
             }
             
             response = _useReactionInteractor.UseReaction(from, _playerCells);
             if (!response.Success)
             {
-                InstantiateErrorPanel(response.Message);
+                PanelService.Instance.InstantiateErrorPanel(response.Message);
                 return;
             }
         }

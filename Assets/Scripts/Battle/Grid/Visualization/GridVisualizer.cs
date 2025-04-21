@@ -20,6 +20,11 @@ namespace Battle.Grid.Visualization
                 cell.Renderer.SetSize(size, instantly);
         }
 
+        public void SetSizeFor(float size, GridCell cell, bool instantly = false)
+        {
+            cell.Renderer.SetSize(size, instantly);
+        }
+
         public void ResetSize()
         {
             foreach (var cell in _allCells)
@@ -41,7 +46,7 @@ namespace Battle.Grid.Visualization
                 cell.Renderer.RenderDiceAdditionValue(0);
         }
 
-        public void RenderHitProbability(GridCell caster)
+        public void RenderHitProbabilityForAll(GridCell caster)
         {
             var ablility = caster.Unit.CurrentAbility;
             foreach (var cell in _allCells)
@@ -54,7 +59,7 @@ namespace Battle.Grid.Visualization
             }
         }
 
-        public void SetOverPanel(GridCell cell, Color color)
+        public void SetOverPanelColor(GridCell cell, Color color)
         {
             cell.Renderer.SetOverPanel(color);
         }

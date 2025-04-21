@@ -3,7 +3,7 @@ using Battle.Units;
 using TMPro;
 using UnityEngine;
 
-namespace Battle.InfoPanel
+namespace Services.PanelService.Panels
 {
     public class CardInfoPanel : InfoPanel
     {
@@ -14,14 +14,9 @@ namespace Battle.InfoPanel
         [SerializeField] private CircleParameter _dexterity;
         [SerializeField] private CircleParameter _intelligence;
         
-        public void Instantiate(Unit unit)
+        public void Init(Unit unit)
         {
-            var canvas = FindFirstObjectByType(typeof(Canvas)) as Canvas;
-            if (canvas != null)
-            {
-                var panel = Instantiate(this, canvas.transform);
-                panel.Render(unit);
-            }
+            Render(unit);
         }
         
         public void Render(Unit unit)

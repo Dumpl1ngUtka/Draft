@@ -46,7 +46,9 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.39f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Battle\InfoPanel\CardInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Battle\Grid\GridController.cs" />
+    <Compile Include="Assets\Scripts\Battle\Grid\GridModel.cs" />
+    <Compile Include="Assets\Scripts\Battle\Grid\GridView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\UnitPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\DamageType.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\HitProbabilityCalculator.cs" />
+    <Compile Include="Assets\Scripts\Bootstrappers\GameBootstrapper.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\DraftGrid.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\CellPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -65,8 +68,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\SameRaceReaction.cs" />
-    <Compile Include="Assets\Scripts\Battle\GameManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\Panels\CardInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\ChemestryInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\BattleGrid.cs" />
@@ -82,6 +85,7 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ChemistryInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Race.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\Panels\TextWithLinks.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellRenderer.cs" />
@@ -102,8 +106,8 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverTextInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\CircleParameterCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\PanelService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-    <Compile Include="Assets\Scripts\Battle\InfoPanel\InfoPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\UnitHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
@@ -116,8 +120,8 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Grid.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\DuckIconInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\HealthInteractor.cs" />
-    <Compile Include="Assets\Scripts\Battle\InfoPanel\ErrorPanel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\Panels\InfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\AbilityTargetFilter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -125,14 +129,15 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\Scripts\Battle\InfoPanel\TextWithLinks.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\PassiveEffectsInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ApplyDamage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\UnitParameters.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\CovenantType.cs" />
+    <Compile Include="Assets\Scripts\Services\GameControlService\GameControlService.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\SizeInteractor.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\Panels\ErrorPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Attributes.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\AddArmor.cs" />

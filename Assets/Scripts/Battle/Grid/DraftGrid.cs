@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Battle.InfoPanel;
 using Battle.Units;
+using Services.PanelService;
+using Services.PanelService.Panels;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,10 +33,6 @@ namespace Battle.Grid
             UnitAdded += _chemestryInteractor.UnitAdded; 
         }
 
-        protected override void DragOverCell(GridCell from, GridCell over)
-        {
-        }
-
         protected override void HoldBegin(GridCell from)
         {
             _isDragBeginSuccess = false;
@@ -45,8 +42,21 @@ namespace Battle.Grid
                 return;
             }
 
-            GridVisualizer.SetSizeFor(1.1f, GetSwichCells(from));
+            foreach (var cell in GetNoSwichCells(from))
+            {
+                GridVisualizer.SetOverPanelColor(cell, Color.red);
+            }
             _isDragBeginSuccess = true;
+        }
+
+        protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)
+        {
+            GridVisualizer.SetSizeFor(1f, overCell);
+        }
+
+        protected override void DraggedToCell(GridCell startDraggingCell, GridCell overCell)
+        {
+            GridVisualizer.SetSizeFor(1.2f, overCell);
         }
 
         protected override void DoubleClicked(GridCell cell)
@@ -64,19 +74,19 @@ namespace Battle.Grid
             var cells = _cells.Where(cell => from.Unit.Class.LineIndexes.Contains(cell.LineIndex)).ToList();
             return cells.Where(cell => (cell.Unit != null && cell.Unit.Class.LineIndexes.Contains(from.LineIndex)) || cell.Unit == null).ToList();
         }
+        
+        private List<GridCell> GetNoSwichCells(GridCell from)
+        {
+            var cells = _cells.Where(cell => !from.Unit.Class.LineIndexes.Contains(cell.LineIndex)).ToList();
+            return cells.Where(cell => (cell.Unit != null && cell.Unit.Class.LineIndexes.Contains(from.LineIndex)) || cell.Unit == null).ToList();
+        }
 
         protected override void Clicked(GridCell cell)
         {
             if (cell.Unit == null)
                 ShowUnitSelectMenu(cell);
             else 
-                ShowCardInfo(cell.Unit);
-        }
-
-        private void ShowCardInfo(Unit cellUnit)
-        {
-            _cardInfoPrefab.Instantiate(cellUnit);
-            _cardInfoPrefab.Render(cellUnit);
+                PanelService.Instance.InstantiateCardInfoPanel(cell.Unit);
         }
 
         protected override void DragFinished(GridCell from, GridCell to)
@@ -106,13 +116,13 @@ namespace Battle.Grid
         {
             if (!GetSwichCells(from).Contains(to))
             {
-                InstantiateErrorPanel("line_index_mismatch_error");
+                PanelService.Instance.InstantiateErrorPanel("line_index_mismatch_error");
                 return;
             }
             
             if (from.TeamIndex != to.TeamIndex)
             {
-                InstantiateErrorPanel("team_index_mismatch_error");
+                PanelService.Instance.InstantiateErrorPanel("team_index_mismatch_error");
                 return;
             }
             
@@ -144,7 +154,7 @@ namespace Battle.Grid
             var fillCellsCount = _cells.Count(x => x.Unit != null);
             if (fillCellsCount < _cells.Count)
             {
-                InstantiateErrorPanel("draft_fill_cells_error");
+                PanelService.Instance.InstantiateErrorPanel("draft_fill_cells_error");
                 return;
             }
             

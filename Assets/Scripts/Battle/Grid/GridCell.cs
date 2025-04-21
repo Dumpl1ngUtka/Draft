@@ -21,7 +21,8 @@ namespace Battle.Grid
         public Unit Unit { get; private set; }
         public GridCellRenderer Renderer { get; private set; }
         
-        public Action<GridCell, GridCell> DragOverCell;
+        public Action<GridCell, GridCell> DraggedToCell;
+        public Action<GridCell, GridCell> DraggedFromCell;
         public Action<GridCell, GridCell> DragFinished;
         public Action<GridCell> Clicked;
         public Action<GridCell> DoubleClicked;
@@ -74,17 +75,20 @@ namespace Battle.Grid
 
         public void OnDrag(PointerEventData eventData)
         {
-            var obj = eventData.pointerCurrentRaycast.gameObject;
-
-            if (!obj.TryGetComponent(out GridCell cell))
-            {
-                DragOverCell?.Invoke(this, null);
-                return;
-            }
-            if (_dragOverCell != null && _dragOverCell == cell) return;
+            var wasOverCell = _dragOverCell != null;
+            var isOverCell = eventData.pointerCurrentRaycast.gameObject.TryGetComponent(out GridCell cell);
+            var isOurCell = cell == this;
             
-            DragOverCell?.Invoke(this, cell);
-            _dragOverCell = cell;
+            if (isOverCell && !wasOverCell)
+            {
+                _dragOverCell = cell;
+                DraggedToCell?.Invoke(this, cell);
+            }
+            else if (!isOurCell)
+            {
+                DraggedFromCell?.Invoke(this, _dragOverCell);
+                _dragOverCell = null;
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)

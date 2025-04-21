@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Battle.InfoPanel
+namespace Services.PanelService.Panels
 {
     public class ErrorPanel : InfoPanel
     {
