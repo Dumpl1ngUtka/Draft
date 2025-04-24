@@ -4,6 +4,7 @@ using Battle.Grid;
 using Battle.PassiveEffects;
 using Battle.Units;
 using Battle.Units.Interactors;
+using Grid.Cells;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,22 +20,22 @@ namespace Battle.Abilities
         public AbilityRangeFilter _rangeFilter;
         public HitProbabilityCalculator HitProbabilityCalculator;
 
-        public float GetHitProbability(GridCell caster, GridCell target)
+        public float GetHitProbability(UnitGridCell caster, UnitGridCell target)
         {
             if (!IsRightTarget(caster, target))
                 return 0;
             return HitProbabilityCalculator.GetHitProbability(caster, target);
         }
 
-        public List<GridCell> GetRange(GridCell caster, GridCell target, List<GridCell> allies, List<GridCell> enemies)
+        public List<UnitGridCell> GetRange(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
         {
             var rangeCells = _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
             return rangeCells.Where(x =>  _targetFilter.IsRightTarget(caster, x)).ToList();
         }
         
-        public bool IsRightTarget(GridCell caster, GridCell target) => _targetFilter.IsRightTarget(caster, target);
+        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target) => _targetFilter.IsRightTarget(caster, target);
 
-        public Response TryUseAbility(GridCell caster, GridCell target, List<GridCell> allies, List<GridCell> enemies)
+        public Response TryUseAbility(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
         {
             if (!_targetFilter.IsRightTarget(caster, target))
                 return new Response(false, "wrong_target_error");
@@ -49,7 +50,7 @@ namespace Battle.Abilities
             return new Response(true, "success");
         }
 
-        public GridCell GetPreferredTarget(List<GridCell> potentialTargets)
+        public UnitGridCell GetPreferredTarget(List<UnitGridCell> potentialTargets)
         {
             return potentialTargets[Random.Range(0, potentialTargets.Count)];       
         }

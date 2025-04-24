@@ -99,7 +99,7 @@ namespace Battle.Grid.Visualization
             _sizeInteractor.Update();
         }
 
-        public void SetActive(CellPresetType preset)
+        public void SetActive(GridType preset)
         {
             foreach (var interactor in _allInteractors)
                 interactor.SetActive(preset);
@@ -109,7 +109,7 @@ namespace Battle.Grid.Visualization
         {
             if (unit == null || unit.IsDead)
             {
-                SetActive(CellPresetType.None);
+                SetActive(GridType.None);
                 return;
             }
             

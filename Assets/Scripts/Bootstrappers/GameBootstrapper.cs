@@ -1,5 +1,8 @@
 using System;
 using Battle.Grid;
+using Grid.BattleGrid;
+using Grid.DraftGrid;
+using Grid.SelectDungeonGrid;
 using Services.GameControlService;
 using Services.PanelService;
 using UnityEngine;
@@ -8,8 +11,9 @@ namespace Bootstrappers
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        [SerializeField] private DraftGrid _draftGrid;
-        [SerializeField] private BattleGrid _battleGrid;
+        [SerializeField] private DraftGridController _draftGrid;
+        [SerializeField] private BattleGridController _battleGrid;
+        [SerializeField] private SelectDungeonGridController _dungeonGrid;
         [SerializeField] private Canvas _canvas;
         
         private void Awake()
@@ -30,7 +34,7 @@ namespace Bootstrappers
         {
             var obj = new GameObject("GameControlService");
             var service = obj.AddComponent<GameControlService>();
-            service.Init(_draftGrid, _battleGrid);
+            service.Init(_draftGrid, _battleGrid, _dungeonGrid);
             DontDestroyOnLoad(obj);
         }
         

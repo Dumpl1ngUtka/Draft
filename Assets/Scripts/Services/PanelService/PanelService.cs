@@ -1,4 +1,6 @@
+using System;
 using Battle.Units;
+using DungeonMap;
 using Services.PanelService.Panels;
 using UnityEngine;
 
@@ -6,9 +8,10 @@ namespace Services.PanelService
 {
     public class PanelService : MonoBehaviour
     {
-        private Panels.InfoPanel _infoPanelPrefab;
+        private InfoPanel _infoPanelPrefab;
         private ErrorPanel _errorPanelPrefab;
         private CardInfoPanel _cardInfoPanelPrefab;
+        private DungeonInfoPanel _dungeonInfoPanelPrefab;
         private Canvas _canvas;
 
         public Canvas Canvas
@@ -25,17 +28,23 @@ namespace Services.PanelService
         public void Init()
         {
             Instance = FindAnyObjectByType<PanelService>();
-            _infoPanelPrefab = Resources.Load<Panels.InfoPanel>($"Prefabs/Panels/InfoPanel");
+            _infoPanelPrefab = Resources.Load<InfoPanel>($"Prefabs/Panels/InfoPanel");
             _errorPanelPrefab = Resources.Load<ErrorPanel>($"Prefabs/Panels/ErrorPanel");
             _cardInfoPanelPrefab = Resources.Load<CardInfoPanel>($"Prefabs/Panels/CardInfoPanel");
+            _dungeonInfoPanelPrefab = Resources.Load<DungeonInfoPanel>($"Prefabs/Panels/DungeonInfoPanel");
         }
         
-        public void InstantiateCardInfoPanel(Unit unit)
+        public void InstantiateUnitInfoPanel(Unit unit)
         {
             var panel = Instantiate(_cardInfoPanelPrefab, Canvas.transform);
             panel.Init(unit);
         }
 
+        public void InstantiateDungeonInfoPanel(DungeonInfo dungeon, Action<DungeonInfo> callback)
+        {
+            var panel = Instantiate(_dungeonInfoPanelPrefab, Canvas.transform);
+            panel.Init(dungeon, callback);
+        }
 
         public void InstantiateErrorPanel(string keyWord)
         {

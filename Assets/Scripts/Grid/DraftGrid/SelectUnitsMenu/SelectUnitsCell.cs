@@ -3,10 +3,9 @@ using Battle.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Battle.SelectUnitsMenu
+namespace Grid.DraftGrid.SelectUnitsMenu
 {
     public class SelectUnitsCell : MonoBehaviour, IPointerClickHandler
     {
@@ -23,16 +22,16 @@ namespace Battle.SelectUnitsMenu
         [SerializeField] private CircleParameter _strength;
         [SerializeField] private CircleParameter _dexterity;
         [SerializeField] private CircleParameter _intelligence;
-        private SelectUnitsMenu _selectUnitsMenu;
+        private SelectUnitsPanel _selectUnitsPanel;
         
         public Unit Unit { get; private set; } 
             
-        public void Init(SelectUnitsMenu menu ,Unit unit)
+        public void Init(SelectUnitsPanel panel ,Unit unit)
         {
             Unit = unit;
             
             _duckIcon.sprite = unit.Class.Icon;
-            _selectUnitsMenu = menu;
+            _selectUnitsPanel = panel;
             _classField.text = unit.Class.Name;
             _nameField.text = unit.Name;
             _raceIcon.sprite = unit.Race.Icon;
@@ -51,7 +50,7 @@ namespace Battle.SelectUnitsMenu
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _selectUnitsMenu.SelectUnitCell(this);
+            _selectUnitsPanel.SelectUnitCell(this);
         }
     }
 }

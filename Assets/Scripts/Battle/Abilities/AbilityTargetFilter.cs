@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
+using Grid.Cells;
 using UnityEngine;
 
 namespace Battle.Abilities
@@ -14,9 +15,9 @@ namespace Battle.Abilities
         public bool IsDeadPlayerUnitTarget;
         public bool IsDeadEnemyUnitTarget;
 
-        public bool IsRightTarget(GridCell caster, GridCell target)
+        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target)
         {
-            var isTeammete = target.TeamIndex == caster.TeamIndex;
+            var isTeammete = target.TeamType == caster.TeamType;
             var isDead = target.Unit.IsDead;
             
             if (IsPlayerUnitTarget && isTeammete && !isDead)

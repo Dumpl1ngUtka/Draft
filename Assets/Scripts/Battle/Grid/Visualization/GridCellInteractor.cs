@@ -9,11 +9,11 @@ namespace Battle.Grid.Visualization
         [SerializeField] private CellPreset _preset;
         private bool _isActive;
 
-        public void SetActive(CellPresetType activatedPresetType)
+        public void SetActive(GridType activatedPresetType)
         {
-            if (activatedPresetType == CellPresetType.None)
+            if (activatedPresetType == GridType.None)
                 _isActive = false;
-            else if (activatedPresetType == CellPresetType.All)
+            else if (activatedPresetType == GridType.All)
                 _isActive = true;
             else
                 _isActive = _preset.Include(activatedPresetType);

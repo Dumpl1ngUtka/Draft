@@ -1,6 +1,7 @@
 using System;
 using Battle.Grid;
 using Battle.Units;
+using Grid.Cells;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,7 +20,7 @@ namespace Battle.Abilities
         [Header("Distance")]
         [SerializeField] private float _additionProbabilityByDistance;
 
-        public float GetHitProbability(GridCell caster, GridCell target)
+        public float GetHitProbability(UnitGridCell caster, UnitGridCell target)
         {
             var probability = _baseHitProbability;
             probability += caster.Unit.Attributes.GetAttributeValueByType(_casterAttributType) 
@@ -30,9 +31,9 @@ namespace Battle.Abilities
             return Mathf.Clamp01(probability);
         } 
         
-        private int CalculateDistance(GridCell cell1, GridCell cell2)
+        private int CalculateDistance(UnitGridCell cell1, UnitGridCell cell2)
         {
-            if (cell1.TeamIndex == cell2.TeamIndex)
+            if (cell1.TeamType == cell2.TeamType)
                 return Math.Abs(cell1.LineIndex - cell2.LineIndex);
             
             return cell1.LineIndex + cell2.LineIndex + 1;

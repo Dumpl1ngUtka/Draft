@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Battle.Grid;
 using Battle.Units.Interactors;
+using Grid.Cells;
 using UnityEngine;
 
 namespace Battle.UseCardReactions
@@ -9,9 +10,9 @@ namespace Battle.UseCardReactions
     {
         [SerializeField] private int _value = 1;
         
-        public abstract List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies);
+        public abstract List<UnitGridCell> GetReactionCells(UnitGridCell caster, List<UnitGridCell> allies);
 
-        public Response TryUseReaction(GridCell caster, List<GridCell> allies)
+        public Response TryUseReaction(UnitGridCell caster, List<UnitGridCell> allies)
         {
             foreach (var cell in GetReactionCells(caster, allies))
             {

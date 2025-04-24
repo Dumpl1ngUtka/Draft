@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
 using Battle.Units.Interactors;
+using Grid.Cells;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,9 +21,9 @@ namespace Battle.UseCardReactions
         [SerializeField] private bool _isUnitColumnUpgradable;
         [SerializeField, Range(0, 2)] private int _column;
 
-        public override List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies)
+        public override List<UnitGridCell> GetReactionCells(UnitGridCell caster, List<UnitGridCell> allies)
         {
-            var upgradableCells = new List<GridCell>();
+            var upgradableCells = new List<UnitGridCell>();
             if (_islineUpgradable)
                 upgradableCells.AddRange(GetUpgradeLine(caster, allies));
             if (_isColumnUpgradable)
@@ -30,13 +31,13 @@ namespace Battle.UseCardReactions
             return upgradableCells.Distinct().ToList();
         }
 
-        private List<GridCell> GetUpgradeLine(GridCell casterCell, List<GridCell> cells)
+        private List<UnitGridCell> GetUpgradeLine(UnitGridCell casterCell, List<UnitGridCell> cells)
         {
             var upgradableLineIndex = _isUnitLineUpgradable?  casterCell.LineIndex : _line;
             return cells.Where(x => x.LineIndex == upgradableLineIndex).ToList();
         }
         
-        private List<GridCell> GetUpgradeColumn(GridCell casterCell, List<GridCell> cells)
+        private List<UnitGridCell> GetUpgradeColumn(UnitGridCell casterCell, List<UnitGridCell> cells)
         {
             var upgradableLineIndex = _isUnitColumnUpgradable?  casterCell.ColumnIndex : _column;
             return cells.Where(x => x.ColumnIndex == upgradableLineIndex).ToList();

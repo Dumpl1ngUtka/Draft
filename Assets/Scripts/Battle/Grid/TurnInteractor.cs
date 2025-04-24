@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
+using Grid.Cells;
 using UnityEngine;
 
 namespace Battle.Grid
@@ -8,10 +9,10 @@ namespace Battle.Grid
     public class TurnInteractor
     {
         private int _turnCount;
-        private List<GridCell> _playerCells;
-        private List<GridCell> _enemyCells;
+        private List<UnitGridCell> _playerCells;
+        private List<UnitGridCell> _enemyCells;
         
-        public TurnInteractor(List<GridCell> playerCells, List<GridCell> enemyCells)
+        public TurnInteractor(List<UnitGridCell> playerCells, List<UnitGridCell> enemyCells)
         {
             _turnCount = 0;
             _playerCells = playerCells;

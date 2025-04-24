@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Battle.Grid
 {
-    public class DraftGrid : Grid
+    /*public class DraftGrid : Grid
     {
         [Header("Draft grid settings")]
         [SerializeField] private Class[] _availableClasses;
@@ -103,7 +103,7 @@ namespace Battle.Grid
             _selectUnitsMenu.Init(this, cell);
             var availableClasses = _availableClasses.Where(x => x.LineIndexes.Contains(cell.LineIndex)).ToArray();
             _selectUnitsMenu.Enable();
-            _selectUnitsMenu.GenerateCards(availableClasses);
+            _selectUnitsMenu.RenderUnits(availableClasses);
         }
         
         public void AddCard(GridCell cell, Unit unit)
@@ -160,5 +160,5 @@ namespace Battle.Grid
             
             DraftFinished?.Invoke();
         }
-    }
+    }*/
 }

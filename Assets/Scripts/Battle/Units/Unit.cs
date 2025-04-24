@@ -4,6 +4,7 @@ using Battle.Abilities;
 using Battle.DamageSystem;
 using Battle.PassiveEffects;
 using Battle.UseCardReactions;
+using Grid;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
@@ -29,7 +30,7 @@ namespace Battle.Units
         public Class Class => _preset.Class;
         public Covenant Covenant => _preset.Covenant;
         public int Chemistry => _chemistry;
-        public int TeamIndex { get; private set; }
+        public TeamType TeamType { get; private set; }
         public UnitHealth Health { get; private set; }
         public int DicePower { get; private set; }
         public bool IsDead { get; private set; } = false;
@@ -78,9 +79,9 @@ namespace Battle.Units
             TurnEnded?.Invoke();
         }
 
-        public void SetTeam(int teamIndex)
+        public void SetTeam(TeamType teamIndex)
         {
-            TeamIndex = teamIndex;
+            TeamType = teamIndex;
         }
 
         public void SetReady(bool isReady)

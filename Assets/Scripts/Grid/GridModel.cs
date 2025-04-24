@@ -1,4 +1,4 @@
-namespace Battle.Grid
+namespace Grid
 {
     public class GridModel
     {

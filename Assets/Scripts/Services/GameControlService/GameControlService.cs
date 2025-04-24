@@ -2,72 +2,122 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
 using Battle.Units;
+using DungeonMap;
+using Grid;
+using Grid.BattleGrid;
+using Grid.DraftGrid;
+using Grid.SelectDungeonGrid;
 using UnityEngine;
 
 namespace Services.GameControlService
 {
     public class GameControlService : MonoBehaviour
     {
+        public List<Class> Classes;
+        public List<Race> Races;
         [SerializeField] private List<UnitPreset> _enemyPresets;
         [SerializeField] private List<UnitPreset> _enemyPresets2;
-        private DraftGrid _draftGrid;
-        private BattleGrid _battleGrid;
 
-        public GameControlService Instance {get; private set;}
+        #region Grids
+        private DraftGridController _draftGrid;
+        private BattleGridController _battleGrid;
+        private SelectDungeonGridController _dungeonGrid;
+        private List<GridController> _allGrids;
+        #endregion
 
-        public void Init(DraftGrid draftGrid, BattleGrid battleGrid)
+        public static GameControlService Instance {get; private set;}
+
+        public void Init(DraftGridController draftGrid,
+            BattleGridController battleGrid,
+            SelectDungeonGridController selectDungeonGrid)
         {
             Instance = FindFirstObjectByType<GameControlService>();
+            
             _draftGrid = draftGrid;
             _battleGrid = battleGrid;
+            _dungeonGrid = selectDungeonGrid;
+            
+            _draftGrid.Init();
+            _battleGrid.Init();
+            _dungeonGrid.Init();
+
+            _allGrids = new List<GridController>()
+            {
+                _draftGrid,
+                _battleGrid,
+                _dungeonGrid
+            };
         }
         
-        private void Awake()
+        private void Start()
         {
-            _draftGrid.DraftFinished += DraftFinished;
-            
-            _battleGrid.PlayerWin += PlayerWin;
-            _battleGrid.PlayerDefeated += PlayerDefeated;
-
+            LoadDungeonSelectLevel();
+        }
+        
+        #region Dungeon Grid
+        private void LoadDungeonSelectLevel()
+        {
+            foreach (var grid in _allGrids)
+            {
+                grid.SetActive(false);
+            }
+            _dungeonGrid.SetActive(true);
+        }
+        
+        public void FinishDungeonSelectLevel(DungeonInfo info)
+        {
+            Classes = info.Classes;
+            Races = info.Races;
             LoadDraftLevel();
         }
+        #endregion
 
-        public void StartDraft(List<UnitPreset> enemyPresets)
-        {
-            
-        }
-
-        private void PlayerWin()
-        {
-            LoadBattleLevel(_enemyPresets2);
-        }
-
-        private void PlayerDefeated()
-        {
-            LoadDraftLevel();
-        }
-
-        private void DraftFinished()
-        {
-            LoadBattleLevel(_enemyPresets);
-        }
-
+        #region Draft
         private void LoadDraftLevel()
         {
-            _draftGrid.Init();
-            
+            foreach (var grid in _allGrids)
+            {
+                grid.SetActive(false);
+            }
             _draftGrid.SetActive(true);
-            _battleGrid.SetActive(false);
         }
         
-        private void LoadBattleLevel(List<UnitPreset> presets)
+        public void FinishDraftLevel(List<Unit> units)
         {
-            _battleGrid.Init();
-            
-            _draftGrid.SetActive(false);
-            _battleGrid.Fill(_draftGrid.GetUnits(), GetEnemies(presets));
+            LoadBattleLevel(units, GetEnemies(_enemyPresets));
+        }
+        #endregion
+        
+        #region Battle
+        private void LoadBattleLevel(List<Unit> playerUnits, List<Unit> enemyUnits)
+        {
+            foreach (var grid in _allGrids)
+            {
+                grid.SetActive(false);
+            }
+            _battleGrid.Fill(playerUnits, enemyUnits);
             _battleGrid.SetActive(true);
         }
+        
+        public void FinishBattleLevel(bool isWin)
+        {
+            if (isWin)
+                PlayerWinOnBattle();
+            else
+                PlayerDefeatedOnButtle();
+        }
+        
+        private void PlayerWinOnBattle()
+        {
+            Debug.Log("Win");
+        }
+
+        private void PlayerDefeatedOnButtle()
+        {
+            LoadDraftLevel();
+        }
+        
+        #endregion
         
         private List<Unit> GetEnemies(List<UnitPreset> presets)
         {

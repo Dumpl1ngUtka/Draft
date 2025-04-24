@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.Grid;
 using Battle.Units;
 using Battle.Units.Interactors;
+using Grid.Cells;
 using UnityEngine;
 
 namespace Battle.UseCardReactions
@@ -11,7 +12,7 @@ namespace Battle.UseCardReactions
 
     public class SameRaceReaction : Reaction
     {
-        public override List<GridCell> GetReactionCells(GridCell caster, List<GridCell> allies)
+        public override List<UnitGridCell> GetReactionCells(UnitGridCell caster, List<UnitGridCell> allies)
         {
             var casterRace = caster.Unit.Race;
             var upgradableCells = allies.Where(x => x.Unit.Race == casterRace).ToList();

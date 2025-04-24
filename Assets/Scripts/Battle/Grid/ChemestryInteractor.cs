@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
+using Grid.Cells;
 
 namespace Battle.Grid
 {
@@ -9,11 +10,11 @@ namespace Battle.Grid
         private readonly Dictionary<Race, int> _raceCounts = new Dictionary<Race, int>();
         private readonly Dictionary<Covenant, int> _covenantCounts = new Dictionary<Covenant, int>();
         private readonly Dictionary<CovenantType, int> _covenantTypeCounts = new Dictionary<CovenantType, int>();
-        private readonly List<GridCell> _cells;
+        private readonly List<UnitGridCell> _cells;
         
         public int AllTeamChem {get; private set;}
 
-        public ChemestryInteractor(List<GridCell> cells)
+        public ChemestryInteractor(List<UnitGridCell> cells)
         {
             _cells = cells;
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
+using Grid.Cells;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,9 +16,9 @@ namespace Battle.Abilities
                                                                 false,true,false,
                                                                 false, false, false);
         
-        public List<GridCell> GetRelevantCells(GridCell caster, GridCell target, List<GridCell> teamCells, List<GridCell> enemyCells)
+        public List<UnitGridCell> GetRelevantCells(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> teamCells, List<UnitGridCell> enemyCells)
         {
-            var range = new List<GridCell>();
+            var range = new List<UnitGridCell>();
             var cells = teamCells.Concat(enemyCells).ToList();
             foreach (var cell in cells)
             {
@@ -62,10 +63,10 @@ namespace Battle.Abilities
             };
         }
         
-        private void CalculateDelta(GridCell target, GridCell cell, out int lineDelta, out int columnDelta)
+        private void CalculateDelta(UnitGridCell target, UnitGridCell cell, out int lineDelta, out int columnDelta)
         {
             columnDelta = cell.ColumnIndex - target.ColumnIndex;
-            if (cell.TeamIndex == target.TeamIndex)
+            if (cell.TeamType == target.TeamType)
                 lineDelta = cell.LineIndex - target.LineIndex;
             else
                 lineDelta = -cell.LineIndex - target.LineIndex - 1;

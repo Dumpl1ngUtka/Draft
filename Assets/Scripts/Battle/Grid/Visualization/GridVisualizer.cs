@@ -1,26 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Grid.Cells;
 using UnityEngine;
 
 namespace Battle.Grid.Visualization
 {
     public class GridVisualizer
     {
-        private readonly List<GridCell> _allCells = new List<GridCell>();
+        private readonly List<UnitGridCell> _allCells = new List<UnitGridCell>();
         
-        public void AddCells(List<GridCell> cells)
+        public void AddCells(List<UnitGridCell> cells)
         {
             _allCells.AddRange(cells);
         }
         
-        public void SetSizeFor(float size, List<GridCell> cells, bool instantly = false)
+        public void SetSizeFor(float size, List<UnitGridCell> cells, bool instantly = false)
         {
             foreach (var cell in cells)
                 cell.Renderer.SetSize(size, instantly);
         }
 
-        public void SetSizeFor(float size, GridCell cell, bool instantly = false)
+        public void SetSizeFor(float size, UnitGridCell cell, bool instantly = false)
         {
             cell.Renderer.SetSize(size, instantly);
         }
@@ -31,7 +32,7 @@ namespace Battle.Grid.Visualization
                 cell.Renderer.SetSize(1f);
         }
 
-        public void RenderDiceAdditionValueFor(int value, List<GridCell> cells)
+        public void RenderDiceAdditionValueFor(int value, List<UnitGridCell> cells)
         {
             foreach (var cell in cells)
             {
@@ -46,7 +47,7 @@ namespace Battle.Grid.Visualization
                 cell.Renderer.RenderDiceAdditionValue(0);
         }
 
-        public void RenderHitProbabilityForAll(GridCell caster)
+        public void RenderHitProbabilityForAll(UnitGridCell caster)
         {
             var ablility = caster.Unit.CurrentAbility;
             foreach (var cell in _allCells)
@@ -59,7 +60,7 @@ namespace Battle.Grid.Visualization
             }
         }
 
-        public void SetOverPanelColor(GridCell cell, Color color)
+        public void SetOverPanelColor(UnitGridCell cell, Color color)
         {
             cell.Renderer.SetOverPanel(color);
         }
@@ -80,10 +81,10 @@ namespace Battle.Grid.Visualization
             }
         }
 
-        public void PlayEffect(Grid grid)
+        /*public void PlayEffect(Grid grid)
         {
             grid.StartCoroutine(EnableEffect());
-        }
+        }*/
 
         private IEnumerator EnableEffect()
         {

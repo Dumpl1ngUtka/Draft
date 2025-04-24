@@ -7,19 +7,19 @@ namespace Battle.Grid.Visualization
     [Serializable]
     public class CellPreset
     {
-        [SerializeField] private List<CellPresetType> types;
+        [SerializeField] private List<GridType> types;
 
-        public bool Include(CellPresetType type)
+        public bool Include(GridType type)
         {
-            if (types.Contains(CellPresetType.All))
+            if (types.Contains(GridType.All))
                 return true;
-            if (types.Contains(CellPresetType.None))
+            if (types.Contains(GridType.None))
                 return false;
             return types.Contains(type);
         }
     }
 
-    public enum CellPresetType
+    public enum GridType
     {
         All,
         Draft,
