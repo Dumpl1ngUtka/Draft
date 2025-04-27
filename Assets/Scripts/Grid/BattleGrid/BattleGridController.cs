@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Grid.Visualization;
 using Battle.Units;
 using Grid.Cells;
+using Services.GameControlService;
 using Services.PanelService;
 
 namespace Grid.BattleGrid
@@ -12,7 +14,14 @@ namespace Grid.BattleGrid
         private bool _isDragStartSeccess;
         private BattleGridView _view;
         private UnitGridCell _draftedCell;
-        
+
+        protected override void OnActivate()
+        {
+            var playerUnits = GameControlService.Instance.PlayerUnits;
+            var enemyUnits = GameControlService.Instance.CurrentPathCellInfo.Presets.Select(x => new Unit(x)).ToList();
+            Fill(playerUnits, enemyUnits);
+        }
+
         public override void Init()
         {
             base.Init();
@@ -25,7 +34,7 @@ namespace Grid.BattleGrid
             InteractFinised();
         }
         
-        public void Fill(List<Unit> playerUnits, List<Unit> enemyUnits)
+        private void Fill(List<Unit> playerUnits, List<Unit> enemyUnits)
         {
             _view.Fill(playerUnits, enemyUnits, out var playerCells, out var enemyCells);
             _model = new BattleGridModel(playerCells, enemyCells);

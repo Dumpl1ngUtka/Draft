@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridModel.cs" />
+    <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\UnitPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -81,16 +82,19 @@
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitBelongingInteractor.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\DungeonInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Unit.cs" />
+    <Compile Include="Assets\Scripts\Grid\Cells\PathMapCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\GridCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ChemistryInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Grid\GridController.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\DungeonCell.cs" />
+    <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridModel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Race.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridController.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsPanel.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="Assets\Scripts\Battle\Units\Covenant.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\DuckIconInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\HealthInteractor.cs" />
+    <Compile Include="Assets\Scripts\Services\GlobalAnimationService\GlobalAnimationSevice.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\InfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\AbilityTargetFilter.cs" />
@@ -152,6 +157,7 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\ErrorPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Attributes.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
+    <Compile Include="Assets\Scripts\PathMap\PathCellInfo.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\AddArmor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />

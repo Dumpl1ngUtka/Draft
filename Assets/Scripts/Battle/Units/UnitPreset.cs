@@ -24,7 +24,7 @@ namespace Battle.Units
         public Ability[] Abilities;
         public Reaction Reaction;
 
-        public static UnitPreset Generate(Class unitClass)
+        public static UnitPreset GeneratePreset(Class unitClass)
         {
             var unitPreset = ScriptableObject.CreateInstance<UnitPreset>();
             unitPreset.Class = unitClass; 
@@ -39,6 +39,11 @@ namespace Battle.Units
             unitPreset.Attributes = new Attributes(_startAttributePoints);
             unitPreset.Abilities = unitClass.Abilities;
             return unitPreset;
+        }
+
+        public static Unit GenerateUnit(Class unitClass)
+        {
+            return new Unit(GeneratePreset(unitClass));
         }
     }
 }

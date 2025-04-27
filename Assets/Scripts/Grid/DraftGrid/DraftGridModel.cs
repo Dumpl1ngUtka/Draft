@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid;
 using Battle.Units;
 using Grid.Cells;
 using Services.GameControlService;
@@ -11,8 +10,8 @@ namespace Grid.DraftGrid
 {
     public class DraftGridModel : GridModel
     {
-        private List<Class> _availableClasses => GameControlService.Instance.Classes;
-        private List<Race> _availableRaces => GameControlService.Instance.Races;
+        private List<Class> _availableClasses => GameControlService.Instance.CurrentDungeonInfo.Classes;
+        private List<Race> _availableRaces => GameControlService.Instance.CurrentDungeonInfo.Races;
         private List<UnitGridCell> _cells;
         
         public DraftGridModel(List<UnitGridCell> cells)
@@ -42,8 +41,8 @@ namespace Grid.DraftGrid
                 _availableClasses.Where(x => x.LineIndexes.Contains(generateForCell.LineIndex)).ToList();
             for (int i = 0; i < count; i++)
             {
-                var preset = UnitPreset.Generate(availableClasses[Random.Range(0, availableClasses.Count)]);
-                units.Add(new Unit(preset));
+                var unit = UnitPreset.GenerateUnit(availableClasses[Random.Range(0, availableClasses.Count)]);
+                units.Add(unit);
             }
             
             return units;
@@ -91,7 +90,7 @@ namespace Grid.DraftGrid
         {
             foreach (var cell in _cells)
             {
-                var unit = new Unit(UnitPreset.Generate(_availableClasses[Random.Range(0, _availableClasses.Count)]));
+                var unit = UnitPreset.GenerateUnit(_availableClasses[Random.Range(0, _availableClasses.Count)]);
                 cell.AddUnit(unit);
             }
             TryFinish();

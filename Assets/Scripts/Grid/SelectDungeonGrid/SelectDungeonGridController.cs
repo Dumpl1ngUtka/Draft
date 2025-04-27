@@ -10,7 +10,11 @@ namespace Grid.SelectDungeonGrid
     {
         private SelectDungeonGridModel _model;
         private SelectDungeonGridView _view;
-        
+
+        protected override void OnActivate()
+        {
+        }
+
         public override void Init()
         {
             base.Init();

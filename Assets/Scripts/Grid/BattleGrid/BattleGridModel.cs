@@ -21,9 +21,9 @@ namespace Grid.BattleGrid
         public BattleGridModel(List<UnitGridCell> playerCells, List<UnitGridCell> enemyCells)
         {
             _useReactionInteractor = new UseReactionInteractor();
-            _turnInteractor = new TurnInteractor(_playerCells, _enemyCells);
             _playerCells = playerCells;
             _enemyCells = enemyCells;
+            _turnInteractor = new TurnInteractor(_playerCells, _enemyCells);
             _playerUnits = playerCells.Select(x => x.Unit).ToList();
             _enemyUnits = enemyCells.Select(x => x.Unit).ToList();
         }

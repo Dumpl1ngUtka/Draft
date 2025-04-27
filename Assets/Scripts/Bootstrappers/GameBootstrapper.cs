@@ -1,11 +1,13 @@
-using System;
-using Battle.Grid;
 using Grid.BattleGrid;
 using Grid.DraftGrid;
+using Grid.PathMapGrid;
 using Grid.SelectDungeonGrid;
 using Services.GameControlService;
+using Services.GlobalAnimationService;
 using Services.PanelService;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bootstrappers
 {
@@ -14,12 +16,15 @@ namespace Bootstrappers
         [SerializeField] private DraftGridController _draftGrid;
         [SerializeField] private BattleGridController _battleGrid;
         [SerializeField] private SelectDungeonGridController _dungeonGrid;
+        [SerializeField] private PathMapGridController _pathMapGrid;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private Animator animator;
         
         private void Awake()
         {
             CreatePanelSevice();
             CreateGameControlService();
+            CreateGlobalAnimationService();
         }
 
         private void CreatePanelSevice()
@@ -34,10 +39,18 @@ namespace Bootstrappers
         {
             var obj = new GameObject("GameControlService");
             var service = obj.AddComponent<GameControlService>();
-            service.Init(_draftGrid, _battleGrid, _dungeonGrid);
+            service.Init(_draftGrid, _battleGrid, _dungeonGrid, _pathMapGrid);
             DontDestroyOnLoad(obj);
         }
-        
+
+        private void CreateGlobalAnimationService()
+        {
+            var obj = new GameObject("GlobalAnimationService");
+            var service = obj.AddComponent<GlobalAnimationSevice>();
+            service.Init(animator);
+            DontDestroyOnLoad(obj);
+        }
+
         /*private void CreateSaveLoadService()
         {
             var jsonSaveLoadService = new JsonSaveLoadRepository();

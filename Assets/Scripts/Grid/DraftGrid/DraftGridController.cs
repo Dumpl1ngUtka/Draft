@@ -16,6 +16,10 @@ namespace Grid.DraftGrid
         private bool _isDragBeginSuccess;
         private UnitGridCell _draftedCell;
 
+        protected override void OnActivate()
+        {
+        }
+
         public override void Init()
         {
             base.Init();

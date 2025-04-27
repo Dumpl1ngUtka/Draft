@@ -51,7 +51,7 @@ namespace Grid
             return cells;
         }
 
-        private void ClearContainer(Transform container)
+        protected void ClearContainer(Transform container)
         {
             foreach(Transform child in container.transform)
             {

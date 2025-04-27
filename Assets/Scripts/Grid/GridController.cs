@@ -11,10 +11,14 @@ namespace Grid
     {
         private GridView _baseView;
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void SetActive(bool isActive)
         {
             _baseView.SetActive(isActive);
+            if (isActive) OnActivate();
         }
+        
+        protected abstract void OnActivate();
         
         public virtual void Init()
         {
