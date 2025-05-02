@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _line: {fileID: 3013223389326776776}
   _image: {fileID: 1588855341979578684}
+  _pathPrefab: {fileID: 322918811827999316, guid: 561063c2a6ddeb84495ad0470630d8aa, type: 3}
 --- !u!120 &3013223389326776776
 LineRenderer:
   serializedVersion: 2

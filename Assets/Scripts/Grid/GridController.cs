@@ -1,27 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid.Visualization;
 using Grid.Cells;
+using Services.GameControlService.GridStateMachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Grid
 {
     public abstract class GridController : MonoBehaviour
     {
         private GridView _baseView;
+        
+        protected GridStateMachine GridStateMachine;
 
         // ReSharper disable Unity.PerformanceAnalysis
         public void SetActive(bool isActive)
         {
             _baseView.SetActive(isActive);
-            if (isActive) OnActivate();
         }
         
-        protected abstract void OnActivate();
-        
-        public virtual void Init()
+        public virtual void Init(GridStateMachine gridStateMachine)
         {
+            GridStateMachine = gridStateMachine;
             _baseView = gameObject.GetComponent<GridView>();
             var cells = _baseView.InitiateUnitCells();
             SubscribeToCells(cells.Select(x => x as GridCell).ToList());
@@ -40,6 +39,9 @@ namespace Grid
                 cell.DoubleClicked += DoubleClicked;
             }
         }
+        
+        public abstract void OnEnter();
+        public abstract void OnExit();
         
         protected abstract void DraggedFromCell(GridCell startDraggingCell, GridCell overCell);
 

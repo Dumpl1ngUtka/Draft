@@ -1,4 +1,6 @@
 using Grid.Cells;
+using Services.GameControlService.GridStateMachine;
+using UnityEngine;
 
 namespace Grid.PathMapGrid
 {
@@ -7,17 +9,20 @@ namespace Grid.PathMapGrid
         private PathMapGridModel _model;
         private PathMapGridView _view;
 
-        protected override void OnActivate()
+        public override void Init(GridStateMachine gridStateMachine)
         {
+            base.Init(gridStateMachine);
+            _model = new PathMapGridModel(gridStateMachine);
+            _view = GetComponent<PathMapGridView>();
         }
 
-        public override void Init()
+        public override void OnEnter()
         {
-            base.Init();
-            _model = new PathMapGridModel();
-            _view = GetComponent<PathMapGridView>();
-            var cells = _view.GenerateMap();
-            _model.GeneratePathsFor(cells);
+            _view.GenerateEmptyMap(_model.Paths);
+        }
+
+        public override void OnExit()
+        {
         }
 
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)

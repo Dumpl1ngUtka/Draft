@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Grid.Cells;
+using Services.GameControlService;
+using Services.GameControlService.GridStateMachine;
 using UnityEngine;
 using Random = System.Random;
 
@@ -8,15 +10,27 @@ namespace Grid.PathMapGrid
     public class PathMapGridModel : GridModel
     {
         private readonly int _maxCrossing = 3;
-        private readonly int _pathCount = 3;
+        private List<List<int>> paths;
         
-        public void GeneratePathsFor(List<List<PathMapCell>> cells)
+        public List<List<int>> Paths
         {
-            var lineCount = cells.Count;
-            var columnCount = cells[0].Count;
-            var random = new Random();
+            get { return paths ??= GeneratePaths(); }
+        }
 
-            for (int pathIdx = 0; pathIdx < _pathCount; pathIdx++)
+        public PathMapGridModel(GridStateMachine stateMachine) : base(stateMachine)
+        {
+        }
+
+        private List<List<int>> GeneratePaths()
+        {
+            var lineCount = GameControlService.Instance.CurrentDungeonInfo.LineCount;
+            var columnCount = GameControlService.Instance.CurrentDungeonInfo.ColumnCount;
+            var pathCount = GameControlService.Instance.CurrentDungeonInfo.PathCount;
+            var random = new Random();
+            
+            var paths = new List<List<int>>();
+
+            for (int pathIdx = 0; pathIdx < pathCount; pathIdx++)
             {
                 var path = new List<int>();
                 path.Add(random.Next(columnCount - 1));
@@ -50,12 +64,9 @@ namespace Grid.PathMapGrid
 
                     path.Add(validColumns[random.Next(validColumns.Count)]);
                 }
-
-                for (int lineIndex = 1; lineIndex < lineCount; lineIndex++)
-                {
-                    cells[lineIndex - 1][path[lineIndex - 1]].SetNextCell(cells[lineIndex][path[lineIndex]]);
-                }
+                paths.Add(path);
             }
+            return paths;
         }
     }
 }

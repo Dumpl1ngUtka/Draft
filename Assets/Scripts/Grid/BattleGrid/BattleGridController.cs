@@ -4,6 +4,7 @@ using Battle.Grid.Visualization;
 using Battle.Units;
 using Grid.Cells;
 using Services.GameControlService;
+using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
 
 namespace Grid.BattleGrid
@@ -15,17 +16,23 @@ namespace Grid.BattleGrid
         private BattleGridView _view;
         private UnitGridCell _draftedCell;
 
-        protected override void OnActivate()
+        public override void Init(GridStateMachine gridStateMachine)
+        {
+            base.Init(gridStateMachine);
+            _view = gameObject.GetComponent<BattleGridView>();
+            _model = new BattleGridModel(gridStateMachine);
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public override void OnEnter()
         {
             var playerUnits = GameControlService.Instance.PlayerUnits;
             var enemyUnits = GameControlService.Instance.CurrentPathCellInfo.Presets.Select(x => new Unit(x)).ToList();
             Fill(playerUnits, enemyUnits);
         }
 
-        public override void Init()
+        public override void OnExit()
         {
-            base.Init();
-            _view = gameObject.GetComponent<BattleGridView>();
         }
 
         public void OnTurnButtonClicked()
@@ -37,7 +44,7 @@ namespace Grid.BattleGrid
         private void Fill(List<Unit> playerUnits, List<Unit> enemyUnits)
         {
             _view.Fill(playerUnits, enemyUnits, out var playerCells, out var enemyCells);
-            _model = new BattleGridModel(playerCells, enemyCells);
+            _model.AddCells(playerCells, enemyCells);
             _model.StartTurn();
             
             //GridVisualizer.ResetOverPanels();

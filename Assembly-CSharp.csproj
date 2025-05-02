@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\DungeonInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\PathMapCell.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\EnemyPositionPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\GridCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ChemistryInteractor.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellRenderer.cs" />
+    <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ParametersInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />

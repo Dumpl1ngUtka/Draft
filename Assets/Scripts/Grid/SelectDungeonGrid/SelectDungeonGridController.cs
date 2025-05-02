@@ -2,6 +2,7 @@ using System.Linq;
 using Battle.Grid;
 using DungeonMap;
 using Grid.Cells;
+using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
 
 namespace Grid.SelectDungeonGrid
@@ -11,16 +12,20 @@ namespace Grid.SelectDungeonGrid
         private SelectDungeonGridModel _model;
         private SelectDungeonGridView _view;
 
-        protected override void OnActivate()
+        public override void Init(GridStateMachine gridStateMachine)
+        {
+            base.Init(gridStateMachine);
+            _model = new SelectDungeonGridModel(gridStateMachine);
+            _view = GetComponent<SelectDungeonGridView>();
+            SubscribeToCells(_view.Cells.Select(x => x as GridCell).ToList());
+        }
+
+        public override void OnEnter()
         {
         }
 
-        public override void Init()
+        public override void OnExit()
         {
-            base.Init();
-            _model = new SelectDungeonGridModel();
-            _view = GetComponent<SelectDungeonGridView>();
-            SubscribeToCells(_view.Cells.Select(x => x as GridCell).ToList());
         }
 
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)

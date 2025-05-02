@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.Units;
 using Grid.Cells;
 using Services.GameControlService;
+using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Grid.DraftGrid
         private List<Race> _availableRaces => GameControlService.Instance.CurrentDungeonInfo.Races;
         private List<UnitGridCell> _cells;
         
-        public DraftGridModel(List<UnitGridCell> cells)
+        public DraftGridModel(GridStateMachine stateMachine, List<UnitGridCell> cells) : base(stateMachine)
         {
             _cells = cells;
         }
@@ -22,9 +23,14 @@ namespace Grid.DraftGrid
         public void TryFinish()
         {
             if (IsAllCellsFilled())
-                GameControlService.Instance.FinishDraftLevel(_cells.Select(cell => cell.Unit).ToList());
+            {
+                GameControlService.Instance.PlayerUnits = _cells.Select(cell => cell.Unit).ToList();
+                StateMachine.ChangeGrid(StateMachine.PathMapGrid);
+            }
             else
+            {
                 PanelService.Instance.InstantiateErrorPanel("draft_fill_cells_error");
+            }
         }
         
         private bool IsAllCellsFilled()

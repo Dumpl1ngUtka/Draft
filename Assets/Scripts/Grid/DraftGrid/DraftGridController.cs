@@ -1,6 +1,7 @@
 using Battle.Grid;
 using Grid.Cells;
 using Grid.DraftGrid.SelectUnitsMenu;
+using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,15 +17,19 @@ namespace Grid.DraftGrid
         private bool _isDragBeginSuccess;
         private UnitGridCell _draftedCell;
 
-        protected override void OnActivate()
+        public override void Init(GridStateMachine gridStateMachine)
+        {
+            base.Init(gridStateMachine);
+            _view = gameObject.GetComponent<DraftGridView>();
+            _model = new DraftGridModel(gridStateMachine, _view.GetUnitsCellsByTeam(TeamType.Player));
+        }
+
+        public override void OnEnter()
         {
         }
 
-        public override void Init()
+        public override void OnExit()
         {
-            base.Init();
-            _view = gameObject.GetComponent<DraftGridView>();
-            _model = new DraftGridModel(_view.GetUnitsCellsByTeam(TeamType.Player));
         }
 
         public void OnSelectMenuFinished()

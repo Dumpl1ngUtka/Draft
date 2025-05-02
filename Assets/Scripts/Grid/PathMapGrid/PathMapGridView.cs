@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Grid.Cells;
 using UnityEngine;
@@ -9,11 +10,13 @@ namespace Grid.PathMapGrid
         private int ColumnCount = 5;
         private int LineCount = 5;
 
-        [SerializeField] private Color[] _colors;
         [SerializeField] private Transform _cellContainer;
         [SerializeField] private PathMapCell _pathCellPrefab;
         private List<List<PathMapCell>> _cells;
-        public List<List<PathMapCell>> GenerateMap()
+        
+        public List<List<PathMapCell>> Cells => _cells;
+        
+        public void GenerateEmptyMap(List<List<int>> paths)
         {
             ClearContainer(_cellContainer);
             
@@ -29,23 +32,40 @@ namespace Grid.PathMapGrid
                 }
                 cells.Add(line);
             }
+
+            for (int pathIndex = 0; pathIndex < paths.Count; pathIndex++)
+            {
+                var path = paths[pathIndex];
+                for (int lineIndex = 1; lineIndex < LineCount; lineIndex++)
+                {
+                    cells[lineIndex - 1][path[lineIndex - 1]].SetNextCell(cells[lineIndex][path[lineIndex]]);
+                }
+            }
+            
             _cells = cells;
-            
-            Invoke(nameof(ColoredCells), 1f);
-            
-            return cells;
         }
 
-        public void ColoredCells()
+        private void OnEnable()
         {
-            var index = 0;
-            foreach (var line in _cells)
+            Invoke(nameof(FillMap), 0.1f);
+        }
+        
+        public void FillMap()
+        {
+            for (var lineIndex = 0; lineIndex < _cells.Count - 1; lineIndex++)
             {
-                //var lineColor = _colors[index++] ;
-                foreach (var cell in line)
+                var line = _cells[lineIndex];
+                for (var cellInLineIndex = 0; cellInLineIndex < line.Count; cellInLineIndex++)
                 {
+                    var cell = line[cellInLineIndex];
                     cell.SetColor(cell.HasNextCell ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
                 }
+            }
+            var lastLine = _cells[^1];
+            for (var cellInLineIndex = 0; cellInLineIndex < lastLine.Count; cellInLineIndex++)
+            {
+                var cell = lastLine[cellInLineIndex];
+                cell.SetColor(new Color(1, 1, 1, 1));
             }
         }
     }

@@ -761,13 +761,6 @@ MonoBehaviour:
   _type: 0
   _cellPrefab: {fileID: 0}
   Containers: []
-  _colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0.6531563, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 0, b: 0, a: 1}
   _cellContainer: {fileID: 1412566282}
   _pathCellPrefab: {fileID: 2719816353470716851, guid: 551d1f8034eb78d4b980f0bc475b0e15, type: 3}
 --- !u!114 &189126645
@@ -2790,9 +2783,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonInfo:
+    ID: 0
     Name: Dungeon 5
     Description: 
     IsCompleted: 0
+    LineCount: 7
+    ColumnCount: 5
+    PathCount: 3
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
@@ -3042,7 +3039,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105121837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -4643,9 +4640,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonInfo:
+    ID: 0
     Name: Second Dungeon
     Description: 
     IsCompleted: 0
+    LineCount: 7
+    ColumnCount: 5
+    PathCount: 3
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
@@ -4847,9 +4848,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonInfo:
+    ID: 0
     Name: Begin Dungeon
     Description: 
     IsCompleted: 0
+    LineCount: 7
+    ColumnCount: 5
+    PathCount: 3
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
@@ -5034,9 +5039,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonInfo:
+    ID: 0
     Name: Dungeon 4
     Description: 
     IsCompleted: 0
+    LineCount: 7
+    ColumnCount: 5
+    PathCount: 3
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
@@ -5448,9 +5457,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonInfo:
+    ID: 0
     Name: Dungeon 3
     Description: 
     IsCompleted: 0
+    LineCount: 7
+    ColumnCount: 5
+    PathCount: 3
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
