@@ -4,6 +4,7 @@ using Battle.Grid;
 using Battle.Grid.Visualization;
 using Grid.Cells;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Grid
 {
@@ -48,7 +49,27 @@ namespace Grid
                 }
             }
 
+            SetSize();
+
             return cells;
+        }
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void SetSize()
+        {
+            foreach (var container in Containers)
+            {
+                var layoutGroup = container.Container.GetComponent<GridLayoutGroup>();
+                var rectTransform = container.Container.transform as RectTransform;
+                if (layoutGroup == null)
+                    continue;
+                
+                var containerWight = rectTransform.rect.width;
+                var containerHeight = rectTransform.rect.height;
+                layoutGroup.cellSize = Vector2.one * 
+                                       Mathf.Min(containerHeight / layoutGroup.constraintCount, 
+                                           (containerWight * 0.9f) / layoutGroup.constraintCount);
+            }
         }
 
         protected void ClearContainer(Transform container)

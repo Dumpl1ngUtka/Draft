@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Battle\DamageSystem\DamageType.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\HitProbabilityCalculator.cs" />
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridModel.cs" />
+    <Compile Include="Assets\Scripts\DungeonMap\PathCellType.cs" />
     <Compile Include="Assets\Scripts\Bootstrappers\GameBootstrapper.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\DraftGrid.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\CellPreset.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellRenderer.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ParametersInteractor.cs" />
+    <Compile Include="Assets\Scripts\DungeonMap\PathCellRule.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Interactors\Response.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Assets\Scripts\Services\GlobalAnimationService\GlobalAnimationSevice.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\InfoPanel.cs" />
+    <Compile Include="Assets\Scripts\DungeonMap\PathCellChances.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\AbilityTargetFilter.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Grid\TeamType.cs" />

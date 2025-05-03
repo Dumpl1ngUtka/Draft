@@ -40,6 +40,20 @@ namespace Grid
             }
         }
         
+        protected void UnsubscribeToCells(List<GridCell> cells)
+        {
+            foreach (var cell in cells)
+            {
+                cell.DragFinished -= DragFinished;
+                cell.DraggedToCell -= DraggedToCell;
+                cell.DraggedFromCell -= DraggedFromCell;
+                cell.HoldFinished -= HoldFinished;
+                cell.HoldBegin -= HoldBegin;
+                cell.Clicked -= Clicked;
+                cell.DoubleClicked -= DoubleClicked;
+            }
+        }
+        
         public abstract void OnEnter();
         public abstract void OnExit();
         

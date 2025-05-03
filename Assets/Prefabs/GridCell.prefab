@@ -540,7 +540,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3871649365141342856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026146316332798689}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1688,7 +1688,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6694006417119736652}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1784,7 +1784,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7032572620705358382}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2335,6 +2335,10 @@ PrefabInstance:
     - target: {fileID: 4014507626456263990, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_Color.r
       value: 0.38431376
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741140135442952649, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5483286570066037188, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_Color.b
@@ -3724,6 +3728,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.023529414
       objectReference: {fileID: 0}
+    - target: {fileID: 4741140135442952649, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5483286570066037188, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_Color.b
       value: 0.8000001
@@ -4252,6 +4260,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6694048158970444199, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813021474434748633, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

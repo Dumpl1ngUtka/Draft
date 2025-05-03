@@ -26,6 +26,7 @@ namespace Grid.DraftGrid
 
         public override void OnEnter()
         {
+            //_view.SetSize();
         }
 
         public override void OnExit()

@@ -27,7 +27,8 @@ namespace Grid.BattleGrid
         public override void OnEnter()
         {
             var playerUnits = GameControlService.Instance.PlayerUnits;
-            var enemyUnits = GameControlService.Instance.CurrentPathCellInfo.Presets.Select(x => new Unit(x)).ToList();
+            var preset = GameControlService.Instance.CurrentDungeonInfo.GetEnemyPositionPreset();
+            var enemyUnits = preset.GetUnitPresets().Select(x => new Unit(x)).ToList();
             Fill(playerUnits, enemyUnits);
         }
 

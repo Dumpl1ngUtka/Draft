@@ -7,5 +7,6 @@ namespace Grid.Cells
     {
         [SerializeField] private DungeonInfo _dungeonInfo;
         public DungeonInfo DungeonInfo => _dungeonInfo;
+        public RectTransform RectTransform => transform as RectTransform;
     }
 }

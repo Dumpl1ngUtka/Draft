@@ -16,7 +16,6 @@ namespace Services.GlobalAnimationService
 
         private AnimationClipPlayable _oneShotPlayable;
         private float _oneShotTimer = 0f;
-        private float _oneShotAnimationTime;
         private Action _callback;
         public static GlobalAnimationSevice Instance { get; private set; }
 
@@ -71,7 +70,6 @@ namespace Services.GlobalAnimationService
             InterruptOneShot();
             
             _oneShotTimer = animationTime;
-            _oneShotAnimationTime = animationTime;
             _oneShotPlayable = AnimationClipPlayable.Create(_playableGraph, animationClip);
             _oneShotPlayable.SetSpeed(animationClip.length / animationTime);
             _topLevelMixer.ConnectInput(0, _oneShotPlayable, 0);

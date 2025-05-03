@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DungeonMap
 {
@@ -18,6 +19,8 @@ namespace DungeonMap
         public int LineCount;
         public int ColumnCount;
         public int PathCount;
+        [SerializeField] private PathCellChances[] PathCellChances;
+        [SerializeField] PathCellRule[] PathCellRules;
         [Header("Other Data")]
         public List<Class> Classes;
         public List<Race> Races;
@@ -25,7 +28,34 @@ namespace DungeonMap
         public List<EnemyPositionPreset> GetEnemyPositionPresets()
         {
             var path = "DungeonPresets/" + ID;
+            Debug.Log(path);
             return Resources.LoadAll<EnemyPositionPreset>(path).ToList();
+        }
+
+        public EnemyPositionPreset GetEnemyPositionPreset()
+        {
+            var presets = GetEnemyPositionPresets();
+            Debug.Log(presets.Count);
+            return presets[Random.Range(0, presets.Count)];
+        }
+
+        public PathCellType GetRandomPathCellType(int lineIndex)
+        {
+            foreach (var rule in PathCellRules)
+            {
+                if (rule.LineIndex == lineIndex)
+                    return rule.Type;
+            }
+            
+            var sumFrequency = PathCellChances.Sum(chance => chance.Frequency);
+            var randomNum = UnityEngine.Random.Range(0, sumFrequency) + 1;
+            for (int i = 0; i < PathCellChances.Length; i++)
+            {
+                randomNum -= PathCellChances[i].Frequency;
+                if (randomNum <= 0)
+                    return PathCellChances[i].Type;
+            }
+            return PathCellChances[^1].Type;
         }
     }
 }

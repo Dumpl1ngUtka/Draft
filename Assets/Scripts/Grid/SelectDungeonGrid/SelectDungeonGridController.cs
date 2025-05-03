@@ -22,6 +22,7 @@ namespace Grid.SelectDungeonGrid
 
         public override void OnEnter()
         {
+            _view.ControlCellSize();
         }
 
         public override void OnExit()
