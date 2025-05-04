@@ -48,17 +48,17 @@ namespace Grid.BattleGrid
             _model.AddCells(playerCells, enemyCells);
             _model.StartTurn();
             
-            //GridVisualizer.ResetOverPanels();
+            _view.Visualizer.ResetOverPanels();
         }
         
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)
         {
-            //GridVisualizer.SetSizeFor(1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
+            //_view.Visualizer.SetSizeFor(1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
         }
 
         protected override void DraggedToCell(GridCell startDraggingCell, GridCell overCell)
         {
-            //GridVisualizer.SetSizeFor(1.1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
+            //_view.Visualizer.SetSizeFor(1.1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
         }
 
         protected override void DoubleClicked(GridCell cell)

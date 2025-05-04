@@ -28,7 +28,6 @@ namespace DungeonMap
         public List<EnemyPositionPreset> GetEnemyPositionPresets()
         {
             var path = "DungeonPresets/" + ID;
-            Debug.Log(path);
             return Resources.LoadAll<EnemyPositionPreset>(path).ToList();
         }
 

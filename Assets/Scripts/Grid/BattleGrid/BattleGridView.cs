@@ -16,8 +16,6 @@ namespace Grid.BattleGrid
             
             enemyCells = GetUnitsCellsByTeam(TeamType.Enemy);
             FillCells(enemyUnits, enemyCells);
-            
-            //GridVisualizer.ResetOverPanels();
         }
 
         private void FillCells(List<Unit> units, List<UnitGridCell> cells)

@@ -67,8 +67,8 @@ namespace Grid.DraftGrid
         
         public List<UnitGridCell> GetNoSwichCells(UnitGridCell from)
         {
-            var cells = _cells.Where(cell => !from.Unit.Class.LineIndexes.Contains(cell.LineIndex)).ToList();
-            return cells.Where(cell => (cell.Unit != null && cell.Unit.Class.LineIndexes.Contains(from.LineIndex)) || cell.Unit == null).ToList();
+            var swichCells = GetSwichCells(from);
+            return _cells.Where(cell => !swichCells.Contains(cell)).ToList();
         }
 
         public void SwitchCard(UnitGridCell from, UnitGridCell to)

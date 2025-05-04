@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\Battle\Units\UnitPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\ChangeRowOrColumn.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\IVisualEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridController.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\DungeonInfo.cs" />
@@ -62,9 +63,9 @@
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridModel.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\PathCellType.cs" />
     <Compile Include="Assets\Scripts\Bootstrappers\GameBootstrapper.cs" />
-    <Compile Include="Assets\Scripts\Battle\Grid\DraftGrid.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\CellPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\Effect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\ValueParameter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\CardInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\ChemestryInteractor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitGridCellRenderer.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\TurnInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
@@ -98,12 +100,12 @@
     <Compile Include="Assets\Scripts\Grid\Cells\DungeonCell.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridModel.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Race.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\ShakeEffect.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridController.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsPanel.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\TextWithLinks.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\AttributesType.cs" />
-    <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellRenderer.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ParametersInteractor.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\PathCellRule.cs" />
@@ -154,7 +156,6 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\PassiveEffectsInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ApplyDamage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Scripts\Battle\Units\UnitParameters.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\CovenantType.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GameControlService.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridCellInteractor.cs" />

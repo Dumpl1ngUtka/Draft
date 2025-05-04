@@ -16,7 +16,24 @@ namespace Grid
         [SerializeField] private GridType _type;
         [SerializeField] private UnitGridCell _cellPrefab;
         [SerializeField] protected UnitGridCellContainer[] Containers;
-
+        private GridVisualizer _gridVisualizer;
+        
+        public GridVisualizer Visualizer
+        {
+            get
+            {
+                if (_gridVisualizer == null)
+                {
+                    _gridVisualizer = new GridVisualizer();
+                    var cells = new List<UnitGridCell>();
+                    foreach (var container in Containers)
+                        cells.AddRange(container.GetCells());
+                    _gridVisualizer.AddCells(cells);
+                }
+                return _gridVisualizer;
+            }
+        }
+        
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
@@ -49,13 +66,13 @@ namespace Grid
                 }
             }
 
-            SetSize();
+            SetContaindersSize();
 
             return cells;
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
-        private void SetSize()
+        private void SetContaindersSize()
         {
             foreach (var container in Containers)
             {

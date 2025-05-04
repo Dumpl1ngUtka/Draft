@@ -19,7 +19,6 @@ namespace Grid.BattleGrid
         private UseReactionInteractor _useReactionInteractor;
         private TurnInteractor _turnInteractor;
 
-
         public BattleGridModel(GridStateMachine stateMachine) : base(stateMachine)
         {
             _useReactionInteractor = new UseReactionInteractor();

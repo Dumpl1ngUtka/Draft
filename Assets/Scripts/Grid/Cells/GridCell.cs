@@ -36,7 +36,8 @@ namespace Grid.Cells
         {
             StopCoroutine(_holdRoutine);
 
-            if (eventData.pointerCurrentRaycast.gameObject.TryGetComponent(out UnitGridCell cell) && cell != this)
+            var gameObj = eventData.pointerCurrentRaycast.gameObject;
+            if (gameObj != null && gameObj.TryGetComponent(out UnitGridCell cell) && cell != this)
             {
                 DragFinished?.Invoke(this, cell);
                 return;
@@ -58,7 +59,6 @@ namespace Grid.Cells
                 StopCoroutine(_doubleClickRoutine);
                 DoubleTouch();
             }
-            
         }
         
         private void OneTouch()
@@ -76,15 +76,31 @@ namespace Grid.Cells
         public void OnDrag(PointerEventData eventData)
         {
             var wasOverCell = _dragOverCell != null;
-            var isOverCell = eventData.pointerCurrentRaycast.gameObject.TryGetComponent(out UnitGridCell cell);
-            var isOurCell = cell == this;
             
-            if (isOverCell && !wasOverCell)
+            var gameObj = eventData.pointerCurrentRaycast.gameObject;
+            if (gameObj == null)
+            {
+                if (_dragOverCell != null)
+                {
+                    DraggedFromCell?.Invoke(this, _dragOverCell);
+                    _dragOverCell = null;
+                }
+                return;
+            }
+
+            var nowOnCell = gameObj.TryGetComponent(out UnitGridCell cell);
+            
+            if (nowOnCell && !wasOverCell)
             {
                 _dragOverCell = cell;
                 DraggedToCell?.Invoke(this, cell);
             }
-            else if (!isOurCell)
+            else if ((!nowOnCell ) && wasOverCell)
+            {
+                DraggedFromCell?.Invoke(this, _dragOverCell);
+                _dragOverCell = null;
+            }
+            else if (cell != null && cell != _dragOverCell)
             {
                 DraggedFromCell?.Invoke(this, _dragOverCell);
                 _dragOverCell = null;

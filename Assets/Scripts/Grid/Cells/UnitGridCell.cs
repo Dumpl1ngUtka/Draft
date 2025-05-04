@@ -9,13 +9,13 @@ namespace Grid.Cells
         public int LineIndex { get; private set; }
         public int ColumnIndex { get; private set; }
         public Unit Unit { get; private set; }
-        public GridCellRenderer Renderer { get; private set; }
+        public UnitGridCellRenderer Renderer { get; private set; }
         
         private GridType _gridType;
         
         public void Init(int lineIndex, int columnIndex, TeamType teamType, GridType preset)
         {
-            Renderer = GetComponent<GridCellRenderer>();
+            Renderer = GetComponent<UnitGridCellRenderer>();
             Renderer.Init();
             _gridType = preset;
             

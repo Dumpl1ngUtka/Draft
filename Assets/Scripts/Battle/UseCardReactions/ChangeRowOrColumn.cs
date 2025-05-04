@@ -1,11 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid;
-using Battle.Units.Interactors;
 using Grid.Cells;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Battle.UseCardReactions
 {

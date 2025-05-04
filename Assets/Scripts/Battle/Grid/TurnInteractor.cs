@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
 using Grid.Cells;
-using UnityEngine;
 
 namespace Battle.Grid
 {
