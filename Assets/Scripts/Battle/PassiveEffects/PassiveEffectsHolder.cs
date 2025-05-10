@@ -10,6 +10,7 @@ namespace Battle.PassiveEffects
         private List<PassiveEffect> _passiveEffects;
         
         public Action PassiveEffectsChanged;
+        public Action<PassiveEffect, TriggerType> EffectApplied;
         
         public PassiveEffectsHolder(Unit unit)
         {
@@ -20,9 +21,11 @@ namespace Battle.PassiveEffects
         public void AddEffect(PassiveEffect effect)
         {
             effect.OnAdd();
+            EffectApplied?.Invoke(effect, TriggerType.Add);
             if (effect.TurnCount == 0)
             {
                 effect.Destroy();
+                EffectApplied?.Invoke(effect, TriggerType.Destroy);
             }
             else
             {
@@ -36,9 +39,13 @@ namespace Battle.PassiveEffects
             foreach (var effect in _passiveEffects)
             {
                 effect.OnTurnEnded();
+                EffectApplied?.Invoke(effect, TriggerType.TurnEnded);
                 effect.ReduceCount();
                 if (effect.TurnCount <= 0)
+                {
                     effect.Destroy();
+                    EffectApplied?.Invoke(effect, TriggerType.Destroy);
+                }
             }  
             _passiveEffects = _passiveEffects.Where(effect => effect != null).ToList();
             PassiveEffectsChanged?.Invoke();

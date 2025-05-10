@@ -1,3 +1,4 @@
+using System;
 using Battle.DamageSystem;
 using Battle.Units;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace Battle.PassiveEffects
         [SerializeField] protected Sprite _icon;
         [SerializeField] protected Color _color;
         [SerializeField] protected int _turnCount;
+        [Header("Animation Clips")]
+        [SerializeField] protected AnimationClip _addClip;
+        [SerializeField] protected AnimationClip _turnClip;
+        [SerializeField] protected AnimationClip _destroyClip;
         protected Unit Caster;
         protected Unit Owner;
         
@@ -33,13 +38,44 @@ namespace Battle.PassiveEffects
             RemoveEffect();
             Destroy(this);
         }
-        
-        public abstract PassiveEffect GetInstance(Unit caster, Unit owner);
+
+        public AnimationClip GetClipByType(TriggerType type)
+        {
+            return type switch
+            {
+                TriggerType.Add => _addClip,
+                TriggerType.TurnEnded => _turnClip,
+                TriggerType.Destroy => _destroyClip,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+        }
+
+        public PassiveEffect GetInstance(Unit caster, Unit owner)
+        {
+            var instance = CreateInstance(caster, owner);
+            instance._turnCount = _turnCount;
+            instance._icon = _icon;
+            instance._color = _color;
+            instance.Caster = caster;
+            instance.Owner = owner;
+            instance._addClip = _addClip;
+            instance._turnClip = _turnClip;
+            instance._destroyClip = _destroyClip;
+            return instance;
+        }
+        protected abstract PassiveEffect CreateInstance(Unit caster, Unit owner);
         
         protected abstract void AddEffect();
         
         protected abstract void TurnEffect();
         
         protected abstract void RemoveEffect();
+    }
+
+    public enum TriggerType
+    {
+        Add,
+        TurnEnded,
+        Destroy,
     }
 }

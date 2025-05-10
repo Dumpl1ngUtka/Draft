@@ -37,6 +37,11 @@ namespace Battle.Abilities
 
         public Response TryUseAbility(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
         {
+            if (!caster.Unit.IsReady)
+            {
+                return new Response(false, "is_not_ready_error");
+            }
+            
             if (!_targetFilter.IsRightTarget(caster, target))
                 return new Response(false, "wrong_target_error");
             

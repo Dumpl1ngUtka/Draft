@@ -371,7 +371,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4795363162621231457, guid: a8d6e264e90b5a1429dc598901f905c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28feda3ed6f171f4bb4e053664857985, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -606,7 +606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4274923999518563885
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1161,7 +1161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &428111089162710367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1258,7 +1258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1346494894511999754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6337834178207969660}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1391,7 +1391,7 @@ GameObject:
   - component: {fileID: 5628327245785359503}
   - component: {fileID: 426114959665832530}
   m_Layer: 0
-  m_Name: GridCell
+  m_Name: GuildCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1495,6 +1495,7 @@ MonoBehaviour:
     _preset:
       types: 00000000
     _icon: {fileID: 2578084785235674488}
+    _noneSprite: {fileID: 21300000, guid: 301a27dc605a0c940a2e7a13d905196c, type: 3}
   _chemistryInteractor:
     _preset:
       types: 01000000
@@ -1779,7 +1780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8319593995955146823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2253,7 +2254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435861932589663968, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3058,7 +3059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435861932589663968, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3335,7 +3336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435861932589663968, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4171,7 +4172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435861932589663968, guid: 98d9935a88026024d932a2a7e340b472, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4205,6 +4206,10 @@ PrefabInstance:
     - target: {fileID: 6391935858743535600, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
       propertyPath: m_Name
       value: Dice
+      objectReference: {fileID: 0}
+    - target: {fileID: 6391935858743535600, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6694048158970444199, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
       propertyPath: m_Pivot.x

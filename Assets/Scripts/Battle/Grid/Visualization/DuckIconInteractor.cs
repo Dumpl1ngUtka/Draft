@@ -9,6 +9,7 @@ namespace Battle.Grid.Visualization
     public class DuckIconInteractor : GridCellInteractor
     {
         [SerializeField] private Image _icon;
+        [SerializeField] private Sprite _noneSprite;
         
         protected override void ActiveChanged(bool isActive)
         {
@@ -17,7 +18,7 @@ namespace Battle.Grid.Visualization
 
         protected override void UpdateInfo(Unit unit)
         {
-            _icon.sprite = unit.Icon;
+            _icon.sprite = unit == null? _noneSprite : unit.Icon;
         }
 
         public void Display(Unit unit)

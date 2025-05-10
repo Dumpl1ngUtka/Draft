@@ -44,7 +44,7 @@ namespace Grid.DraftGrid.SelectUnitsMenu
         {
             var containerWidth = ((RectTransform)_container.transform).rect.width;
             var sidesRatio = _container.cellSize / (Mathf.Min(_container.cellSize.x, _container.cellSize.y));
-            _container.cellSize = sidesRatio * (containerWidth * 0.9f) / 3;    
+            _container.cellSize = sidesRatio * (containerWidth * 0.9f) / _container.constraintCount;    
         }
     }
 }

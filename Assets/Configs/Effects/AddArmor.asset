@@ -15,4 +15,7 @@ MonoBehaviour:
   _icon: {fileID: 7409653341989596904, guid: 2bd21e7d33f6b1746a19723d4ddaa915, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _turnCount: 2
+  _addClip: {fileID: 7400000, guid: fce8d3772cfd1e940a12ffc15db95f31, type: 2}
+  _turnClip: {fileID: 0}
+  _destroyClip: {fileID: 7400000, guid: 7f7be69bca16e914cb35e11fc940953d, type: 2}
   Value: 5

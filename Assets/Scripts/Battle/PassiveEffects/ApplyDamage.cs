@@ -13,17 +13,9 @@ namespace Battle.PassiveEffects
         public  AttributesType _damageAttribute;
         public  int _damagePerAttribute;
         
-        
-        public override PassiveEffect GetInstance(Unit caster, Unit owner)
+        protected override PassiveEffect CreateInstance(Unit caster, Unit owner)
         {
-            var effect = ScriptableObject.CreateInstance<ApplyDamage>();
-            effect._damagePerAttribute = _damagePerAttribute;
-            effect._damageAttribute = _damageAttribute;
-            effect._baseDamage = _baseDamage;
-            effect._damageType = _damageType;
-            effect.Caster = caster;
-            effect.Owner = owner;
-            return effect;
+            return ScriptableObject.CreateInstance<ApplyDamage>();
         }
 
         protected override void AddEffect()

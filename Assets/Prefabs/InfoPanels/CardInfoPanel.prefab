@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 95.25
+  m_fontSize: 76
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390fa1014296d3a429eed6fa916ff376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _infoPanelPrefab: {fileID: 0}
 --- !u!1 &1800127630359415514
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +242,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 95.25
+  m_fontSize: 76
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -299,7 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390fa1014296d3a429eed6fa916ff376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _infoPanelPrefab: {fileID: 0}
 --- !u!1 &3392854886029141938
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 46aeb5d3d6a87bc48bd060400a8f0cb2, type: 3}
+  m_Sprite: {fileID: -1469909079130451432, guid: 26fc246bff506d246876f56168ac3b41, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

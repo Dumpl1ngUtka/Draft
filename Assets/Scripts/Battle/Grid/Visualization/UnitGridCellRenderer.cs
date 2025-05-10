@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Battle.PassiveEffects;
 using UnityEngine;
 using Unit = Battle.Units.Unit;
 
@@ -23,6 +24,7 @@ namespace Battle.Grid.Visualization
         public void Init()
         {
             GroupInteractors();
+            _overPanelInteractor.Init();
         }
         
         private void GroupInteractors()
@@ -49,7 +51,18 @@ namespace Battle.Grid.Visualization
             _unit.DicePowerChanged += DicePowerChanged;  
             _unit.ReadyStatusChanged += ReadyStatusChanged;
             _unit.PassiveEffectsChanged += PassiveEffectsChanged;
+            _unit.PassiveEffectsHolder.EffectApplied += EffectApplied;
             Render(_unit);
+        }
+
+        private void EffectApplied(PassiveEffect effect, TriggerType type)
+        {
+            var clip = effect.GetClipByType(type);
+            if (clip != null)
+            {
+                PlayAnimation(clip, clip.length);
+            }
+            
         }
 
         public void UnsubscribeFromUnit()
@@ -64,7 +77,7 @@ namespace Battle.Grid.Visualization
         }
         
         private void PassiveEffectsChanged() => _passiveInteractor.Render(_unit);
-        
+
         private void ReadyStatusChanged() => _diceInteractor.Render(_unit);
 
         private void DicePowerChanged() => _diceInteractor.Render(_unit);
@@ -78,6 +91,12 @@ namespace Battle.Grid.Visualization
         private void Update()
         {
             _sizeInteractor.Update();
+            _overPanelInteractor.Update();
+        }
+
+        public void PlayAnimation(AnimationClip animationClip, float duration)
+        {
+            _overPanelInteractor.PlayOneShotAnimation(animationClip, duration);
         }
         
         public void SetOverText(string text)
@@ -122,6 +141,11 @@ namespace Battle.Grid.Visualization
             _diceInteractor.SetActiveAdditionalValue(!isZero);
             if (!isZero)
                 _diceInteractor.RenderAdditionalValue(value);
+        }
+
+        private void OnDestroy()
+        {
+            _overPanelInteractor.OnDestroy();
         }
     }
 }
