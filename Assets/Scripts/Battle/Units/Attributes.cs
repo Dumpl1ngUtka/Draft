@@ -7,7 +7,7 @@ namespace Battle.Units
     [Serializable]
     public class Attributes
     {
-        private const int maxLevel = 20;
+        private const int maxLevel = 10;
 
         [SerializeField] private int _health;
         [SerializeField] private int _dexterity;

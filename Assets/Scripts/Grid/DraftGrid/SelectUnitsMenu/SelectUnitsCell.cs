@@ -1,4 +1,5 @@
 using Battle.Grid.CardParameter;
+using Battle.Grid.CardParameter.GraduationParameter;
 using Battle.Units;
 using TMPro;
 using UnityEngine;
@@ -12,16 +13,12 @@ namespace Grid.DraftGrid.SelectUnitsMenu
         [SerializeField] private Image _duckIcon;
         [SerializeField] private TMP_Text _classField;
         [SerializeField] private TMP_Text _nameField;
-        [SerializeField] private CircleParameter _levelField;
         [SerializeField] private Image _outlineImage;
         [Header("Icons")]
         [SerializeField] private Image _raceIcon;
         [SerializeField] private Image _covenantIcon;
         [Header("Attributes")]
-        [SerializeField] private CircleParameter _health;
-        [SerializeField] private CircleParameter _strength;
-        [SerializeField] private CircleParameter _dexterity;
-        [SerializeField] private CircleParameter _intelligence;
+        [SerializeField] private GraduationParameterHolder _parameterHolder;
         private SelectUnitsPanel _selectUnitsPanel;
         
         public Unit Unit { get; private set; } 
@@ -37,10 +34,7 @@ namespace Grid.DraftGrid.SelectUnitsMenu
             _raceIcon.sprite = unit.Race.Icon;
             _covenantIcon.sprite = unit.Covenant.Icon;
             
-            _health.Render(unit.Attributes.Health);
-            _strength.Render(unit.Attributes.Strength);
-            _dexterity.Render(unit.Attributes.Dexterity);
-            _intelligence.Render(unit.Attributes.Intelligence);
+            _parameterHolder.Render(unit);
         }
 
         public void SetOutline(bool isSelected)

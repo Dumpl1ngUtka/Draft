@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Battle.Grid.Visualization;
 using Battle.Units;
@@ -12,7 +13,12 @@ namespace Grid.DraftGrid
         [SerializeField] private SelectUnitsMenu.SelectUnitsPanel _selectUnitsPanel;
         private List<Effect> _effects = new List<Effect>();
         private Effect _dragEffect;
-        
+
+        private void Awake()
+        {
+            HideSelectMenu();
+        }
+
         public void ShowSelectMenu(List<Unit> units)
         {
             _selectUnitsPanel.SetActive(true);

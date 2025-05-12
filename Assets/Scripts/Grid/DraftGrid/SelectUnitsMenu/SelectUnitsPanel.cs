@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Battle.Units;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace Grid.DraftGrid.SelectUnitsMenu
     {
         [SerializeField] private SelectUnitsCell[] _selectUnitsCells;
         [SerializeField] private GridLayoutGroup _container;
+        [Header("Animation")]
+        [SerializeField] private RectTransform _animatedBody;
+        [SerializeField] private float _animationDuration;
+        [SerializeField] private AnimationCurve _heightCurve;
         public SelectUnitsCell SelectedCell { get; private set; }
         
         public void Init()
@@ -21,6 +26,8 @@ namespace Grid.DraftGrid.SelectUnitsMenu
             SelectedCell = null;
             SelectUnitCell(SelectedCell);
             gameObject.SetActive(isActive);
+            if (isActive)
+                StartCoroutine(EnableAimation());
         }
 
         public void RenderUnits(List<Unit> units)
@@ -42,9 +49,23 @@ namespace Grid.DraftGrid.SelectUnitsMenu
         
         private void ControlSize()
         {
-            var containerWidth = ((RectTransform)_container.transform).rect.width;
-            var sidesRatio = _container.cellSize / (Mathf.Min(_container.cellSize.x, _container.cellSize.y));
-            _container.cellSize = sidesRatio * (containerWidth * 0.9f) / _container.constraintCount;    
+            var cellWidth = (((RectTransform)_container.transform).rect.width) / _container.constraintCount;
+            var cellHeight = (((RectTransform)_container.transform).rect.height) / (_selectUnitsCells.Length / _container.constraintCount);
+            _container.cellSize = new Vector2(cellWidth, cellHeight);
+        }
+
+        private IEnumerator EnableAimation()
+        {
+            var maxHeight = Screen.height / 2;
+            _animatedBody.localPosition = Vector3.up * Screen.height;
+            var timer = 0f;
+            while (timer < _animationDuration)
+            {
+                var height = _heightCurve.Evaluate(timer / _animationDuration) * maxHeight;
+                _animatedBody.localPosition = Vector3.up * height;
+                timer += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }
