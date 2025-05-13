@@ -12,11 +12,14 @@ namespace Battle.Grid.Visualization
 
         protected override void ActiveChanged(bool isActive)
         {
-            _overText.gameObject.SetActive(isActive);
+            _overText?.gameObject.SetActive(isActive);
         }
 
         public void SetText(string text)
         {
+            if (_overText == null)
+                return;
+            
             _overText.text = text;
         }
         

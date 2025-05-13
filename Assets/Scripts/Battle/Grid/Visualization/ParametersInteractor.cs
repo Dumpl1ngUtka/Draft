@@ -15,19 +15,19 @@ namespace Battle.Grid.Visualization
         
         protected override void ActiveChanged(bool isActive)
         {
-            _health.gameObject.SetActive(isActive);
-            _strength.gameObject.SetActive(isActive);
-            _dexterity.gameObject.SetActive(isActive);
-            _intelligence.gameObject.SetActive(isActive);
+            _health?.gameObject.SetActive(isActive);
+            _strength?.gameObject.SetActive(isActive);
+            _dexterity?.gameObject.SetActive(isActive);
+            _intelligence?.gameObject.SetActive(isActive);
         }
 
         protected override void UpdateInfo(Unit unit)
         {
             var attributes = unit.Attributes;
-            _health.Render(attributes.Health);
-            _strength.Render(attributes.Strength);
-            _dexterity.Render(attributes.Dexterity);
-            _intelligence.Render(attributes.Intelligence);
+            _health?.Render(attributes.Health);
+            _strength?.Render(attributes.Strength);
+            _dexterity?.Render(attributes.Dexterity);
+            _intelligence?.Render(attributes.Intelligence);
         }
     }
 }

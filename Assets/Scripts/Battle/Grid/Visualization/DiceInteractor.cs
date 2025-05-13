@@ -16,15 +16,21 @@ namespace Battle.Grid.Visualization
         
         protected override void ActiveChanged(bool isActive)
         {
-            _diceIcon.gameObject.SetActive(isActive);
+            _diceIcon?.gameObject.SetActive(isActive);
             SetActiveAdditionalValue(false);
         }
 
         protected override void UpdateInfo(Unit unit)
         {
+            if (_diceIcon == null)
+                return;
+            
             if (!unit.IsReady)
             {
-                _diceIcon.sprite = Resources.Load<Sprite>("Sprites/None");
+                if (_noneIcon == null)
+                    _noneIcon = Resources.Load<Sprite>("Sprites/None");
+                
+                _diceIcon.sprite = _noneIcon;
                 return;
             }
             
@@ -34,12 +40,15 @@ namespace Battle.Grid.Visualization
 
         public void SetActiveAdditionalValue(bool isActive)
         {
-            _additionalValueImage.gameObject.SetActive(isActive);
-            _additionalValueText.gameObject.SetActive(isActive);
+            _additionalValueImage?.gameObject.SetActive(isActive);
+            _additionalValueText?.gameObject.SetActive(isActive);
         }
 
         public void RenderAdditionalValue(int value)
         {
+            if (_additionalValueImage == null || _additionalValueText == null)
+                return;
+            
             var isPositive = value > 0;
             _additionalValueText.text = (isPositive ? "+" : "") + value;
             _additionalValueImage.color = isPositive ? Color.green : Color.red;

@@ -12,12 +12,12 @@ namespace Battle.Grid.Visualization
                             
         protected override void ActiveChanged(bool isActive)
         {
-            _chemistry.gameObject.SetActive(isActive);
+            _chemistry?.gameObject.SetActive(isActive);
         }
 
         protected override void UpdateInfo(Unit unit)
         {
-            _chemistry.Render(unit.Chemistry);
+            _chemistry?.Render(unit.Chemistry);
         }
     }
 }

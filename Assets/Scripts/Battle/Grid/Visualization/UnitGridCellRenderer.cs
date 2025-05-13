@@ -32,11 +32,12 @@ namespace Battle.Grid.Visualization
             _allInteractors = new List<GridCellInteractor>
             {
                 _duckIconInteractor,
-                _parameterInteractor,
                 _chemistryInteractor,
-                _diceInteractor,
                 _passiveInteractor,
+                _parameterInteractor,
+                _unitBelongingInteractor,
                 _healthInteractor,
+                _diceInteractor,
                 _overPanelInteractor,
                 _overTextInteractor,
             };
@@ -76,7 +77,11 @@ namespace Battle.Grid.Visualization
             _unit = null;
         }
         
-        private void PassiveEffectsChanged() => _passiveInteractor.Render(_unit);
+        private void PassiveEffectsChanged()
+        {
+            _passiveInteractor.Render(_unit);
+            _healthInteractor.Render(_unit);
+        }
 
         private void ReadyStatusChanged() => _diceInteractor.Render(_unit);
 

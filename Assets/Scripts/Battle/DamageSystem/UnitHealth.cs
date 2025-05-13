@@ -39,7 +39,7 @@ namespace Battle.DamageSystem
         public void ApplyDamage(Damage damage)
         {
             var value = CalculateResistance(damage);
-            value = CalculateArmor(value);
+            //value = CalculateArmor(value);
             _currentHealth -= value;
             if (_currentHealth < 0)
             {

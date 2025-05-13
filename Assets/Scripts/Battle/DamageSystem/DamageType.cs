@@ -4,5 +4,6 @@ namespace Battle.DamageSystem
     {
         Physical,
         Magical,
+        Acid,
     }
 }

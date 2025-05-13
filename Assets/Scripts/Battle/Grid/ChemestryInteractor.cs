@@ -10,7 +10,7 @@ namespace Battle.Grid
         private readonly Dictionary<Race, int> _raceCounts = new Dictionary<Race, int>();
         private readonly Dictionary<Covenant, int> _covenantCounts = new Dictionary<Covenant, int>();
         private readonly Dictionary<CovenantType, int> _covenantTypeCounts = new Dictionary<CovenantType, int>();
-        private readonly List<UnitGridCell> _cells;
+        private List<UnitGridCell> _cells;
         
         public int AllTeamChem {get; private set;}
 

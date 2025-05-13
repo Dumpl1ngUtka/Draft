@@ -13,11 +13,14 @@ namespace Battle.Grid.Visualization
 
         protected override void ActiveChanged(bool isActive)
         {
-            _container.gameObject.SetActive(isActive);
+            _container?.gameObject.SetActive(isActive);
         }
 
         protected override void UpdateInfo(Unit unit)
         {
+            if (_container == null)
+                return;
+            
             ClearContainer();
             var effects = unit.PassiveEffectsHolder.GetPassiveEffects();
             foreach (var effect in effects)

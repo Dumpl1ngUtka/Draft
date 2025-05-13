@@ -8,20 +8,28 @@ namespace Battle.PassiveEffects
     public class ApplyDamage : PassiveEffect
     {
         [Header("Apply Damage")]
-        public int _baseDamage;
-        public  DamageType _damageType;
-        public  AttributesType _damageAttribute;
-        public  int _damagePerAttribute;
+        [SerializeField] private int _baseDamage;
+        [SerializeField] private DamageType _damageType;
+        [SerializeField] private AttributesType _damageAttribute;
+        [SerializeField] private int _damagePerAttribute;
+
+        [HideInInspector] public int DamageValue;
+        public DamageType DamageType => _damageType;
         
         protected override PassiveEffect CreateInstance(Unit caster, Unit owner)
         {
-            return ScriptableObject.CreateInstance<ApplyDamage>();
+            var effect = ScriptableObject.CreateInstance<ApplyDamage>();
+            effect._baseDamage = _baseDamage;
+            effect._damageType = _damageType;
+            effect._damageAttribute = _damageAttribute;
+            effect._damagePerAttribute = _damagePerAttribute;
+            effect.DamageValue = effect._baseDamage + caster.Attributes.GetAttributeValueByType(_damageAttribute) * effect._damagePerAttribute;
+            return effect;
         }
 
         protected override void AddEffect()
         {
-            var damageValue = _baseDamage + Caster.Attributes.GetAttributeValueByType(_damageAttribute) * _damagePerAttribute;
-            var damage = new Damage(damageValue, _damageType);
+            var damage = new Damage(DamageValue, _damageType);
             Owner.Health.ApplyDamage(damage);
         }
 

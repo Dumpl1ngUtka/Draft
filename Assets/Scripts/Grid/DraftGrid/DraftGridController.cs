@@ -29,6 +29,7 @@ namespace Grid.DraftGrid
 
         public override void OnEnter()
         {
+            _model.StartDraft();
         }
 
         public override void OnExit()

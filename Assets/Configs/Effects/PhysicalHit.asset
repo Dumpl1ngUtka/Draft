@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca1f849ab324e1fad0b5912e124d7f4, type: 3}
   m_Name: PhysicalHit
   m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+  _color: {r: 0, g: 0, b: 0, a: 0}
   _turnCount: 0
-  _baseDamage: 5
+  _addClip: {fileID: 0}
+  _turnClip: {fileID: 0}
+  _destroyClip: {fileID: 0}
+  _baseDamage: 3
   _damageType: 0
   _damageAttribute: 2
   _damagePerAttribute: 1
+  DamageValue: 0

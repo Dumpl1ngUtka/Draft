@@ -34,7 +34,6 @@ namespace DungeonMap
         public EnemyPositionPreset GetEnemyPositionPreset()
         {
             var presets = GetEnemyPositionPresets();
-            Debug.Log(presets.Count);
             return presets[Random.Range(0, presets.Count)];
         }
 
@@ -47,7 +46,7 @@ namespace DungeonMap
             }
             
             var sumFrequency = PathCellChances.Sum(chance => chance.Frequency);
-            var randomNum = UnityEngine.Random.Range(0, sumFrequency) + 1;
+            var randomNum = Random.Range(0, sumFrequency) + 1;
             for (int i = 0; i < PathCellChances.Length; i++)
             {
                 randomNum -= PathCellChances[i].Frequency;

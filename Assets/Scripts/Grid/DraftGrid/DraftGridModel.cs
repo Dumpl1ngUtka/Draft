@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Grid;
 using Battle.Units;
 using Grid.Cells;
 using Services.GameControlService;
@@ -14,6 +15,7 @@ namespace Grid.DraftGrid
         private List<Class> _availableClasses => GameControlService.Instance.CurrentDungeonInfo.Classes;
         private List<Race> _availableRaces => GameControlService.Instance.CurrentDungeonInfo.Races;
         private List<UnitGridCell> _cells;
+        private ChemestryInteractor _chemestryInteractor;
         
         public DraftGridModel(GridStateMachine stateMachine, List<UnitGridCell> cells) : base(stateMachine)
         {
@@ -57,6 +59,7 @@ namespace Grid.DraftGrid
         public void SetUnitToCell(Unit unit, UnitGridCell unitGridCell)
         {
             unitGridCell.AddUnit(unit);
+            _chemestryInteractor.UnitAdded(unit);
         }
         
         public List<UnitGridCell> GetSwichCells(UnitGridCell from)
@@ -100,6 +103,11 @@ namespace Grid.DraftGrid
                 cell.AddUnit(unit);
             }
             TryFinish();
+        }
+
+        public void StartDraft()
+        {
+            _chemestryInteractor = new ChemestryInteractor(_cells);
         }
     }
 }
