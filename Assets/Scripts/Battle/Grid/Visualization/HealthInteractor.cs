@@ -22,10 +22,8 @@ namespace Battle.Grid.Visualization
 
         protected override void UpdateInfo(Unit unit)
         {
-            var unitHealth = unit.Health;
-            _health?.Render(unitHealth.CurrentHealth, unitHealth.MaxHealth);
-            var armor = unit.PassiveEffectsHolder.GetPassiveEffects().Sum(x => ((AddArmor)x).Value);
-            _armor?.Render(armor);
+            _health?.Render(unit.Stats.CurrentHealth, unit.Stats.MaxHealth.Value);
+            _armor?.Render(unit.Stats.Armor.Value);
         }
     }
 }

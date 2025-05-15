@@ -16,21 +16,20 @@ namespace Battle.PassiveEffects
         [HideInInspector] public int DamageValue;
         public DamageType DamageType => _damageType;
         
-        protected override PassiveEffect CreateInstance(Unit caster, Unit owner)
+        protected override PassiveEffect CreateInstance(UnitStats caster, UnitStats owner)
         {
             var effect = ScriptableObject.CreateInstance<ApplyDamage>();
             effect._baseDamage = _baseDamage;
             effect._damageType = _damageType;
             effect._damageAttribute = _damageAttribute;
             effect._damagePerAttribute = _damagePerAttribute;
-            effect.DamageValue = effect._baseDamage + caster.Attributes.GetAttributeValueByType(_damageAttribute) * effect._damagePerAttribute;
+            effect.DamageValue = effect._baseDamage + caster.StrengthAttribute.Value * effect._damagePerAttribute;
             return effect;
         }
 
         protected override void AddEffect()
         {
-            var damage = new Damage(DamageValue, _damageType);
-            Owner.Health.ApplyDamage(damage);
+            Owner.CurrentHealth -= DamageValue;
         }
 
         protected override void TurnEffect()

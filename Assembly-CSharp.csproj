@@ -54,9 +54,11 @@
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\ChangeRowOrColumn.cs" />
     <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\IVisualEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridView.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\Slippery.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridController.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\DungeonInfo.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\AbilityRangeFilter.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ITagReader.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\DamageType.cs" />
     <Compile Include="Assets\Scripts\Battle\Abilities\HitProbabilityCalculator.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\ApplyDamage.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\SameRaceReaction.cs" />
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\UnitGridCellContainer.cs" />
@@ -83,9 +86,9 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitGridCellRenderer.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\TurnInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffect.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\UnitStats\Stat.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
-    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ICombinationEffect.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitBelongingInteractor.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Assets\Scripts\Battle\Units\Interactors\Response.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\PassiveEffectCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\AddArmor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffectsHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Class.cs" />
@@ -124,16 +128,19 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\DiceInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\Reaction.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverTextInteractor.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\UnitStats\StatInt.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\CircleParameterCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\PanelService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridController.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffectsCombination.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\UnitHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\Interactors\Reaction\UseReactionInteractor.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\UnitStats\UnitStats.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\GridVisualizer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
@@ -149,6 +156,7 @@
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Grid\TeamType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\UnitStats\StatModifier.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\GraduationParameter\GraduationParameterHolder.cs" />
     <Compile Include="Assets\Scripts\Grid\GridModel.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\CircleParameter.cs" />
@@ -157,7 +165,7 @@
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\PassiveEffectsInteractor.cs" />
-    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ApplyDamage.cs" />
+    <Compile Include="Assets\Scripts\Battle\Units\Tag.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Battle\Units\CovenantType.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GameControlService.cs" />
@@ -168,7 +176,6 @@
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
     <Compile Include="Assets\Scripts\PathMap\PathCellInfo.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
-    <Compile Include="Assets\Scripts\Battle\PassiveEffects\AddArmor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

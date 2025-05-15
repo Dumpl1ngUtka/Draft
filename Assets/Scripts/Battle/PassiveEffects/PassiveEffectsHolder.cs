@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
+using UnityEngine;
 
 namespace Battle.PassiveEffects
 {
@@ -20,35 +21,23 @@ namespace Battle.PassiveEffects
         
         public void AddEffect(PassiveEffect effect)
         {
-            var newEffect = CheckCombinationEffects(effect);
-            newEffect.OnAdd();
-            EffectApplied?.Invoke(newEffect, TriggerType.Add);
-            if (newEffect.TurnCount == 0)
+            if (effect == null)
+                return;
+            
+            effect.OnAdd();
+            EffectApplied?.Invoke(effect, TriggerType.Add);
+            if (effect.TurnCount == 0)
             {
-                newEffect.Destroy();
-                EffectApplied?.Invoke(newEffect, TriggerType.Destroy);
+                effect.Destroy();
+                EffectApplied?.Invoke(effect, TriggerType.Destroy);
             }
             else
             {
-                _passiveEffects.Add(newEffect);
+                _passiveEffects.Add(effect);
                 PassiveEffectsChanged?.Invoke();
             }
         }
-
-        private PassiveEffect CheckCombinationEffects(PassiveEffect addedEffect)
-        {
-            foreach (var passiveEffect in _passiveEffects.ToList())
-            {
-                if (passiveEffect is not ICombinationEffect effect) continue;
-                
-                var newEffect = effect.GetCombinationEffect(addedEffect);
-                
-                _passiveEffects.Remove(passiveEffect);
-                return newEffect;
-            }
-            return addedEffect;
-        }
-
+        
         private void OnTurnEnded()
         {
             foreach (var effect in _passiveEffects)
@@ -61,13 +50,10 @@ namespace Battle.PassiveEffects
                 effect.Destroy();
                 EffectApplied?.Invoke(effect, TriggerType.Destroy);
             }  
-            _passiveEffects = _passiveEffects.Where(effect => effect != null).ToList();
+            _passiveEffects = _passiveEffects.Where(effect => effect.TurnCount > 0).ToList();
             PassiveEffectsChanged?.Invoke();
         }
 
-        public List<PassiveEffect> GetPassiveEffects()
-        {
-            return _passiveEffects;
-        }
+        public List<PassiveEffect> GetPassiveEffects() => _passiveEffects;
     }
 }

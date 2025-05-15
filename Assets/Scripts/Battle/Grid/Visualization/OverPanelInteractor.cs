@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Battle.Units;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -17,6 +18,7 @@ namespace Battle.Grid.Visualization
         private AnimationMixerPlayable _topLevelMixer;
         private AnimationClipPlayable _oneShotPlayable;
         private float _oneShotTimer = 0f;
+        private List<AnimationClip> _animationQueue;
         
         protected override void ActiveChanged(bool isActive)
         {
@@ -44,23 +46,40 @@ namespace Battle.Grid.Visualization
             _playableGraph.GetRootPlayable(0).SetInputWeight(0, 1f);
 
             _playableGraph.Play();
+            
+            _animationQueue = new List<AnimationClip>();
         }
 
         public void Update()
         {
-            if (_oneShotPlayable.IsValid())
+            if (!_oneShotPlayable.IsValid()) return;
+            
+            if (_oneShotTimer <= 0f)
             {
-                if (_oneShotTimer <= 0f)
-                    InterruptOneShot();
+                if (_animationQueue.Count > 0)
+                {
+                    var clip = _animationQueue[0];
+                    PlayOneShotAnimation(clip, clip.length);
+                    _animationQueue.RemoveAt(0);
+                }
                 else
-                    _oneShotTimer -= Time.deltaTime;
+                {
+                    InterruptOneShot();
+                }
+            }
+            else
+            {
+                _oneShotTimer -= Time.deltaTime;
             }
         }
 
         public void PlayOneShotAnimation(AnimationClip animationClip, float animationTime)
         {
-            if (_oneShotPlayable.IsValid() && _oneShotPlayable.GetAnimationClip() == animationClip)
+            if (_oneShotTimer > 0f)
+            {
+                _animationQueue.Add(animationClip);
                 return;
+            }
 
             InterruptOneShot();
             
@@ -71,8 +90,7 @@ namespace Battle.Grid.Visualization
             _topLevelMixer.SetInputWeight(0, 1f);
             _animationImage.enabled = true;
         }
-
-
+        
         private void InterruptOneShot()
         {
             if (_oneShotPlayable.IsValid())

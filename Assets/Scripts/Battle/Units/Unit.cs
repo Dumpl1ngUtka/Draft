@@ -30,6 +30,7 @@ namespace Battle.Units
         public Class Class => _preset.Class;
         public Covenant Covenant => _preset.Covenant;
         public int Chemistry => _chemistry;
+        public UnitStats Stats { get; }
         public TeamType TeamType { get; private set; }
         public UnitHealth Health { get; private set; }
         public int DicePower { get; private set; }
@@ -50,6 +51,7 @@ namespace Battle.Units
         public Unit(UnitPreset unitPreset)
         {
             _preset = unitPreset; 
+            Stats = new UnitStats(Attributes);
             InitHealth();
             ParametersChanged?.Invoke();
             PassiveEffectsHolder = new PassiveEffectsHolder(this);

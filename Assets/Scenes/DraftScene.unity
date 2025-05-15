@@ -9670,9 +9670,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Battle.Grid.BattleGrid, Assembly-CSharp
-        m_MethodName: EndTurn
+      - m_Target: {fileID: 431450153}
+        m_TargetAssemblyTypeName: Grid.BattleGrid.BattleGridController, Assembly-CSharp
+        m_MethodName: OnTurnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

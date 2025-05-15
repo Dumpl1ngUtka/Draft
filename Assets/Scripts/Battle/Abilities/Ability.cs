@@ -49,7 +49,7 @@ namespace Battle.Abilities
             foreach (var cell in rangeCells)
             {
                 var targetUnit = cell.Unit;
-                var effect = AbillityEffect.GetInstance(caster.Unit, targetUnit);
+                var effect = AbillityEffect.GetInstance(caster.Unit.Stats, targetUnit.Stats);
                 targetUnit.PassiveEffectsHolder.AddEffect(effect);
             }
             return new Response(true, "success");

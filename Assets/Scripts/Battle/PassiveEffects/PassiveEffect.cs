@@ -14,8 +14,8 @@ namespace Battle.PassiveEffects
         [SerializeField] protected AnimationClip _addClip;
         [SerializeField] protected AnimationClip _turnClip;
         [SerializeField] protected AnimationClip _destroyClip;
-        protected Unit Caster;
-        protected Unit Owner;
+        protected UnitStats Caster;
+        protected UnitStats Owner;
         
         public int TurnCount => _turnCount;
         public Sprite Icon => _icon;
@@ -50,7 +50,7 @@ namespace Battle.PassiveEffects
             };
         }
 
-        public PassiveEffect GetInstance(Unit caster, Unit owner)
+        public PassiveEffect GetInstance(UnitStats caster, UnitStats owner)
         {
             var instance = CreateInstance(caster, owner);
             instance._turnCount = _turnCount;
@@ -63,7 +63,7 @@ namespace Battle.PassiveEffects
             instance._destroyClip = _destroyClip;
             return instance;
         }
-        protected abstract PassiveEffect CreateInstance(Unit caster, Unit owner);
+        protected abstract PassiveEffect CreateInstance(UnitStats caster, UnitStats owner);
         
         protected abstract void AddEffect();
         
