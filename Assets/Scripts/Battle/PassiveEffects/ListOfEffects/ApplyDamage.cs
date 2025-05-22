@@ -1,3 +1,4 @@
+using System;
 using Battle.DamageSystem;
 using Battle.Units;
 using UnityEngine;
@@ -12,9 +13,6 @@ namespace Battle.PassiveEffects
         [SerializeField] private DamageType _damageType;
         [SerializeField] private AttributesType _damageAttribute;
         [SerializeField] private int _damagePerAttribute;
-
-        [HideInInspector] public int DamageValue;
-        public DamageType DamageType => _damageType;
         
         protected override PassiveEffect CreateInstance(UnitStats caster, UnitStats owner)
         {
@@ -23,13 +21,22 @@ namespace Battle.PassiveEffects
             effect._damageType = _damageType;
             effect._damageAttribute = _damageAttribute;
             effect._damagePerAttribute = _damagePerAttribute;
-            effect.DamageValue = effect._baseDamage + caster.StrengthAttribute.Value * effect._damagePerAttribute;
             return effect;
         }
 
         protected override void AddEffect()
         {
-            Owner.CurrentHealth -= DamageValue;
+            var damage = _baseDamage + _damagePerAttribute *
+                Owner.GetAttributeByType(_damageAttribute).Value ;
+            
+            var armorValue = Owner.Armor.Value;
+            var damageToArmorMultiplayer = _damageType == DamageType.Acid ? 2 : 1;
+            
+            var damageToArmor = Math.Min(armorValue, damage * damageToArmorMultiplayer);
+            Owner.Armor.AddModifier(new PermanentStatModifier(-damageToArmor));
+
+            var damageToHealth = damage - damageToArmor / damageToArmorMultiplayer;
+            Owner.CurrentHealth.AddModifier(new PermanentStatModifier(-damageToHealth));
         }
 
         protected override void TurnEffect()

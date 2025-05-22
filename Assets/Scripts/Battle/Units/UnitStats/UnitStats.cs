@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Battle.PassiveEffects;
+using Battle.DamageSystem;
+using UnityEngine;
 
 namespace Battle.Units
 {
     public class UnitStats
     {
-        private int _currentHealth;
-
         #region Attributes
 
         private readonly Attributes _attributes;
@@ -16,28 +15,46 @@ namespace Battle.Units
         public StatInt DexterityAttribute;
         public StatInt IntelligenceAttribute;
         
-        #endregion
-        
-        public StatInt MaxHealth;
-
-        public int CurrentHealth
+        public StatInt GetAttributeByType(AttributesType type)
         {
-            get { return _currentHealth; }
-            set
+            return type switch
             {
-                _currentHealth = Math.Clamp(value, 0, MaxHealth.Value);
-                if (_currentHealth == 0)
-                    ;//call action 
-            }
+                AttributesType.Health => HealthAttribute,
+                AttributesType.Intelligence => IntelligenceAttribute,
+                AttributesType.Strength => StrengthAttribute,
+                AttributesType.Dexterity => DexterityAttribute,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
         }
 
+        public Action AttributeChanged;
+        
+        #endregion
+        
+        #region Immunities
+        
+        public List<DamageType> Immunities => new List<DamageType>();
+        public List<DamageType> Resistances =>  new List<DamageType>();
+        public List<DamageType> Vulnerability => new List<DamageType>();
+        
+        #endregion
+        
+        #region Health
+        
+        public StatInt MaxHealth;
+        public StatInt CurrentHealth;
         public StatInt Armor;
+        public bool IsDead => CurrentHealth.Value <= 0;
 
+        public Action HealthChanged;
+        
+        #endregion
 
-        public UnitStats(Attributes unitAttributes)
+        public UnitStats(Unit unit)
         {
-            _attributes = unitAttributes;
+            _attributes = unit.Attributes;
             InitializeStats();
+            InitializedActions();
         }
 
         private void InitializeStats()
@@ -48,15 +65,44 @@ namespace Battle.Units
             IntelligenceAttribute = new StatInt(_attributes.Intelligence);
             
             MaxHealth = new StatInt(20);
-            MaxHealth.AddFunc(HealthAttributesDependency);
+            MaxHealth.AddModifier(new StatModifier(StatModifierType.BeforeBaseValueAddition, 
+                value => value + HealthAttribute.Value * 3));
             
-            Armor = new StatInt(0);
-            CurrentHealth = MaxHealth.Value;
+            Armor = new StatInt(0, true);
+            //Armor.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
+            //    value => Math.Max(value, 0)));
+            
+            CurrentHealth = new StatInt(MaxHealth.Value);
+            CurrentHealth.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
+                value => Math.Clamp(value, 0, MaxHealth.Value)));
+            Debug.Log(CurrentHealth.Value + " / " + MaxHealth.Value);
         }
 
-        private float HealthAttributesDependency(float rawValue)
+        private void InitializedActions()
         {
-            return rawValue + HealthAttribute.Value * 3;
+            HealthAttribute.StatChanged += () => AttributeChanged?.Invoke();
+            StrengthAttribute.StatChanged += () => AttributeChanged?.Invoke();
+            DexterityAttribute.StatChanged += () => AttributeChanged?.Invoke();
+            IntelligenceAttribute.StatChanged += () => AttributeChanged?.Invoke();
+            
+            MaxHealth.StatChanged += () => HealthChanged?.Invoke();
+            CurrentHealth.StatChanged += () => HealthChanged?.Invoke();
+            Armor.StatChanged += () => HealthChanged?.Invoke();
+
+            AttributeChanged += SetCurrentValueOutdated;
+            HealthChanged += SetCurrentValueOutdated;
+        }
+
+        private void SetCurrentValueOutdated()
+        {
+            HealthAttribute.CurrentValueOutdated();
+            StrengthAttribute.CurrentValueOutdated();
+            DexterityAttribute.CurrentValueOutdated();
+            IntelligenceAttribute.CurrentValueOutdated();
+            
+            MaxHealth.CurrentValueOutdated();
+            CurrentHealth.CurrentValueOutdated();
+            Armor.CurrentValueOutdated();
         }
     }
 }

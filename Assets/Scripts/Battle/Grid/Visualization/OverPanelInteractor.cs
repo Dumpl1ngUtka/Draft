@@ -19,11 +19,6 @@ namespace Battle.Grid.Visualization
         private AnimationClipPlayable _oneShotPlayable;
         private float _oneShotTimer = 0f;
         private List<AnimationClip> _animationQueue;
-        
-        protected override void ActiveChanged(bool isActive)
-        {
-            //_animationImage.gameObject.SetActive(isActive);
-        }
 
         public void SetColor(Color color)
         {
@@ -31,7 +26,7 @@ namespace Battle.Grid.Visualization
             //_animationImage.color = color;
         }
 
-        protected override void UpdateInfo(Unit unit)
+        public override void UpdateInfo()
         {
         }
         
@@ -52,6 +47,7 @@ namespace Battle.Grid.Visualization
 
         public void Update()
         {
+            base.UpdateInfo();
             if (!_oneShotPlayable.IsValid()) return;
             
             if (_oneShotTimer <= 0f)
@@ -105,9 +101,8 @@ namespace Battle.Grid.Visualization
         }
 
         public void OnDestroy()
-        {
-            if (_playableGraph.IsValid())
-                _playableGraph.Destroy();
+        { 
+            _playableGraph.Destroy();
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using Battle.Grid.CardParameter;
-using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Grid.Visualization
@@ -9,15 +8,11 @@ namespace Battle.Grid.Visualization
     public class ChemistryInteractor : GridCellInteractor
     {
         [SerializeField] private CircleParameter _chemistry;
-                            
-        protected override void ActiveChanged(bool isActive)
-        {
-            _chemistry?.gameObject.SetActive(isActive);
-        }
 
-        protected override void UpdateInfo(Unit unit)
+        public override void UpdateInfo()
         {
-            _chemistry?.Render(unit.Chemistry);
+            base.UpdateInfo();
+            _chemistry?.Render(Unit.Chemistry);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Battle.DamageSystem
 {
-    public class Damage
+    public struct Damage
     {
         public int Value { get; private set; }
         public DamageType DamageType { get; private set; }

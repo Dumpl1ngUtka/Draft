@@ -13,7 +13,6 @@ namespace Grid
         private const int LineCount = 3;
         private const int ColumnCount = 3;
         
-        [SerializeField] private GridType _type;
         [SerializeField] private UnitGridCell _cellPrefab;
         [SerializeField] protected UnitGridCellContainer[] Containers;
         private GridVisualizer _gridVisualizer;
@@ -60,7 +59,7 @@ namespace Grid
                     for (int column = 0; column < ColumnCount; column++)
                     {
                         var cell = Instantiate(_cellPrefab, container.Container);
-                        cell.Init(line, column, container.TeamType, _type);
+                        cell.Init(line, column, container.TeamType);
                         cells.Add(cell);
                     }
                 }

@@ -11,26 +11,20 @@ namespace Grid.Cells
         public Unit Unit { get; private set; }
         public UnitGridCellRenderer Renderer { get; private set; }
         
-        private GridType _gridType;
-        
-        public void Init(int lineIndex, int columnIndex, TeamType teamType, GridType preset)
+        public void Init(int lineIndex, int columnIndex, TeamType teamType)
         {
             Renderer = GetComponent<UnitGridCellRenderer>();
             Renderer.Init();
-            _gridType = preset;
             
             LineIndex = lineIndex;
             ColumnIndex = columnIndex;
             TeamType = teamType;
-
-            Renderer.SetActive(GridType.None);
         }
         
         public void AddUnit(Unit unit)
         {
             Unit = unit;
             Unit.SetTeam(TeamType);
-            Renderer.SetActive(_gridType);
             Renderer.SubscribeToUnit(unit);
             Renderer.Render(unit);
         }
@@ -41,7 +35,6 @@ namespace Grid.Cells
                 return;
             
             Renderer.UnsubscribeFromUnit();
-            Renderer.SetActive(GridType.None);
             Renderer.Render(null);
             Unit = null;
         }

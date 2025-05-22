@@ -23,9 +23,9 @@ namespace Battle.Abilities
         public float GetHitProbability(UnitGridCell caster, UnitGridCell target)
         {
             var probability = _baseHitProbability;
-            probability += caster.Unit.Attributes.GetAttributeValueByType(_casterAttributType) 
+            probability += caster.Unit.Stats.GetAttributeByType(_casterAttributType).Value 
                            * _additionProbabilityByAttribute;            
-            probability -= target.Unit.Attributes.GetAttributeValueByType(_targetAttributeType) 
+            probability -= target.Unit.Stats.GetAttributeByType(_targetAttributeType).Value 
                            * _subtractionProbabilityByAttribute;
             probability += CalculateDistance(caster, target) * _additionProbabilityByDistance;
             return Mathf.Clamp01(probability);

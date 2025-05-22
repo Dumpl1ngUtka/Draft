@@ -10,17 +10,19 @@ namespace Battle.PassiveEffects
     {
         [Header("Add Armor")]
         public int Value;
+        private StatModifier _statModifier;
         
         protected override PassiveEffect CreateInstance(UnitStats caster, UnitStats owner)
         {
             var effect = ScriptableObject.CreateInstance<AddArmor>();
             effect.Value = Value;
+            effect._statModifier = new StatModifier(StatModifierType.AdditiveValue, Effect);
             return effect;
         }
 
         protected override void AddEffect()
         {
-            Owner.Armor.AddFunc(Effect);
+            Owner.Armor.AddModifier(_statModifier);
         }
 
         protected override void TurnEffect()
@@ -29,7 +31,7 @@ namespace Battle.PassiveEffects
 
         protected override void RemoveEffect()
         {
-            Owner.Armor.RemoveFunc(Effect);
+            Owner.Armor.RemoveModifier(_statModifier);
         }
 
         private float Effect(float value)

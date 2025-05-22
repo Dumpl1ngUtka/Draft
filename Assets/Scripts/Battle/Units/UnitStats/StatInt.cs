@@ -1,60 +1,116 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 namespace Battle.Units
 {
     public class StatInt
     {
-        private readonly bool _isCanBeNegative;
-        
-        private int _baseValue;
-        private List<StatModifier> _modifier = new List<StatModifier>();
-        private int _additionalValue;
+        private readonly int _baseValue;
+        private readonly List<StatModifier> _modifiers;
+        private readonly bool _isPositiveOrZero;
+        private int _permanentAdditionModifier;
+        private bool _isNeedToUpdate;
+        private int _currentValue;
         
         public int Value
         {
             get
             {
-                var result = _modifier.Aggregate(_baseValue, (current, modifier) => (int)modifier(current));
-                 
-                if (!_isCanBeNegative && result < 0)
-                    result = 0;
-                return result;
+                if (_isNeedToUpdate)
+                {
+                    _currentValue = GetUpdatedResult();
+                    _isNeedToUpdate = false;
+                }
+
+                return _currentValue;
             }
         }
 
-        public StatInt(int baseValue, bool isCanBeNegative = false)
+        public Action StatChanged;
+        
+        public StatInt(int baseValue, bool isPositiveOrZero = false)
         {
             _baseValue = baseValue;
-            _isCanBeNegative = isCanBeNegative;
+            _modifiers = new List<StatModifier>();
+            _isPositiveOrZero = isPositiveOrZero;
+            _isNeedToUpdate = true;
         }
 
-        public void AddFunc(StatModifier func)
+        public void AddModifier(StatModifier modifier)
         {
-            _modifier.Add(func);
-        }
-
-        public void RemoveFunc(StatModifier func)
-        {
-             _modifier.Remove(func);
-        }
-
-        public void AddValue(int value)
-        {
-            if (value < 0)
-                throw new Exception("Value cannot be negative. Use RemoveValue() instead.");
+            if (modifier.Type == (int)StatModifierType.PermanentAdditiveValue)
+            {
+                _permanentAdditionModifier += (int)modifier.Function(0);
+                return;
+            }
             
-            //_additionValue += value;
+            for (int i = 0; i < _modifiers.Count; i++)
+            {
+                if (_modifiers[i].Type > modifier.Type)
+                {
+                    _modifiers.Insert(i, modifier);
+                    return;
+                }
+            }
+            _modifiers.Add(modifier);
+            CurrentValueOutdated();
+            StatChanged?.Invoke();
+        }
+        
+        public void AddModifier(PermanentStatModifier modifier)
+        {
+            _permanentAdditionModifier += (int)modifier.Function(0);
+            CurrentValueOutdated();
+            StatChanged?.Invoke();
         }
 
-        public void RemoveValue(int value)
+        public void RemoveModifier(StatModifier modifier)
         {
-            if (value < 0)
-                throw new Exception("Value cannot be negative. Use AddValue() instead.");
-            
-            //_additionValue -= value;
+            _modifiers.Remove(modifier);
+            CurrentValueOutdated();
+            StatChanged?.Invoke();
+        }
+
+        public void CurrentValueOutdated()
+        {
+            _isNeedToUpdate = true;
+        }
+
+        private int GetUpdatedResult()
+        {
+            var result = _baseValue;
+            var index = 0;
+            if (_modifiers.Count > 0)
+            {
+                var modifier = _modifiers[0];
+                while (modifier is { Type: < (int)StatModifierType.PermanentAdditiveValue })
+                {
+                    result = (int)modifier.Function(result);
+                    index++;
+                    try {modifier = _modifiers[index]; }
+                    catch { break; }
+                }
+            }
+            if (_isPositiveOrZero)
+                BalancePermanentAdditionModifier(result);
+            result += _permanentAdditionModifier;
+            for (var i = index; i < _modifiers.Count; i++)
+            {
+                result = (int)_modifiers[i].Function(result);
+            }
+            return result;
+        }
+
+        private void BalancePermanentAdditionModifier(int currentResult)
+        {
+            _permanentAdditionModifier = currentResult switch
+            {
+                >= 0 when _permanentAdditionModifier < 0 => Math.Max(-currentResult, _permanentAdditionModifier),
+                < 0 when _permanentAdditionModifier > 0 => Math.Max(0, _permanentAdditionModifier),
+                _ => _permanentAdditionModifier
+            };
         }
     }
 }

@@ -7,14 +7,14 @@ namespace Battle.Units
     public class Stat
     {
         private float _baseValue;
-        private List<StatModifier> _modifier = new List<StatModifier>();
+        private List<StatModifierFunction> _modifier = new List<StatModifierFunction>();
         
         public float Value => _modifier.Aggregate(_baseValue, (current, modifier) => modifier(current));
 
         public Stat(float baseValue) => _baseValue = baseValue;
         
-        public void AddFunc(StatModifier func) => _modifier.Add(func);
+        public void AddFunc(StatModifierFunction func) => _modifier.Add(func);
 
-        public void RemoveFunc(StatModifier func) => _modifier.Remove(func);
+        public void RemoveFunc(StatModifierFunction func) => _modifier.Remove(func);
     }
 }

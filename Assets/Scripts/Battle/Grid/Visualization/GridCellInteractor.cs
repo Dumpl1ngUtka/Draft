@@ -6,29 +6,16 @@ namespace Battle.Grid.Visualization
 {
     public abstract class GridCellInteractor 
     {
-        [SerializeField] private CellPreset _preset;
-        private bool _isActive;
-
-        public void SetActive(GridType activatedPresetType)
+        protected Unit Unit;
+        
+        public void Init(Unit unit)
         {
-            if (activatedPresetType == GridType.None)
-                _isActive = false;
-            else if (activatedPresetType == GridType.All)
-                _isActive = true;
-            else
-                _isActive = _preset.Include(activatedPresetType);
-            ActiveChanged(_isActive);
+            Unit = unit;
         }
 
-        public void Render(Unit unit)
+        public virtual void UpdateInfo()
         {
-            if (!_isActive)
-                return;
-            UpdateInfo(unit);
+            if (Unit == null) return;
         }
-        
-        protected abstract void ActiveChanged(bool isActive);
-        
-        protected abstract void UpdateInfo(Unit unit);
     }
 }

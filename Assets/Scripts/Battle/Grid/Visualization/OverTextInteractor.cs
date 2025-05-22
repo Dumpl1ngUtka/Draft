@@ -10,21 +10,12 @@ namespace Battle.Grid.Visualization
     {
         [SerializeField] private TMP_Text _overText;
 
-        protected override void ActiveChanged(bool isActive)
-        {
-            _overText?.gameObject.SetActive(isActive);
-        }
-
         public void SetText(string text)
         {
             if (_overText == null)
                 return;
             
             _overText.text = text;
-        }
-        
-        protected override void UpdateInfo(Unit unit)
-        {
         }
     }
 }

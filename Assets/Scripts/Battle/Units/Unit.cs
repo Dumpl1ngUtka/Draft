@@ -6,7 +6,6 @@ using Battle.PassiveEffects;
 using Battle.UseCardReactions;
 using Grid;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
 namespace Battle.Units
@@ -21,9 +20,6 @@ namespace Battle.Units
         public string Name => _preset.Name;
         public Sprite Icon => _preset.Icon;
         public Attributes Attributes => _preset.Attributes;
-        public List<DamageType> Immunities => _preset.Immunities;
-        public List<DamageType> Resistances => _preset.Resistances;
-        public List<DamageType> Vulnerability => _preset.Vulnerabilities;
         public Ability[] Abilities => _preset.Abilities;
         public Reaction Reaction => _preset.Reaction;
         public Race Race => _preset.Race;
@@ -32,7 +28,6 @@ namespace Battle.Units
         public int Chemistry => _chemistry;
         public UnitStats Stats { get; }
         public TeamType TeamType { get; private set; }
-        public UnitHealth Health { get; private set; }
         public int DicePower { get; private set; }
         public bool IsDead { get; private set; } = false;
         public bool IsReady { get; private set; } = false;
@@ -51,23 +46,10 @@ namespace Battle.Units
         public Unit(UnitPreset unitPreset)
         {
             _preset = unitPreset; 
-            Stats = new UnitStats(Attributes);
-            InitHealth();
+            Stats = new UnitStats(this);
             ParametersChanged?.Invoke();
             PassiveEffectsHolder = new PassiveEffectsHolder(this);
             PassiveEffectsHolder.PassiveEffectsChanged += () => PassiveEffectsChanged?.Invoke();
-        }
-        
-        private void InitHealth()
-        {
-            Health = new UnitHealth(this);
-            Health.OnDead += OnDead;
-            Health.OnValueChanged += () => HealthChanged?.Invoke();
-        }
-
-        private void OnDead()
-        {
-            IsDead = true;
         }
 
         public void SetChemistry(int chemestry)

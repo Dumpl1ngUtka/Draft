@@ -24,6 +24,7 @@ namespace Battle.Grid.Visualization
         public void Init()
         {
             GroupInteractors();
+            
             _overPanelInteractor.Init();
         }
         
@@ -46,13 +47,18 @@ namespace Battle.Grid.Visualization
         public void SubscribeToUnit(Unit unit)
         {
             _unit = unit;
+            foreach (var interactor in _allInteractors) 
+                interactor.Init(_unit);
+            
+            _unit.Stats.HealthChanged += () => _diceInteractor.UpdateInfo();
+            _unit.Stats.HealthChanged += HealthChanged;
             _unit.ParametersChanged += ParametersChanged;
             _unit.ChemistryChanged += ChemistryChanged; 
-            _unit.HealthChanged += HealthChanged; 
             _unit.DicePowerChanged += DicePowerChanged;  
             _unit.ReadyStatusChanged += ReadyStatusChanged;
             _unit.PassiveEffectsChanged += PassiveEffectsChanged;
             _unit.PassiveEffectsHolder.EffectApplied += EffectApplied;
+            //_unit.Stats.HealthChanged += HealthChanged;
             Render(_unit);
         }
 
@@ -70,26 +76,27 @@ namespace Battle.Grid.Visualization
         {
             _unit.ParametersChanged -= ParametersChanged;
             _unit.ChemistryChanged -= ChemistryChanged; 
-            _unit.HealthChanged -= HealthChanged; 
             _unit.DicePowerChanged -= DicePowerChanged;  
             _unit.ReadyStatusChanged -= ReadyStatusChanged;
             _unit.PassiveEffectsChanged -= PassiveEffectsChanged;
+            //_unit.Stats.HealthChanged -= HealthChanged;
+
             _unit = null;
         }
         
         private void PassiveEffectsChanged()
         {
-            _passiveInteractor.Render(_unit);
-            _healthInteractor.Render(_unit);
+            _passiveInteractor.UpdateInfo();
+            _healthInteractor.UpdateInfo();
         }
 
-        private void ReadyStatusChanged() => _diceInteractor.Render(_unit);
+        private void ReadyStatusChanged() => _diceInteractor.UpdateInfo();
 
-        private void DicePowerChanged() => _diceInteractor.Render(_unit);
+        private void DicePowerChanged() => _diceInteractor.UpdateInfo();
 
-        private void HealthChanged() => _healthInteractor.Render(_unit);
+        private void HealthChanged() => _healthInteractor.UpdateInfo();
 
-        private void ChemistryChanged() => _chemistryInteractor.Render(_unit);
+        private void ChemistryChanged() => _chemistryInteractor.UpdateInfo();
 
         private void ParametersChanged() => Render(_unit);
 
@@ -121,23 +128,13 @@ namespace Battle.Grid.Visualization
             else
                 _sizeInteractor.SetSize(size);
         }
-
-        public void SetActive(GridType preset)
-        {
-            foreach (var interactor in _allInteractors)
-                interactor.SetActive(preset);
-        }
         
         public void Render(Unit unit)
         {
             if (unit == null || unit.IsDead)
             {
-                SetActive(GridType.None);
                 return;
             }
-            
-            foreach (var interactor in _allInteractors)
-                interactor.Render(unit);
         }
 
         public void RenderDiceAdditionValue(int value)

@@ -1,84 +1,46 @@
 using System;
+using Battle.Units;
 using Unit = Battle.Units.Unit;
 
 namespace Battle.DamageSystem
 {
     public class UnitHealth
     {
-        private const int _healthPointsPerHealthAttribute = 3;
-        
-        private int _currentHealth;
-        private int _armorValue;
-        private int _maxHealth;
-        private Unit _unit;
-        
-        public int CurrentHealth => _currentHealth;
-        public int MaxHealth => _maxHealth;
-        public int ArmorValue => _armorValue;
-        
-        public Action OnValueChanged;
-        public Action OnDead;
+        private UnitStats _unitStats;
 
         public UnitHealth(Unit unit)
         {
-            _unit = unit;
-            _armorValue = 0;
-            _maxHealth = unit.Attributes.Health * _healthPointsPerHealthAttribute;
-            _currentHealth = _maxHealth;
-        }
-
-        public void AddArmor(int value)
-        {
-            if (value < 0)
-                return;
-            
-            _armorValue += value;
-            OnValueChanged?.Invoke();
+            _unitStats = unit.Stats;
         }
         
-        public void ApplyDamage(Damage damage)
+        public void ApplyDamage(Damage damage, StatInt armor, StatInt currentHealth)
         {
-            var value = CalculateResistance(damage);
-            //value = CalculateArmor(value);
-            _currentHealth -= value;
-            if (_currentHealth < 0)
-            {
-                _currentHealth = 0;
-                OnDead?.Invoke();
-            }
-            OnValueChanged?.Invoke();
+            var damageValue = CalculateResistance(damage);
+            damageValue = CalculateDamageAfterArmor(damageValue, armor);
+            var damageModifier = new PermanentStatModifier(-damageValue);
+            currentHealth.AddModifier(damageModifier);
         }
 
-        private int CalculateArmor(int value)
+        private int CalculateDamageAfterArmor(int damageValue, StatInt armor)
         {
-            if (_armorValue >= value)
-            {
-                RemoveArmor(value);
-                return 0; 
-            }
+            var armorValue = armor.Value;
+            
+            var additionalDamage = Math.Min(armorValue, damageValue);
+            var damageModifier = new PermanentStatModifier(-additionalDamage);
+            armor.AddModifier(damageModifier);
 
-            _armorValue = 0;
-            OnValueChanged?.Invoke();
-            return value - _armorValue;
+            return Math.Min(damageValue - armorValue, 0);
         }
         
         private int CalculateResistance(Damage damage)
         {
-            if (_unit.Immunities.Contains(damage.DamageType))
+            if (_unitStats.Immunities.Contains(damage.DamageType))
                 return 0;
-            if (_unit.Resistances.Contains(damage.DamageType))
+            if (_unitStats.Resistances.Contains(damage.DamageType))
                 return damage.Value / 2;
-            if (_unit.Vulnerability.Contains(damage.DamageType))
+            if (_unitStats.Vulnerability.Contains(damage.DamageType))
                 return damage.Value * 2;
             return damage.Value;
-        }
-
-        public void RemoveArmor(int value)
-        {
-            _armorValue -= value;
-            if (_armorValue < 0)
-                _armorValue = 0;
-            OnValueChanged?.Invoke();
         }
     }
 }
