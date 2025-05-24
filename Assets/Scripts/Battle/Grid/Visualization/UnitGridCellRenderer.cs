@@ -31,6 +31,7 @@ namespace Battle.Grid.Visualization
             foreach (var interactor in _allInteractors) 
                 interactor.Init(_unit);
             _overPanelInteractor.Init();
+            _overTextInteractor.SetText("");
         }
         
         private void GroupInteractors()

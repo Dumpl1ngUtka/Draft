@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridController.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatInt.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\PathMap\RunInfo.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitBelongingInteractor.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\DungeonInfoPanel.cs" />
@@ -180,7 +181,6 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\ErrorPanel.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
     <Compile Include="Assets\Scripts\Units\AttributesType.cs" />
-    <Compile Include="Assets\Scripts\PathMap\PathCellInfo.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

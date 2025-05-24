@@ -1,17 +1,20 @@
-using System.Linq;
+using UnityEngine;
 
 namespace Abilities
 {
     public class AbilitiesHolder
     {
-        public int AbilityCount = 6;
+        public int AbilityCount;
         private readonly Ability[] _abilities;
+        
+        public Ability[] Abilities => _abilities;
 
         public AbilitiesHolder(Ability[] abilities)
         {
-            _abilities = new Ability[6];
-            for (int i = 0; i < abilities.Length; i++) 
-                _abilities[i] = abilities[i];
+            AbilityCount = abilities.Length;
+            _abilities = new Ability[AbilityCount];
+            for (int i = 0; i < AbilityCount; i++) 
+                _abilities[i] = abilities[i].GetInstance();
         }
         
         public void AddAbilityTo(int index, Ability ability)

@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Battle.Units;
 using DungeonMap;
-using Grid;
 using Grid.BattleGrid;
 using Grid.DraftGrid;
 using Grid.PathMapGrid;
@@ -20,7 +16,7 @@ namespace Services.GameControlService
         
         public static GameControlService Instance {get; private set;}
         public DungeonInfo CurrentDungeonInfo { get;  set; }
-        public PathCellInfo CurrentPathCellInfo { get;  set; }
+        public RunInfo CurrentRunInfo { get;  set; }
         public List<Unit> PlayerUnits { get;  set; }
 
         public void Init(DraftGridController draftGrid,

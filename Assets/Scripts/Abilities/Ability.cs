@@ -5,6 +5,7 @@ using Battle.PassiveEffects;
 using Battle.Units.Interactors;
 using Grid.Cells;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Abilities
 {
@@ -14,10 +15,22 @@ namespace Abilities
         public string Name;
         public Sprite Icon;
         public PassiveEffect AbillityEffect;
-        public AbilityTargetFilter _targetFilter;
-        public AbilityRangeFilter _rangeFilter;
+        public AbilityTargetFilter TargetFilter;
+        public AbilityRangeFilter RangeFilter;
         public HitProbabilityCalculator HitProbabilityCalculator;
 
+        public Ability GetInstance()
+        {
+            var instance = ScriptableObject.CreateInstance<Ability>();
+            instance.Name = this.Name;
+            instance.Icon = this.Icon;
+            instance.AbillityEffect = this.AbillityEffect;
+            instance.TargetFilter = this.TargetFilter;
+            instance.RangeFilter = this.RangeFilter;
+            instance.HitProbabilityCalculator = this.HitProbabilityCalculator;
+            return instance;
+        }
+        
         public float GetHitProbability(UnitGridCell caster, UnitGridCell target)
         {
             if (!IsRightTarget(caster, target))
@@ -27,11 +40,11 @@ namespace Abilities
 
         public List<UnitGridCell> GetRange(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
         {
-            var rangeCells = _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
-            return rangeCells.Where(x =>  _targetFilter.IsRightTarget(caster, x)).ToList();
+            var rangeCells = RangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            return rangeCells.Where(x =>  TargetFilter.IsRightTarget(caster, x)).ToList();
         }
         
-        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target) => _targetFilter.IsRightTarget(caster, target);
+        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target) => TargetFilter.IsRightTarget(caster, target);
 
         public Response TryUseAbility(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
         {
@@ -40,10 +53,10 @@ namespace Abilities
                 return new Response(false, "is_not_ready_error");
             }
             
-            if (!_targetFilter.IsRightTarget(caster, target))
+            if (!TargetFilter.IsRightTarget(caster, target))
                 return new Response(false, "wrong_target_error");
             
-            var rangeCells = _rangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            var rangeCells = RangeFilter.GetRelevantCells(caster, target, allies, enemies);
             foreach (var cell in rangeCells)
             {
                 var targetUnit = cell.Unit;

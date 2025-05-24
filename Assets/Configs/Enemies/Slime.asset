@@ -18,7 +18,7 @@ MonoBehaviour:
   Class: {fileID: 0}
   Covenant: {fileID: 0}
   Attributes:
-    _health: 5
+    _health: 1
     _dexterity: 1
     _strength: 1
     _intelligence: 1

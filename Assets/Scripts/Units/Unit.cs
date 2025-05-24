@@ -10,15 +10,13 @@ namespace Units
    
     public class Unit
     {
-        private UnitPreset _preset;
-        
-        public string Name => _preset.Name;
-        public Sprite Icon => _preset.Icon;
+        public string Name;
+        public Sprite Icon;
         public AbilitiesHolder Abilities;
-        public Reaction Reaction => _preset.Reaction;
-        public Race Race => _preset.Race;
-        public Class Class => _preset.Class;
-        public Covenant Covenant => _preset.Covenant;
+        public Reaction Reaction;
+        public Race Race;
+        public Class Class;
+        public Covenant Covenant;
         public UnitStats Stats { get; }
         public TeamType TeamType { get; private set; }
         public int DicePower { get; private set; }
@@ -29,9 +27,14 @@ namespace Units
         
         public Unit(UnitPreset unitPreset)
         {
-            _preset = unitPreset; 
+            Name = unitPreset.Name;
+            Icon = unitPreset.Icon;
+            Reaction = unitPreset.Reaction;
+            Race = unitPreset.Race;
+            Class = unitPreset.Class;
+            Covenant = unitPreset.Covenant;
             Stats = new UnitStats(unitPreset.Attributes);
-            Abilities = new AbilitiesHolder(_preset.Abilities);
+            Abilities = new AbilitiesHolder(unitPreset.Abilities);
             PassiveEffectsHolder = new PassiveEffectsHolder();
         }
 

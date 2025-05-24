@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Units;
 using Grid.Cells;
 using Units;
+using UnityEngine;
 
 namespace Battle.Grid
 {
@@ -47,9 +47,10 @@ namespace Battle.Grid
                 var unit = enemy.Unit;
                 if (unit.Stats.IsDead)
                     continue;
-                
+
                 var target = unit.CurrentAbility.GetPreferredTarget(_playerCells);
                 unit.CurrentAbility.TryUseAbility(enemy, target, _enemyCells, _playerCells);
+                Debug.Log(enemy + " attacked" + target);
             }
         }
         

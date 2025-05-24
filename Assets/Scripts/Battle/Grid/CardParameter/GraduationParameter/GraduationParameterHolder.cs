@@ -15,21 +15,18 @@ namespace Battle.Grid.CardParameter.GraduationParameter
         [SerializeField] private GridLayoutGroup _container;
         [SerializeField] private int _midLevel = 5;
         private Sprite[] _graduationSprites;
-        private int _graduationSpriteLen;
-
         public void Render(Unit unit)
         {
-            var attributes = unit.Attributes;
-            RenderParameter(attributes.Health, _health);
-            RenderParameter(attributes.Strength, _strength);
-            RenderParameter(attributes.Dexterity, _dexterity);
-            RenderParameter(attributes.Intelligence, _intelligence);
+            var unitStats = unit.Stats;
+            RenderParameter(unitStats.HealthAttribute.Value, _health);
+            RenderParameter(unitStats.StrengthAttribute.Value, _strength);
+            RenderParameter(unitStats.DexterityAttribute.Value, _dexterity);
+            RenderParameter(unitStats.IntelligenceAttribute.Value, _intelligence);
         }
         
         private void Awake()
         {
             _graduationSprites = Resources.LoadAll<Sprite>($"Sprites/Graduation");
-            _graduationSpriteLen = _graduationSprites.Length;
         }
 
         private void RenderParameter(int attributeValue, GraduationParameter parameter)
@@ -45,7 +42,8 @@ namespace Battle.Grid.CardParameter.GraduationParameter
             else
             {
                 parameter.SetActive(true);
-                parameter.SetStatus(isUpgrage, absoluteDelta <= 3 ? _graduationSprites[0] : _graduationSprites[^1]);
+                parameter.SetStatus(isUpgrage, absoluteDelta <= 3 ?
+                    _graduationSprites[0] : _graduationSprites[^1]);
             }
         }
     }

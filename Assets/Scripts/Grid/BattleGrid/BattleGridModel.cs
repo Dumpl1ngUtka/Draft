@@ -63,9 +63,9 @@ namespace Grid.BattleGrid
         public void CheckEndBattle()
         {
             if (!HasAliveUnits(_enemyUnits))
-                StateMachine.ChangeGrid(StateMachine.DungeonGrid);
-            else if (!HasAliveUnits(_playerUnits))
                 StateMachine.ChangeGrid(StateMachine.PathMapGrid);
+            else if (!HasAliveUnits(_playerUnits))
+                StateMachine.ChangeGrid(StateMachine.DungeonGrid);
         }
 
         private bool HasAliveUnits(List<Unit> units)
