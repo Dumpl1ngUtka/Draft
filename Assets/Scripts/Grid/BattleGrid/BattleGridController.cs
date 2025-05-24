@@ -6,6 +6,7 @@ using Grid.Cells;
 using Services.GameControlService;
 using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
+using Units;
 
 namespace Grid.BattleGrid
 {
@@ -78,7 +79,7 @@ namespace Grid.BattleGrid
             var cell = from as UnitGridCell;
             
             _isDragStartSeccess = false;
-            if (cell.Unit.IsDead)
+            if (cell.Unit.Stats.IsDead)
             {
                 PanelService.Instance.InstantiateErrorPanel("unit_is_dead_error");
                 return;

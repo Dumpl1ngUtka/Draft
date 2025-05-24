@@ -17,5 +17,14 @@ namespace Battle.Grid.Visualization
             
             _overText.text = text;
         }
+
+        protected override void UpdateInfo()
+        {
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _overText?.gameObject.SetActive(isActive);
+        }
     }
 }

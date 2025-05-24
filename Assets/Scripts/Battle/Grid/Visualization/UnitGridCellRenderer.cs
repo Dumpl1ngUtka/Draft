@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using Battle.PassiveEffects;
+using Battle.Units;
+using CustomObserver;
+using Units;
 using UnityEngine;
-using Unit = Battle.Units.Unit;
+using Unit = Units.Unit;
 
 namespace Battle.Grid.Visualization
 {
-    public class UnitGridCellRenderer : MonoBehaviour
+    public class UnitGridCellRenderer : MonoBehaviour, 
+        IObserver<UnitStats>, IObserver<PassiveEffectsHolder>
     {
         [Header("Interactors")]
         [SerializeField] private DuckIconInteractor _duckIconInteractor;
@@ -24,7 +28,8 @@ namespace Battle.Grid.Visualization
         public void Init()
         {
             GroupInteractors();
-            
+            foreach (var interactor in _allInteractors) 
+                interactor.Init(_unit);
             _overPanelInteractor.Init();
         }
         
@@ -46,20 +51,27 @@ namespace Battle.Grid.Visualization
         
         public void SubscribeToUnit(Unit unit)
         {
-            _unit = unit;
+            unit.Stats.AddObserver(this);
+
             foreach (var interactor in _allInteractors) 
-                interactor.Init(_unit);
+                interactor.Init(unit);
+
+            UpdateObserver(unit.Stats);
             
-            _unit.Stats.HealthChanged += () => _diceInteractor.UpdateInfo();
-            _unit.Stats.HealthChanged += HealthChanged;
-            _unit.ParametersChanged += ParametersChanged;
-            _unit.ChemistryChanged += ChemistryChanged; 
-            _unit.DicePowerChanged += DicePowerChanged;  
-            _unit.ReadyStatusChanged += ReadyStatusChanged;
-            _unit.PassiveEffectsChanged += PassiveEffectsChanged;
-            _unit.PassiveEffectsHolder.EffectApplied += EffectApplied;
-            //_unit.Stats.HealthChanged += HealthChanged;
-            Render(_unit);
+            _unit = unit;
+        }
+        
+        public void UnsubscribeFromUnit()
+        {
+            _unit.Stats.RemoveObserver(this);
+            
+            _unit = null;
+            
+            foreach (var interactor in _allInteractors) 
+                interactor.Init(null);
+            
+            UpdateObserver((UnitStats)null);
+            UpdateObserver((PassiveEffectsHolder)null);
         }
 
         private void EffectApplied(PassiveEffect effect, TriggerType type)
@@ -69,36 +81,7 @@ namespace Battle.Grid.Visualization
             {
                 PlayAnimation(clip, clip.length);
             }
-            
         }
-
-        public void UnsubscribeFromUnit()
-        {
-            _unit.ParametersChanged -= ParametersChanged;
-            _unit.ChemistryChanged -= ChemistryChanged; 
-            _unit.DicePowerChanged -= DicePowerChanged;  
-            _unit.ReadyStatusChanged -= ReadyStatusChanged;
-            _unit.PassiveEffectsChanged -= PassiveEffectsChanged;
-            //_unit.Stats.HealthChanged -= HealthChanged;
-
-            _unit = null;
-        }
-        
-        private void PassiveEffectsChanged()
-        {
-            _passiveInteractor.UpdateInfo();
-            _healthInteractor.UpdateInfo();
-        }
-
-        private void ReadyStatusChanged() => _diceInteractor.UpdateInfo();
-
-        private void DicePowerChanged() => _diceInteractor.UpdateInfo();
-
-        private void HealthChanged() => _healthInteractor.UpdateInfo();
-
-        private void ChemistryChanged() => _chemistryInteractor.UpdateInfo();
-
-        private void ParametersChanged() => Render(_unit);
 
         private void Update()
         {
@@ -131,7 +114,7 @@ namespace Battle.Grid.Visualization
         
         public void Render(Unit unit)
         {
-            if (unit == null || unit.IsDead)
+            if (unit == null || unit.Stats.IsDead)
             {
                 return;
             }
@@ -148,6 +131,19 @@ namespace Battle.Grid.Visualization
         private void OnDestroy()
         {
             _overPanelInteractor.OnDestroy();
+        }
+
+        public void UpdateObserver(UnitStats interactor)
+        {
+            _duckIconInteractor.TryUpdateInfo();
+            _chemistryInteractor.TryUpdateInfo();
+            _parameterInteractor.TryUpdateInfo();
+            _healthInteractor.TryUpdateInfo();
+        }
+        
+        public void UpdateObserver(PassiveEffectsHolder interactor)
+        {
+            _passiveInteractor.TryUpdateInfo();
         }
     }
 }

@@ -7,6 +7,7 @@ using Grid.Cells;
 using Services.GameControlService;
 using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
+using Units;
 
 namespace Grid.BattleGrid
 {
@@ -69,7 +70,7 @@ namespace Grid.BattleGrid
 
         private bool HasAliveUnits(List<Unit> units)
         {
-            return units.Any(unit => !unit.IsDead);
+            return units.Any(unit => !unit.Stats.IsDead);
         }
 
         public void StartTurn()

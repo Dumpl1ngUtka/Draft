@@ -1,0 +1,13 @@
+using Battle.Units;
+using UnityEngine;
+
+namespace Units
+{
+    [CreateAssetMenu(fileName = "NEw covenant", menuName = "Config/Units/Covenant")]
+    public class Covenant : ScriptableObject
+    {
+        public string Name;
+        public Sprite Icon;
+        public CovenantType Type;
+    }
+}

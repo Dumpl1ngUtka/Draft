@@ -13,14 +13,21 @@ namespace Battle.Grid.Visualization
         [SerializeField] private CircleParameter _dexterity;
         [SerializeField] private CircleParameter _intelligence;
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
-            base.UpdateInfo();
             var unitStats = Unit.Stats;
             _health?.Render(unitStats.HealthAttribute.Value);
             _strength?.Render(unitStats.StrengthAttribute.Value);
             _dexterity?.Render(unitStats.DexterityAttribute.Value);
             _intelligence?.Render(unitStats.IntelligenceAttribute.Value);
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _health?.gameObject.SetActive(isActive);
+            _strength?.gameObject.SetActive(isActive);
+            _dexterity?.gameObject.SetActive(isActive);
+            _intelligence?.gameObject.SetActive(isActive);
         }
     }
 }

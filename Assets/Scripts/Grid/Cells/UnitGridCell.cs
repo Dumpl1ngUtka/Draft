@@ -1,5 +1,6 @@
 using Battle.Grid.Visualization;
 using Battle.Units;
+using Units;
 
 namespace Grid.Cells
 {

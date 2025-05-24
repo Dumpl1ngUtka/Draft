@@ -14,11 +14,16 @@ namespace Battle.Grid.Visualization
         [SerializeField] private ValueParameter _health;
         [SerializeField] private ValueParameter _armor;
         
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
-            base.UpdateInfo();
             _health?.Render(Unit.Stats.CurrentHealth.Value, Unit.Stats.MaxHealth.Value);
             _armor?.Render(Unit.Stats.Armor.Value);
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _health?.gameObject.SetActive(isActive);
+            _armor?.gameObject.SetActive(isActive);
         }
     }
 }

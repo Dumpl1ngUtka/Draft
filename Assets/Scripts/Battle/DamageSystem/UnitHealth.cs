@@ -1,6 +1,7 @@
 using System;
 using Battle.Units;
-using Unit = Battle.Units.Unit;
+using Units;
+using Unit = Units.Unit;
 
 namespace Battle.DamageSystem
 {

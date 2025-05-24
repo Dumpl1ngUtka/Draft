@@ -30,6 +30,7 @@ namespace Grid.DraftGrid
         public override void OnEnter()
         {
             _model.StartDraft();
+            _view.InitChemistryObserver(_model.ChemestryInteractor);
         }
 
         public override void OnExit()

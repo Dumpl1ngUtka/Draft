@@ -1,5 +1,6 @@
 using Battle.Units;
 using TMPro;
+using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,10 +40,10 @@ namespace Services.PanelService.Panels
             _raceField.text = unit.Race.Name;
             _classField.text = unit.Class.Name;
             _covenantField.text = unit.Covenant.Name;
-            _health.text = unit.Attributes.Health.ToString();
-            _strength.text = unit.Attributes.Strength.ToString();
-            _dexterity.text = unit.Attributes.Dexterity.ToString();
-            _intelligence.text = unit.Attributes.Intelligence.ToString();
+            _health.text = unit.Stats.HealthAttribute.Value.ToString();
+            _strength.text = unit.Stats.StrengthAttribute.Value.ToString();
+            _dexterity.text = unit.Stats.DexterityAttribute.Value.ToString();
+            _intelligence.text = unit.Stats.IntelligenceAttribute.Value.ToString();
         }
     }
 }

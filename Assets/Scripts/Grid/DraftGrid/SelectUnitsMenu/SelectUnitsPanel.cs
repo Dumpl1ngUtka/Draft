@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Battle.Units;
+using Units;
 using UnityEngine;
 using UnityEngine.UI;
 

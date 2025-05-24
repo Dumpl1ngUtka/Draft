@@ -10,14 +10,20 @@ namespace Battle.Grid.Visualization
     {
         [SerializeField] private Image _icon;
         [SerializeField] private Sprite _deadSprite;
+        [SerializeField] private Sprite _emptySprite;
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {            
-            base.UpdateInfo();
             if (_icon == null)
                 return;
             
             _icon.sprite = Unit.Stats.IsDead? _deadSprite : Unit.Icon;
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            if (!isActive && _icon != null)
+                _icon.sprite = _emptySprite;
         }
     }
 }

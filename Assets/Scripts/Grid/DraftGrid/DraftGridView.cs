@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Battle.Grid.Visualization;
-using Battle.Units;
 using Grid.Cells;
+using Grid.DraftGrid.ChemistryBoard;
 using Grid.GridEffects.UnitGridCellEffects;
+using Units;
 using UnityEngine;
 
 namespace Grid.DraftGrid
@@ -11,12 +11,19 @@ namespace Grid.DraftGrid
     public class DraftGridView : GridView
     {
         [SerializeField] private SelectUnitsMenu.SelectUnitsPanel _selectUnitsPanel;
+        [SerializeField] private ChemistryObserver _chemistryObserver;
         private List<Effect> _effects = new List<Effect>();
         private Effect _dragEffect;
 
         private void Awake()
         {
             HideSelectMenu();
+            
+        }
+
+        public void InitChemistryObserver(CustomObserver.IObservable<ChemestryInteractor> observable)
+        {
+            _chemistryObserver.Init(observable);
         }
 
         public void ShowSelectMenu(List<Unit> units)

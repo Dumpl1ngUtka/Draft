@@ -14,9 +14,8 @@ namespace Battle.Grid.Visualization
         [SerializeField] private TMP_Text _additionalValueText;
         [SerializeField] private Image _additionalValueImage;
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
-            base.UpdateInfo();
             if (_diceIcon == null)
                 return;
             
@@ -31,6 +30,13 @@ namespace Battle.Grid.Visualization
             
             var value = Unit.DicePower + 1;
             _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/" + value);
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _diceIcon.gameObject.SetActive(isActive);
+            _additionalValueText.gameObject.SetActive(isActive);
+            _additionalValueImage.gameObject.SetActive(isActive);
         }
 
         public void SetActiveAdditionalValue(bool isActive)

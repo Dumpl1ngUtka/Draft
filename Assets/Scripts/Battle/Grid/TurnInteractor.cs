@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
 using Grid.Cells;
+using Units;
 
 namespace Battle.Grid
 {
@@ -35,7 +36,7 @@ namespace Battle.Grid
 
         private void UnitEndTurn(List<Unit> units)
         {
-            foreach (var unit in units.Where(unit => !unit.IsDead))
+            foreach (var unit in units.Where(unit => !unit.Stats.IsDead))
                 unit.EndTurn();
         }
         
@@ -44,7 +45,7 @@ namespace Battle.Grid
             foreach (var enemy in _enemyCells)
             {
                 var unit = enemy.Unit;
-                if (unit.IsDead)
+                if (unit.Stats.IsDead)
                     continue;
                 
                 var target = unit.CurrentAbility.GetPreferredTarget(_playerCells);
@@ -54,7 +55,7 @@ namespace Battle.Grid
         
         private void SetReady(List<Unit> units)
         {
-            foreach (var unit in units.Where(unit => !unit.IsDead))
+            foreach (var unit in units.Where(unit => !unit.Stats.IsDead))
             {
                 unit.SetRandomDicePower();
                 unit.SetReady(true);

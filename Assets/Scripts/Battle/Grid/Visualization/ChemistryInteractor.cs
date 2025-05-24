@@ -9,10 +9,14 @@ namespace Battle.Grid.Visualization
     {
         [SerializeField] private CircleParameter _chemistry;
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
-            base.UpdateInfo();
-            _chemistry?.Render(Unit.Chemistry);
+            _chemistry?.Render(Unit.Stats.Chemistry.Value);
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _chemistry?.gameObject.SetActive(isActive);
         }
     }
 }

@@ -26,10 +26,15 @@ namespace Battle.Grid.Visualization
             //_animationImage.color = color;
         }
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
         }
-        
+
+        protected override void SetActive(bool isActive)
+        {
+            
+        }
+
         public void Init()
         {
             _playableGraph = PlayableGraph.Create("PieceAnimationSystem");
@@ -47,7 +52,7 @@ namespace Battle.Grid.Visualization
 
         public void Update()
         {
-            base.UpdateInfo();
+            base.TryUpdateInfo();
             if (!_oneShotPlayable.IsValid()) return;
             
             if (_oneShotTimer <= 0f)

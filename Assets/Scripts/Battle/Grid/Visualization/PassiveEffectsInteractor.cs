@@ -10,9 +10,8 @@ namespace Battle.Grid.Visualization
         [SerializeField] private PassiveEffectCell _prefab;
         [SerializeField] private Transform _container;
 
-        public override void UpdateInfo()
+        protected override void UpdateInfo()
         {
-            base.UpdateInfo();
             if (_container == null)
                 return;
             
@@ -23,6 +22,11 @@ namespace Battle.Grid.Visualization
                 var renderer = Object.Instantiate(_prefab, _container);
                 renderer.Init(effect);
             }
+        }
+
+        protected override void SetActive(bool isActive)
+        {
+            _container?.gameObject.SetActive(isActive);
         }
 
         private void ClearContainer()

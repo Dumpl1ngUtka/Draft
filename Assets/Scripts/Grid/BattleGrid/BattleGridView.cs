@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.Grid.Visualization;
 using Battle.Units;
 using Grid.Cells;
+using Units;
 
 namespace Grid.BattleGrid
 {

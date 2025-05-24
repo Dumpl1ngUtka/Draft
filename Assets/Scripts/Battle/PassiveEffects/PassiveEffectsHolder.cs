@@ -1,24 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Units;
-using UnityEngine;
 
 namespace Battle.PassiveEffects
 {
-    public class PassiveEffectsHolder
+    public class PassiveEffectsHolder : CustomObserver.IObservable<PassiveEffectsHolder>
     {
-        private List<PassiveEffect> _passiveEffects;
+        private List<PassiveEffect> _passiveEffects = new();
         
         public Action PassiveEffectsChanged;
         public Action<PassiveEffect, TriggerType> EffectApplied;
-        
-        public PassiveEffectsHolder(Unit unit)
-        {
-            unit.TurnEnded += OnTurnEnded;
-            _passiveEffects = new List<PassiveEffect>();
-        }
-        
+
         public void AddEffect(PassiveEffect effect)
         {
             if (effect == null)
@@ -38,7 +30,7 @@ namespace Battle.PassiveEffects
             }
         }
         
-        private void OnTurnEnded()
+        public void OnTurnEnded()
         {
             foreach (var effect in _passiveEffects)
             {
@@ -55,5 +47,27 @@ namespace Battle.PassiveEffects
         }
 
         public List<PassiveEffect> GetPassiveEffects() => _passiveEffects;
+
+        #region Observers
+
+        private List<CustomObserver.IObserver<PassiveEffectsHolder>> _observers = new();
+        
+        public void AddObserver(CustomObserver.IObserver<PassiveEffectsHolder> observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void RemoveObserver(CustomObserver.IObserver<PassiveEffectsHolder> observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+                observer.UpdateObserver(this);
+        }
+
+        #endregion
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Battle.Units;
+using Units;
 
 namespace Battle.PassiveEffects
 {
