@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid;
-using Grid.Cells;
+using Units;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Battle.Abilities
+namespace Abilities
 {
     [Serializable]
     public class AbilityRangeFilter
@@ -16,28 +14,28 @@ namespace Battle.Abilities
                                                                 false,true,false,
                                                                 false, false, false);
         
-        public List<UnitGridCell> GetRelevantCells(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> teamCells, List<UnitGridCell> enemyCells)
+        public List<Unit> GetRelevantCells(Unit target, List<Unit> teamCells, List<Unit> enemyCells)
         {
-            var range = new List<UnitGridCell>();
+            var range = new List<Unit>();
             var cells = teamCells.Concat(enemyCells).ToList();
             foreach (var cell in cells)
             {
                 CalculateDelta(target, cell, out int lineDelta, out int columnDelta);
-                if (GetMatrixValue(lineDelta, columnDelta))
+                if (GetMatrixValue(_matrix, lineDelta, columnDelta))
                     range.Add(cell);
             }
             return range;
         }
         
-        private bool GetMatrixValue(int lineDelta, int columnDelta)
+        private bool GetMatrixValue(bool3x3 mask, int lineDelta, int columnDelta)
         {
             if (Mathf.Abs(lineDelta) > 1 || Mathf.Abs(columnDelta) > 1)
                 return false;
 
             if (lineDelta == 0 && columnDelta == 0)
-                return _matrix.c1.y;
+                return mask.c1.y;
             
-            var column = GetColumnByDelta(columnDelta, _matrix);
+            var column = GetColumnByDelta(columnDelta, mask);
             return GetLineByDelta(lineDelta, column);
         }
 
@@ -63,13 +61,13 @@ namespace Battle.Abilities
             };
         }
         
-        private void CalculateDelta(UnitGridCell target, UnitGridCell cell, out int lineDelta, out int columnDelta)
+        private void CalculateDelta(Unit target, Unit cell, out int lineDelta, out int columnDelta)
         {
-            columnDelta = cell.ColumnIndex - target.ColumnIndex;
-            if (cell.TeamType == target.TeamType)
-                lineDelta = cell.LineIndex - target.LineIndex;
+            columnDelta = cell.Position.ColumnIndex - target.Position.ColumnIndex;
+            if (cell.Position.TeamType == target.Position.TeamType)
+                lineDelta = cell.Position.LineIndex - target.Position.LineIndex;
             else
-                lineDelta = -cell.LineIndex - target.LineIndex - 1;
+                lineDelta = -cell.Position.LineIndex - target.Position.LineIndex - 1;
         }
     }
 }

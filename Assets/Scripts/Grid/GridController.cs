@@ -1,31 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Grid.Cells;
-using Services.GameControlService.GridStateMachine;
+using Services.GlobalAnimation;
 using UnityEngine;
 
 namespace Grid
 {
     public abstract class GridController : MonoBehaviour
     {
-        private GridView _baseView;
-        
-        protected GridStateMachine GridStateMachine;
-
-        // ReSharper disable Unity.PerformanceAnalysis
-        public void SetActive(bool isActive)
-        {
-            _baseView.SetActive(isActive);
-        }
-        
-        public virtual void Init(GridStateMachine gridStateMachine)
-        {
-            GridStateMachine = gridStateMachine;
-            _baseView = gameObject.GetComponent<GridView>();
-            var cells = _baseView.InitiateUnitCells();
-            SubscribeToCells(cells.Select(x => x as GridCell).ToList());
-        }
-
         protected void SubscribeToCells(List<GridCell> cells)
         {
             foreach (var cell in cells)
@@ -54,8 +35,16 @@ namespace Grid
             }
         }
         
-        public abstract void OnEnter();
-        public abstract void OnExit();
+        // ReSharper disable Unity.PerformanceAnalysis
+        public virtual void Enter()
+        {
+            GlobalAnimationSevice.Instance.PlayRandomTransitionAnimaton(false);
+        }
+        
+        public virtual void Exit()
+        {
+            GlobalAnimationSevice.Instance.PlayRandomTransitionAnimaton(true);
+        }
         
         protected abstract void DraggedFromCell(GridCell startDraggingCell, GridCell overCell);
 

@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Battle.Grid;
 using Grid.Cells;
-using UnityEngine;
+using Units;
 
-namespace Battle.Abilities
+namespace Abilities
 {
     [Serializable]
     public class AbilityTargetFilter
@@ -15,10 +12,10 @@ namespace Battle.Abilities
         public bool IsDeadPlayerUnitTarget;
         public bool IsDeadEnemyUnitTarget;
 
-        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target)
+        public bool IsRightTarget(Unit caster, Unit target)
         {
-            var isTeammete = target.TeamType == caster.TeamType;
-            var isDead = target.Unit.Stats.IsDead;
+            var isTeammete = target.Position.TeamType == caster.Position.TeamType;
+            var isDead = target.Stats.IsDead;
             
             if (IsPlayerUnitTarget && isTeammete && !isDead)
                 return true;

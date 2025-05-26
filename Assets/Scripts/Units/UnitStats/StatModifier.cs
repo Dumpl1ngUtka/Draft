@@ -1,5 +1,3 @@
-using Battle.Units;
-
 namespace Units
 {
     public class StatModifier

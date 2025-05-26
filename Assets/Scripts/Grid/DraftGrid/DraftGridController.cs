@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Grid.Cells;
 using Grid.DraftGrid.SelectUnitsMenu;
-using Services.GameControlService.GridStateMachine;
+using Services.GameControlService;
 using Services.PanelService;
+using Units;
 using UnityEngine;
 
 namespace Grid.DraftGrid
@@ -13,28 +15,21 @@ namespace Grid.DraftGrid
         
         private DraftGridModel _model;
         private DraftGridView _view;
-        private bool _isDragBeginSuccess;
         private UnitGridCell _draftedCell;
         
         private List<UnitGridCell> _inactiveCells;
-
-
-        public override void Init(GridStateMachine gridStateMachine)
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        public override void Enter()
         {
-            base.Init(gridStateMachine);
+            base.Enter();
+            _model = new DraftGridModel();
             _view = gameObject.GetComponent<DraftGridView>();
-            _model = new DraftGridModel(gridStateMachine, _view.GetUnitsCellsByTeam(TeamType.Player));
+            _view.InstantiateCells();
+            SubscribeToCells(_view.Cells.Select(cell => (GridCell)cell).ToList());
             _selectUnitsPanel.Init();
-        }
-
-        public override void OnEnter()
-        {
-            _model.StartDraft();
+            _view.HideSelectMenu();
             _view.InitChemistryObserver(_model.ChemestryInteractor);
-        }
-
-        public override void OnExit()
-        {
         }
 
         public void OnSelectMenuFinished()
@@ -46,7 +41,10 @@ namespace Grid.DraftGrid
             }
             else
             {
-                _model.SetUnitToCell(selectedCell.Unit, _draftedCell);
+                var unit = selectedCell.Unit;
+                _model.AddUnit(unit);
+                var unitGridCells = _view.Cells.Find(cell => cell.Position.OwnEquals(_draftedCell.Position));
+                unitGridCells.AddUnit(unit);
                 _view.HideSelectMenu();
             }
         }
@@ -74,17 +72,15 @@ namespace Grid.DraftGrid
         protected override void HoldBegin(GridCell from)
         {
             var unitCell = (UnitGridCell)from;
-            _isDragBeginSuccess = false;
             if (unitCell.Unit == null)
             {
                 //InstantiateErrorPanel("unit_null_error");
                 return;
             }
 
-            var noSwichCells = _model.GetNoSwichCells(unitCell);
+            var noSwichCells = GetNoSwichCells(unitCell);
             _inactiveCells = noSwichCells;
             _view.Visualizer.SetSizeFor(0.5f, noSwichCells);
-            _isDragBeginSuccess = true;
         }
         
         protected override void HoldFinished(GridCell cell)
@@ -98,7 +94,7 @@ namespace Grid.DraftGrid
             var unitCell = (UnitGridCell)cell;
             if (unitCell.Unit == null)
             {
-                var units = _model.GetUnitsForDraft(unitCell);
+                var units = _model.GetUnitsForDraft(unitCell.Position.LineIndex);
                 _draftedCell = unitCell;
                 _view.ShowSelectMenu(units);
             }
@@ -111,21 +107,74 @@ namespace Grid.DraftGrid
             var fromUnitCell = (UnitGridCell)from;
             var toUnitCell = (UnitGridCell)to;
             
-            if (!_isDragBeginSuccess)
-                return;
-            
             _view.Visualizer.ResetSize();
-            _model.SwitchCard(fromUnitCell, toUnitCell);
+            SwitchCard(fromUnitCell, toUnitCell);
         }
         
         public void PressFinishButton()
         {
-            _model.TryFinish();
+            if (IsAllCellsFilled())
+                _model.DraftFinished();
+            else
+                PanelService.Instance.InstantiateErrorPanel("draft_fill_cells_error");
         }
         
+        private bool IsAllCellsFilled()
+        {
+            var cellCount = _view.GetUnitsCellsByTeam(TeamType.Player).Count;
+            var unitsCount = _model.DraftedUnitsCount;
+            return cellCount == unitsCount;
+        }
+        
+        private List<UnitGridCell> GetSwichCells(UnitGridCell from)
+        {
+            var cells = _view.Cells.Where(cell => from.Unit.Class.LineIndexes.Contains(cell.Position.LineIndex)).ToList();
+            return cells.Where(cell => (cell.Unit != null && cell.Unit.Class.LineIndexes.Contains(from.Position.LineIndex)) || cell.Unit == null).ToList();
+        }
+        
+        private List<UnitGridCell> GetNoSwichCells(UnitGridCell from)
+        {
+            var swichCells = GetSwichCells(from);
+            return _view.Cells.Where(cell => !swichCells.Contains(cell)).ToList();
+        }
+
+        private void SwitchCard(UnitGridCell from, UnitGridCell to)
+        {
+            if (!GetSwichCells(from).Contains(to))
+            {
+                PanelService.Instance.InstantiateErrorPanel("line_index_mismatch_error");
+                return;
+            }
+            
+            if (from.Position.TeamType != to.Position.TeamType)
+            {
+                PanelService.Instance.InstantiateErrorPanel("team_index_mismatch_error");
+                return;
+            }
+            
+            var toUnit = to.Unit;
+            to.AddUnit(from.Unit);
+            from.RemoveUnit();
+            if (toUnit != null)
+                from.AddUnit(toUnit);
+        }
+        
+        //TODO delete later 
         public void QuickFin()
         {
-            _model.QuickFinish();
+            QuickFinish();
+        }
+        
+        private void QuickFinish()
+        {
+            foreach (var cell in _view.Cells)
+            {
+                var unit = UnitPreset.GenerateUnit(GameControlService.Instance.CurrentDungeonInfo.Classes[Random.Range(0, GameControlService.Instance.CurrentDungeonInfo.Classes.Count)]);
+                unit.Position = cell.Position;
+                _model.AddUnit(unit);
+            }
+
+            PressFinishButton();
         }
     }
 }

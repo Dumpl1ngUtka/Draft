@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Abilities;
 using Battle.PassiveEffects;
-using Battle.Units.Interactors;
-using Grid.Cells;
+using Units;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Abilities
 {
@@ -18,7 +15,7 @@ namespace Abilities
         public AbilityTargetFilter TargetFilter;
         public AbilityRangeFilter RangeFilter;
         public HitProbabilityCalculator HitProbabilityCalculator;
-
+        
         public Ability GetInstance()
         {
             var instance = ScriptableObject.CreateInstance<Ability>();
@@ -31,42 +28,33 @@ namespace Abilities
             return instance;
         }
         
-        public float GetHitProbability(UnitGridCell caster, UnitGridCell target)
+        public float GetHitProbability(Unit caster, Unit target)
         {
-            if (!IsRightTarget(caster, target))
-                return 0;
             return HitProbabilityCalculator.GetHitProbability(caster, target);
         }
 
-        public List<UnitGridCell> GetRange(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
+        public List<Unit> GetRange(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies)
         {
-            var rangeCells = RangeFilter.GetRelevantCells(caster, target, allies, enemies);
+            var rangeCells = RangeFilter.GetRelevantCells(target, allies, enemies);
             return rangeCells.Where(x =>  TargetFilter.IsRightTarget(caster, x)).ToList();
         }
         
-        public bool IsRightTarget(UnitGridCell caster, UnitGridCell target) => TargetFilter.IsRightTarget(caster, target);
-
-        public Response TryUseAbility(UnitGridCell caster, UnitGridCell target, List<UnitGridCell> allies, List<UnitGridCell> enemies)
+        public bool IsRightTarget(Unit caster, Unit target)
         {
-            if (!caster.Unit.IsReady)
-            {
-                return new Response(false, "is_not_ready_error");
-            }
-            
-            if (!TargetFilter.IsRightTarget(caster, target))
-                return new Response(false, "wrong_target_error");
-            
-            var rangeCells = RangeFilter.GetRelevantCells(caster, target, allies, enemies);
-            foreach (var cell in rangeCells)
-            {
-                var targetUnit = cell.Unit;
-                var effect = AbillityEffect.GetInstance(caster.Unit.Stats, targetUnit.Stats);
-                targetUnit.PassiveEffectsHolder.AddEffect(effect);
-            }
-            return new Response(true, "success");
+            return TargetFilter.IsRightTarget(caster, target);
         }
 
-        public UnitGridCell GetPreferredTarget(List<UnitGridCell> potentialTargets)
+        public void UseAbility(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies)
+        {
+            var rangeCells = RangeFilter.GetRelevantCells(target, allies, enemies);
+            foreach (var cell in rangeCells)
+            {
+                var effect = AbillityEffect.GetInstance(caster.Stats, cell.Stats);
+                cell.PassiveEffectsHolder.AddEffect(effect);
+            }
+        }
+
+        public Unit GetPreferredTarget(List<Unit> potentialTargets)
         {
             return potentialTargets[Random.Range(0, potentialTargets.Count)];       
         }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Battle.Units.Interactors;
 using Grid.Cells;
+using Units;
 using UnityEngine;
 
 namespace Battle.UseCardReactions
@@ -9,15 +9,12 @@ namespace Battle.UseCardReactions
     {
         [SerializeField] private int _value = 1;
         
-        public abstract List<UnitGridCell> GetReactionCells(UnitGridCell caster, List<UnitGridCell> allies);
+        public abstract List<Unit> GetReactionCells(Unit caster, List<Unit> allies);
 
-        public Response TryUseReaction(UnitGridCell caster, List<UnitGridCell> allies)
+        public void UseReaction(Unit caster, List<Unit> allies)
         {
-            foreach (var cell in GetReactionCells(caster, allies))
-            {
-                cell.Unit.SetDicePower(cell.Unit.DicePower + _value);
-            }
-            return new Response(true, "ReactionUsed");
+            foreach (var unit in GetReactionCells(caster, allies)) 
+                unit.SetDicePower(unit.DicePower + _value);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Battle.Grid.Visualization
 
         public void RenderHitProbabilityForAll(UnitGridCell caster)
         {
-            var ablility = caster.Unit.CurrentAbility;
+            /*var ablility = caster.Unit.CurrentAbility;
             foreach (var cell in _allCells)
             {
                 if (!ablility.IsRightTarget(caster, cell))
@@ -57,7 +57,7 @@ namespace Battle.Grid.Visualization
                 
                 var probability = ablility.GetHitProbability(caster, cell);
                 cell.Renderer.SetOverText((probability).ToString("0%"));
-            }
+            }*/
         }
 
         public void SetOverPanelColor(UnitGridCell cell, Color color)
@@ -90,10 +90,10 @@ namespace Battle.Grid.Visualization
         {
             SetSizeFor(0, _allCells, true);
             var delay = new WaitForSeconds(0.5f);
-            var iterationCount = _allCells.Max(cell => cell.ColumnIndex);
+            var iterationCount = _allCells.Max(cell => cell.Position.ColumnIndex);
             for (int i = 0; i <= iterationCount; i++)
             {
-                SetSizeFor(1, _allCells.Where(x => x.ColumnIndex == i).ToList());     
+                SetSizeFor(1, _allCells.Where(x => x.Position.ColumnIndex == i).ToList());     
                 yield return delay;
             }
         }

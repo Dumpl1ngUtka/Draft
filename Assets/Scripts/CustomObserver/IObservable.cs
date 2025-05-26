@@ -1,5 +1,3 @@
-using Battle.Units;
-
 namespace CustomObserver
 {
     public interface IObservable<T>

@@ -9,54 +9,39 @@ namespace Battle.Grid
     public class TurnInteractor
     {
         private int _turnCount;
-        private List<UnitGridCell> _playerCells;
-        private List<UnitGridCell> _enemyCells;
+        private readonly List<Unit> _playerUnits;
+        private readonly List<Unit> _enemyUnits;
         
-        public TurnInteractor(List<UnitGridCell> playerCells, List<UnitGridCell> enemyCells)
+        public TurnInteractor(List<Unit> playerUnits, List<Unit> enemyUnits)
         {
             _turnCount = 0;
-            _playerCells = playerCells;
-            _enemyCells = enemyCells;
+            _playerUnits = playerUnits;
+            _enemyUnits = enemyUnits;
         }
         
         public void StartTurn()
         {
             _turnCount++;
-            SetReady(_playerCells.Select(x => x.Unit).ToList());
-            SetReady(_enemyCells.Select(x => x.Unit).ToList());
+            SetReady(_playerUnits);
+            SetReady(_enemyUnits);
         }
 
         public void EndTurn()
         {
-            EnemyAttack();
-            UnitEndTurn(_playerCells.Select(x => x.Unit).ToList());
-            UnitEndTurn(_enemyCells.Select(x => x.Unit).ToList());
+            UnitEndTurn(_playerUnits);
+            UnitEndTurn(_enemyUnits);
             StartTurn();
         }
 
         private void UnitEndTurn(List<Unit> units)
         {
-            foreach (var unit in units.Where(unit => !unit.Stats.IsDead))
+            foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead))
                 unit.EndTurn();
-        }
-        
-        private void EnemyAttack()
-        {
-            foreach (var enemy in _enemyCells)
-            {
-                var unit = enemy.Unit;
-                if (unit.Stats.IsDead)
-                    continue;
-
-                var target = unit.CurrentAbility.GetPreferredTarget(_playerCells);
-                unit.CurrentAbility.TryUseAbility(enemy, target, _enemyCells, _playerCells);
-                Debug.Log(enemy + " attacked" + target);
-            }
         }
         
         private void SetReady(List<Unit> units)
         {
-            foreach (var unit in units.Where(unit => !unit.Stats.IsDead))
+            foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead))
             {
                 unit.SetRandomDicePower();
                 unit.SetReady(true);

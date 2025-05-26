@@ -1,12 +1,11 @@
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Services.GlobalAnimationService
+namespace Services.GlobalAnimation
 {
     public class GlobalAnimationSevice : MonoBehaviour
     {
@@ -74,7 +73,7 @@ namespace Services.GlobalAnimationService
             _oneShotPlayable.SetSpeed(animationClip.length / animationTime);
             _topLevelMixer.ConnectInput(0, _oneShotPlayable, 0);
             _topLevelMixer.SetInputWeight(0, 1f);
-            _animationImage.enabled = true;
+            //_animationImage.enabled = true;
             _callback = callback;
         }
 
@@ -89,7 +88,7 @@ namespace Services.GlobalAnimationService
         {
             _topLevelMixer.DisconnectInput(0);
             _playableGraph.DestroyPlayable(_oneShotPlayable);
-            _animationImage.enabled = false;
+            //_animationImage.enabled = false;
             _callback?.Invoke();
         }
 

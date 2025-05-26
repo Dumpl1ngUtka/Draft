@@ -1,6 +1,4 @@
-using Battle.Grid.CardParameter;
 using Battle.Grid.CardParameter.GraduationParameter;
-using Battle.Units;
 using TMPro;
 using Units;
 using UnityEngine;

@@ -1,12 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
-using Battle.Units;
-using Battle.Units.Interactors.Reaction;
-using Grid.Cells;
 using Services.GameControlService;
-using Services.GameControlService.GridStateMachine;
-using Services.PanelService;
 using Units;
 
 namespace Grid.BattleGrid
@@ -15,57 +10,69 @@ namespace Grid.BattleGrid
     {
         private List<Unit> _playerUnits;
         private List<Unit> _enemyUnits;        
-        private List<UnitGridCell> _playerCells;
-        private List<UnitGridCell> _enemyCells;
-        private UseReactionInteractor _useReactionInteractor;
         private TurnInteractor _turnInteractor;
 
-        public BattleGridModel(GridStateMachine stateMachine) : base(stateMachine)
+        public BattleGridModel()
         {
-            _useReactionInteractor = new UseReactionInteractor();
+            _playerUnits = GameControlService.CurrentRunInfo.PlayerUnits.ToList();
+            _enemyUnits = GenerateEnemies();
+            
+            _turnInteractor = new TurnInteractor(_playerUnits, _enemyUnits);
         }
         
-        public void AddCells(List<UnitGridCell> playerCells, List<UnitGridCell> enemyCells)
+        private List<Unit> GenerateEnemies()
         {
-            _playerCells = playerCells;
-            _enemyCells = enemyCells;
-            _turnInteractor = new TurnInteractor(_playerCells, _enemyCells);
-            _playerUnits = playerCells.Select(x => x.Unit).ToList();
-            _enemyUnits = enemyCells.Select(x => x.Unit).ToList();
+            var preset = GameControlService.Instance.CurrentDungeonInfo.GetEnemyPositionPreset();
+            return preset.GetUnitPresets().
+                Select(unitPreset => unitPreset == null ? null : new Unit(unitPreset)).ToList();
         }
 
         public void EndTurn()
         {
             _turnInteractor.EndTurn();
+            //EnemyAttack();
+
         }
         
-        public void UseAbility(UnitGridCell from, UnitGridCell to)
+        private void EnemyAttack()
         {
-            var response = from.Unit.CurrentAbility.TryUseAbility(from, to, _playerCells, _enemyCells);
-            if (response.Success)
+            foreach (var enemy in _enemyUnits)
             {
-                from.Unit.SetReady(false);
+                if (enemy.Stats.IsDead)
+                    continue;
+
+                var ability = enemy.CurrentAbility;
+                var target = ability.GetPreferredTarget(_playerUnits);
+                var range = ability.GetRange(enemy, target, _enemyUnits, _playerUnits);
+                foreach (var unit in range)
+                {
+                    if (!ability.IsRightTarget(enemy, unit)) continue;
+                    if (unit.Stats.IsDead || !unit.IsReady) continue;
+                    
+                    ability.UseAbility(enemy, unit, _enemyUnits, _playerUnits);
+                }
             }
-            else
-            {
-                PanelService.Instance.InstantiateErrorPanel(response.Message);
-                return;
-            }
-            
-            response = _useReactionInteractor.UseReaction(from, _playerCells);
-            if (!response.Success)
-            {
-                PanelService.Instance.InstantiateErrorPanel(response.Message);
-                return;
-            }
+        }
+        
+        public void UseAbility(Unit from, Unit to)
+        {
+            from.CurrentAbility.UseAbility(from, to, _playerUnits, _enemyUnits);
+            from.SetReady(false);
+            from.Reaction.UseReaction(from, _playerUnits);
         }
         
         public void CheckEndBattle()
         {
             if (!HasAliveUnits(_enemyUnits))
-                StateMachine.ChangeGrid(StateMachine.PathMapGrid);
+            {
+                GameControlService.ChangeGrid(GameControlService.PathMapGridPrefab);
+                GameControlService.Instance.CurrentRunInfo.SavePlayerUnits(_playerUnits);
+            }
             else if (!HasAliveUnits(_playerUnits))
-                StateMachine.ChangeGrid(StateMachine.DungeonGrid);
+            {
+                GameControlService.ChangeGrid(GameControlService.SelectDungeonGridPrefab);
+                //calculateRes
+            }
         }
 
         private bool HasAliveUnits(List<Unit> units)
@@ -76,6 +83,12 @@ namespace Grid.BattleGrid
         public void StartTurn()
         {
             _turnInteractor.StartTurn();
+        }
+
+        public void GetUnits(out List<Unit> playerUnits, out List<Unit> enemyUnits)
+        {
+            playerUnits = _playerUnits;
+            enemyUnits = _enemyUnits;
         }
     }
 }

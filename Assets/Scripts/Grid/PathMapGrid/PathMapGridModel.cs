@@ -30,7 +30,7 @@ namespace Grid.PathMapGrid
             get { return _cellsTypes ??= GenerateCellTypes(); }
         }
 
-        public PathMapGridModel(GridStateMachine stateMachine) : base(stateMachine)
+        public PathMapGridModel()
         {
             CurrentLine = 0;
         }
@@ -106,7 +106,7 @@ namespace Grid.PathMapGrid
         {
             if (pathCell.PathCellType == PathCellType.Monsters)
             {
-                StateMachine.ChangeGrid(StateMachine.BattleGrid);
+                //StateMachine.ChangeGrid(StateMachine.BattleGrid);
                 //GameControlService.Instance.CurrentPathCellInfo = 
             }
         }

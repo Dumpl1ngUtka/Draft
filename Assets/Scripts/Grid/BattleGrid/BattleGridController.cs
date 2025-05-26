@@ -1,40 +1,41 @@
-using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid.Visualization;
-using Battle.Units;
 using Grid.Cells;
 using Services.GameControlService;
-using Services.GameControlService.GridStateMachine;
 using Services.PanelService;
-using Units;
+using UnityEngine;
 
 namespace Grid.BattleGrid
 {
     public class BattleGridController : GridController
     {
         private BattleGridModel _model;
-        private bool _isDragStartSeccess;
         private BattleGridView _view;
+        private bool _isDragStartSeccess;
         private UnitGridCell _draftedCell;
 
-        public override void Init(GridStateMachine gridStateMachine)
-        {
-            base.Init(gridStateMachine);
-            _view = gameObject.GetComponent<BattleGridView>();
-            _model = new BattleGridModel(gridStateMachine);
-        }
-
         // ReSharper disable Unity.PerformanceAnalysis
-        public override void OnEnter()
+        public override void Enter()
         {
-            var playerUnits = GameControlService.Instance.PlayerUnits;
-            var preset = GameControlService.Instance.CurrentDungeonInfo.GetEnemyPositionPreset();
-            var enemyUnits = preset.GetUnitPresets().Select(x => new Unit(x)).ToList();
-            Fill(playerUnits, enemyUnits);
+            base.Enter();
+            _model = new BattleGridModel();
+            _view = gameObject.GetComponent<BattleGridView>();
+            _view.InitiateUnitCells();
+            
+            Fill();
+
+             _view.GetCells(out var playerCells, out var enemyCells);
+            SubscribeToCells(playerCells.Select(x => x as GridCell).ToList());
+            SubscribeToCells(enemyCells.Where(x => x.IsActive).Select(x => x as GridCell).ToList());
+            
+            _model.StartTurn();
+            //_view.Visualizer.ResetOverPanels();
         }
 
-        public override void OnExit()
+        public override void Exit()
         {
+            base.Exit();
+            _model.GetUnits(out var playerUnits, out var _);
+            GameControlService.Instance.CurrentRunInfo.SavePlayerUnits(playerUnits);
         }
 
         public void OnTurnButtonClicked()
@@ -43,13 +44,31 @@ namespace Grid.BattleGrid
             InteractFinised();
         }
         
-        private void Fill(List<Unit> playerUnits, List<Unit> enemyUnits)
+        private void Fill()
         {
-            _view.Fill(playerUnits, enemyUnits, out var playerCells, out var enemyCells);
-            _model.AddCells(playerCells, enemyCells);
-            _model.StartTurn();
-            
-            _view.Visualizer.ResetOverPanels();
+            _view.GetCells(out var playerCells, out var enemyCells);
+            _model.GetUnits(out var playerUnits, out var enemyUnits);
+
+            foreach (var unit in playerUnits)
+            {
+                var cell = playerCells.Find(cell => cell.Position.OwnEquals(unit.Position));
+                cell.AddUnit(unit);
+            }
+
+            for (int i = 0; i < enemyCells.Count; i++)
+            {
+                var unit = enemyUnits[i];
+                var cell = enemyCells[i];
+                if (unit == null)
+                {
+                    cell.Deactivate();
+                }
+                else
+                {
+                    unit.Position = cell.Position;
+                    cell.AddUnit(unit);
+                }
+            }
         }
         
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)
@@ -65,8 +84,29 @@ namespace Grid.BattleGrid
         protected override void DoubleClicked(GridCell cell)
         {
             var unitCell = cell as UnitGridCell;
+            if (unitCell == null) return;
+            
             InteractFinised();
-            _model.UseAbility(unitCell, unitCell);
+            
+            if (unitCell.Unit.Stats.IsDead)
+            {
+                PanelService.Instance.InstantiateErrorPanel("unit_is_dead_error");
+                return;
+            }
+            
+            if (!unitCell.Unit.IsReady)
+            {
+                PanelService.Instance.InstantiateErrorPanel("unit_not_ready_error");
+                return;
+            }
+
+            if (unitCell.Position.TeamType != TeamType.Player)
+            {
+                PanelService.Instance.InstantiateErrorPanel("no_player_unit_error");
+                return;
+            }
+            
+            _model.UseAbility(unitCell.Unit, unitCell.Unit);
         }
 
         protected override void HoldFinished(GridCell cell)
@@ -77,8 +117,10 @@ namespace Grid.BattleGrid
         protected override void HoldBegin(GridCell from)
         {
             var cell = from as UnitGridCell;
+            if (cell == null) return;
             
             _isDragStartSeccess = false;
+            
             if (cell.Unit.Stats.IsDead)
             {
                 PanelService.Instance.InstantiateErrorPanel("unit_is_dead_error");
@@ -91,7 +133,7 @@ namespace Grid.BattleGrid
                 return;
             }
 
-            if (cell.TeamType != TeamType.Player)
+            if (cell.Position.TeamType != TeamType.Player)
             {
                 PanelService.Instance.InstantiateErrorPanel("no_player_unit_error");
                 return;
@@ -107,17 +149,19 @@ namespace Grid.BattleGrid
         protected override void Clicked(GridCell cell)
         {
             InteractFinised();
-            PanelService.Instance.InstantiateUnitInfoPanel((cell as UnitGridCell).Unit);
+            PanelService.Instance.InstantiateUnitInfoPanel((cell as UnitGridCell)?.Unit);
         }
 
         protected override void DragFinished(GridCell from, GridCell to)
         {
             InteractFinised();
+            var fromUnitCell = from as UnitGridCell;
+            var toUnitCell = to as UnitGridCell;
             
             if (!_isDragStartSeccess)
                 return;
 
-            _model.UseAbility(from as UnitGridCell, to as UnitGridCell);
+            _model.UseAbility(fromUnitCell?.Unit, toUnitCell?.Unit);
         }
         
         private void InteractFinised()

@@ -1,5 +1,4 @@
 using System;
-using Battle.Units;
 using DungeonMap;
 using Services.PanelService.Panels;
 using Units;

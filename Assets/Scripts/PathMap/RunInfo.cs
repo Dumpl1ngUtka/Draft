@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Units;
+using UnityEngine;
 
 namespace PathMap
 {
-    public struct RunInfo
+    public class RunInfo
     {
         public int[] Path { get; private set; }
         public Unit[] PlayerUnits { get; private set; }

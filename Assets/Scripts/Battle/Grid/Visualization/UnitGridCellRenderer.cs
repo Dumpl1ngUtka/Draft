@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Battle.PassiveEffects;
-using Battle.Units;
 using CustomObserver;
 using Units;
 using UnityEngine;

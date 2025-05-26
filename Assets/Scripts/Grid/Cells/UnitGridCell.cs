@@ -1,31 +1,33 @@
 using Battle.Grid.Visualization;
-using Battle.Units;
 using Units;
 
 namespace Grid.Cells
 {
     public class UnitGridCell : GridCell
     {
-        public TeamType TeamType { get; private set; }
-        public int LineIndex { get; private set; }
-        public int ColumnIndex { get; private set; }
         public Unit Unit { get; private set; }
         public UnitGridCellRenderer Renderer { get; private set; }
-        
+        public GridPosition Position { get; private set; }
+        public bool IsActive { get; private set; }
+
         public void Init(int lineIndex, int columnIndex, TeamType teamType)
         {
             Renderer = GetComponent<UnitGridCellRenderer>();
             Renderer.Init();
-            
-            LineIndex = lineIndex;
-            ColumnIndex = columnIndex;
-            TeamType = teamType;
+            IsActive = true;
+            Position = new GridPosition(lineIndex, columnIndex, teamType);
+        }
+
+        public void Deactivate()
+        {
+            IsActive = false;
+            Destroy(Renderer);
         }
         
         public void AddUnit(Unit unit)
         {
             Unit = unit;
-            Unit.SetTeam(TeamType);
+            Unit.Position = Position;
             Renderer.SubscribeToUnit(unit);
             Renderer.Render(unit);
         }

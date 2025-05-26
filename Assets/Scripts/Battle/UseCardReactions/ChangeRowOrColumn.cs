@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Grid.Cells;
+using Units;
 using UnityEngine;
 
 namespace Battle.UseCardReactions
@@ -17,9 +18,9 @@ namespace Battle.UseCardReactions
         [SerializeField] private bool _isUnitColumnUpgradable;
         [SerializeField, Range(0, 2)] private int _column;
 
-        public override List<UnitGridCell> GetReactionCells(UnitGridCell caster, List<UnitGridCell> allies)
+        public override List<Unit> GetReactionCells(Unit caster, List<Unit> allies)
         {
-            var upgradableCells = new List<UnitGridCell>();
+            var upgradableCells = new List<Unit>();
             if (_islineUpgradable)
                 upgradableCells.AddRange(GetUpgradeLine(caster, allies));
             if (_isColumnUpgradable)
@@ -27,16 +28,16 @@ namespace Battle.UseCardReactions
             return upgradableCells.Distinct().ToList();
         }
 
-        private List<UnitGridCell> GetUpgradeLine(UnitGridCell casterCell, List<UnitGridCell> cells)
+        private List<Unit> GetUpgradeLine(Unit casterCell, List<Unit> cells)
         {
-            var upgradableLineIndex = _isUnitLineUpgradable?  casterCell.LineIndex : _line;
-            return cells.Where(x => x.LineIndex == upgradableLineIndex).ToList();
+            var upgradableLineIndex = _isUnitLineUpgradable?  casterCell.Position.LineIndex : _line;
+            return cells.Where(x => x.Position.LineIndex == upgradableLineIndex).ToList();
         }
         
-        private List<UnitGridCell> GetUpgradeColumn(UnitGridCell casterCell, List<UnitGridCell> cells)
+        private List<Unit> GetUpgradeColumn(Unit casterCell, List<Unit> cells)
         {
-            var upgradableLineIndex = _isUnitColumnUpgradable?  casterCell.ColumnIndex : _column;
-            return cells.Where(x => x.ColumnIndex == upgradableLineIndex).ToList();
+            var upgradableLineIndex = _isUnitColumnUpgradable?  casterCell.Position.ColumnIndex : _column;
+            return cells.Where(x => x.Position.ColumnIndex == upgradableLineIndex).ToList();
         }
     }
 }

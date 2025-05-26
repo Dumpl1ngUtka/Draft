@@ -1,6 +1,5 @@
 using System;
 using Battle.Grid.CardParameter;
-using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Grid.Visualization

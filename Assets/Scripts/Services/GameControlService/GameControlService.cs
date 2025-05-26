@@ -1,36 +1,58 @@
-using System.Collections.Generic;
 using DungeonMap;
+using Grid;
 using Grid.BattleGrid;
 using Grid.DraftGrid;
 using Grid.PathMapGrid;
 using Grid.SelectDungeonGrid;
 using PathMap;
-using Units;
 using UnityEngine;
 
 namespace Services.GameControlService
 {
     public class GameControlService : MonoBehaviour
     {
-        private GridStateMachine.GridStateMachine _gridStateMachine;
-        
         public static GameControlService Instance {get; private set;}
         public DungeonInfo CurrentDungeonInfo { get;  set; }
         public RunInfo CurrentRunInfo { get;  set; }
-        public List<Unit> PlayerUnits { get;  set; }
 
-        public void Init(DraftGridController draftGrid,
+        public DraftGridController DraftGridPrefab;
+        public BattleGridController BattleGridPrefab;
+        public SelectDungeonGridController SelectDungeonGridPrefab;
+        public PathMapGridController PathMapGridPrefab;
+        
+        private Transform _gridContainer;
+        private GridController _activeGrid;
+        private GridController _nextGridPrefab;
+
+        public void Init(Transform gridContainer,
+            DraftGridController draftGrid,
             BattleGridController battleGrid,
             SelectDungeonGridController selectDungeonGrid,
             PathMapGridController pathMapGrid)
         {
             Instance = FindFirstObjectByType<GameControlService>();
-            _gridStateMachine = new GridStateMachine.GridStateMachine(draftGrid,battleGrid, selectDungeonGrid, pathMapGrid);
+            
+            _gridContainer = gridContainer;
+            
+            DraftGridPrefab = draftGrid;
+            BattleGridPrefab = battleGrid;
+            SelectDungeonGridPrefab = selectDungeonGrid;
+            PathMapGridPrefab = pathMapGrid;
         }
 
-        private void Start()
+        public void ChangeGrid(GridController prefab)
         {
-            _gridStateMachine.ChangeGrid(_gridStateMachine.DungeonGrid);
+            _nextGridPrefab = prefab;
+            _activeGrid?.Exit();
+            Invoke(nameof(LoadNewGrid), 1f);
+        }
+        
+        private void LoadNewGrid()
+        {
+            Destroy(_activeGrid?.gameObject);
+            var instance = Instantiate(_nextGridPrefab, _gridContainer);
+            _activeGrid = instance;
+            _activeGrid.Enter();
         }
     }
 }

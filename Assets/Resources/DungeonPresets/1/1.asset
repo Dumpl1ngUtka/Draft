@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frontLinePreset:
     LeftPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    MidlePreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
+    MidlePreset: {fileID: 0}
     RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
   _midleLinePreset:
     LeftPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
@@ -22,5 +22,5 @@ MonoBehaviour:
     RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
   _backLinePreset:
     LeftPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    MidlePreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
+    MidlePreset: {fileID: 0}
     RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}

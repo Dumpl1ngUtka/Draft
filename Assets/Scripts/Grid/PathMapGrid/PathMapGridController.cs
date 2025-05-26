@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using Grid.Cells;
-using Services.GameControlService.GridStateMachine;
-using UnityEngine;
 
 namespace Grid.PathMapGrid
 {
@@ -11,22 +8,19 @@ namespace Grid.PathMapGrid
         private PathMapGridModel _model;
         private PathMapGridView _view;
 
-        public override void Init(GridStateMachine gridStateMachine)
+        public override void Enter()
         {
-            base.Init(gridStateMachine);
-            _model = new PathMapGridModel(gridStateMachine);
+            base.Enter();
+            _model = new PathMapGridModel();
             _view = GetComponent<PathMapGridView>();
-        }
-
-        public override void OnEnter()
-        {
             _view.GenerateMap(_model.Paths, _model.CellsTypes);
             var gridCells = _view.Cells.SelectMany(pathMapCells => pathMapCells).Select(cell => cell as GridCell).ToList();
             SubscribeToCells(gridCells);
         }
 
-        public override void OnExit()
+        public override void Exit()
         {
+            base.Exit();
             var gridCells = _view.Cells.SelectMany(pathMapCells => pathMapCells).Select(cell => cell as GridCell).ToList();
             UnsubscribeToCells(gridCells);
         }

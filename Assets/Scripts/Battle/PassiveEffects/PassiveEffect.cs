@@ -1,6 +1,4 @@
 using System;
-using Battle.DamageSystem;
-using Battle.Units;
 using Units;
 using UnityEngine;
 

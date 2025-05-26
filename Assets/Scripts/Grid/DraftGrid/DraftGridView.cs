@@ -12,15 +12,13 @@ namespace Grid.DraftGrid
     {
         [SerializeField] private SelectUnitsMenu.SelectUnitsPanel _selectUnitsPanel;
         [SerializeField] private ChemistryObserver _chemistryObserver;
-        private List<Effect> _effects = new List<Effect>();
-        private Effect _dragEffect;
-
-        private void Awake()
+        public List<UnitGridCell> Cells { get; private set; }
+        
+        public void InstantiateCells()
         {
-            HideSelectMenu();
-            
+            Cells = InitiateUnitCells();
         }
-
+        
         public void InitChemistryObserver(CustomObserver.IObservable<ChemestryInteractor> observable)
         {
             _chemistryObserver.Init(observable);
@@ -35,19 +33,6 @@ namespace Grid.DraftGrid
         public void HideSelectMenu()
         {
             _selectUnitsPanel.SetActive(false);
-        }
-
-        public void PlayDragEffect(UnitGridCell cell)
-        {
-            var renderer = cell.GetComponent<UnitGridCellRenderer>();
-            var effect = new ShakeEffect(renderer, true, 1, 1, 1.2f, 10);
-            _dragEffect = effect;
-        }
-
-        public void StopDragEffect()
-        {
-            _dragEffect?.StopEffect();
-            _dragEffect = null;
         }
     }
 }

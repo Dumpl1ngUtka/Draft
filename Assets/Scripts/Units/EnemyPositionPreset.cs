@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Battle.Units;
 using UnityEngine;
 
 namespace Units

@@ -1,4 +1,3 @@
-using Battle.Units;
 using TMPro;
 using Units;
 using UnityEngine;
@@ -35,7 +34,7 @@ namespace Services.PanelService.Panels
 
         public void Render(Unit unit)
         {
-            _duckIcon.sprite = unit.Class.Icon;
+            _duckIcon.sprite = unit.Icon;
             _nameField.text = unit.Name;
             _raceField.text = unit.Race?.Name;
             _classField.text = unit.Class?.Name;

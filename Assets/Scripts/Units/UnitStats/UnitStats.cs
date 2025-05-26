@@ -96,7 +96,6 @@ namespace Units
             Armor.StatChanged += () => HealthChanged?.Invoke();
             
             Chemistry.StatChanged += NotifyObservers;
-            Chemistry.StatChanged += () => Debug.Log("asd");
 
             AttributeChanged += SetCurrentValueOutdated;
             HealthChanged += SetCurrentValueOutdated;

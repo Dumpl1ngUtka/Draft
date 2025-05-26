@@ -1,14 +1,9 @@
-using Services.GameControlService.GridStateMachine;
+using Services.GameControlService;
 
 namespace Grid
 {
     public class GridModel
     {
-        protected GridStateMachine StateMachine;
-        
-        public GridModel(GridStateMachine stateMachine)
-        {
-            StateMachine = stateMachine;
-        }
+        protected GameControlService GameControlService => GameControlService.Instance;
     }
 }

@@ -10,6 +10,7 @@ namespace Units
    
     public class Unit
     {
+        public GridPosition Position;
         public string Name;
         public Sprite Icon;
         public AbilitiesHolder Abilities;
@@ -18,7 +19,6 @@ namespace Units
         public Class Class;
         public Covenant Covenant;
         public UnitStats Stats { get; }
-        public TeamType TeamType { get; private set; }
         public int DicePower { get; private set; }
         public bool IsReady { get; private set; } = false;
         
@@ -41,11 +41,6 @@ namespace Units
         public void EndTurn()
         {
             PassiveEffectsHolder.OnTurnEnded();
-        }
-
-        public void SetTeam(TeamType teamIndex)
-        {
-            TeamType = teamIndex;
         }
 
         public void SetReady(bool isReady)

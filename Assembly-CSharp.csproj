@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridModel.cs" />
+    <Compile Include="Assets\Scripts\Units\GridPosition.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemistryBoard\ChemistryObserver.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatModifierFunction.cs" />
@@ -83,7 +84,6 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitGridCellRenderer.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\TurnInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffect.cs" />
-    <Compile Include="Assets\Scripts\Units\Interactors\Reaction\UseReactionInteractor.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatModifierType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -153,9 +153,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\DuckIconInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\HealthInteractor.cs" />
-    <Compile Include="Assets\Scripts\Services\GlobalAnimationService\GlobalAnimationSevice.cs" />
     <Compile Include="Assets\Scripts\Units\UnitPreset.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Services\GlobalAnimation\GlobalAnimationSevice.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\GraduationParameter\GraduationParameter.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\InfoPanel.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\PathCellChances.cs" />

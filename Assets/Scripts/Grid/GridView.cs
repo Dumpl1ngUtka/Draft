@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.Grid;
 using Battle.Grid.Visualization;
 using Grid.Cells;
+using Services.GlobalAnimation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,13 +32,6 @@ namespace Grid
                 }
                 return _gridVisualizer;
             }
-        }
-        
-        public void SetActive(bool isActive)
-        {
-            gameObject.SetActive(isActive);
-            //if (isActive)
-                //GridVisualizer.PlayEffect(this);
         }
 
         public List<UnitGridCell> GetUnitsCellsByTeam(TeamType type)

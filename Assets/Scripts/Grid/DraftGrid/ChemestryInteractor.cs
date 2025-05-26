@@ -13,17 +13,12 @@ namespace Grid.DraftGrid
         public readonly Dictionary<Covenant, int> CovenantCounts = new Dictionary<Covenant, int>();
         public readonly Dictionary<CovenantType, int> CovenantTypeCounts = new Dictionary<CovenantType, int>();
 
-        private List<UnitGridCell> _cells;
+        private List<Unit> _units = new List<Unit>();
         private readonly List<IObserver<ChemestryInteractor>> _observers = new();
-
-
-        public ChemestryInteractor(List<UnitGridCell> cells)
-        {
-            _cells = cells;
-        }
 
         public void UnitAdded(Unit unit)
         {
+            _units.Add(unit);
             UpdateCounters(unit);
             AddChemistryToUnits();
         }
@@ -43,8 +38,7 @@ namespace Grid.DraftGrid
         private void AddChemistryToUnits()
         {
             AllTeamChem = 0;
-            var units = _cells.Select(cell => cell.Unit);
-            foreach (var unit in units)
+            foreach (var unit in _units)
             {
                 var totalChem = 0;
                 

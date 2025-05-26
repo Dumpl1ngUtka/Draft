@@ -1,4 +1,4 @@
-namespace Battle.Units.Interactors
+namespace Units.Interactors
 {
     public struct Response
     {
