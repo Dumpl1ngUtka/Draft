@@ -8,6 +8,7 @@ namespace PathMap
     public class RunInfo
     {
         public int[] Path { get; private set; }
+        public int[] SelectedPath { get; private set; }
         public Unit[] PlayerUnits { get; private set; }
 
         public void UpdatePath(int newIndex)

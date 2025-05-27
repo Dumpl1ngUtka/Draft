@@ -20,7 +20,6 @@ namespace Grid.PathMapGrid
         private int _columnCount => _currentDungeonInfo.ColumnCount;
         private int _pathCount => _currentDungeonInfo.PathCount;
         
-        public int CurrentLine { get; private set; } = 0;
         public List<List<int>> Paths
         {
             get { return _paths ??= GeneratePaths(); }
@@ -32,12 +31,7 @@ namespace Grid.PathMapGrid
 
         public PathMapGridModel()
         {
-            CurrentLine = 0;
-        }
-
-        public void IncreaseLine()
-        {
-            CurrentLine++;
+            //GameControlService.CurrentRunInfo.Path
         }
 
         private List<List<PathCellType>> GenerateCellTypes()
@@ -106,8 +100,7 @@ namespace Grid.PathMapGrid
         {
             if (pathCell.PathCellType == PathCellType.Monsters)
             {
-                //StateMachine.ChangeGrid(StateMachine.BattleGrid);
-                //GameControlService.Instance.CurrentPathCellInfo = 
+                GameControlService.ChangeGrid(GameControlService.BattleGridPrefab);
             }
         }
     }

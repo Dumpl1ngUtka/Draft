@@ -63,6 +63,8 @@ namespace Abilities
         
         private void CalculateDelta(Unit target, Unit cell, out int lineDelta, out int columnDelta)
         {
+            Debug.Log(cell + " / " + cell.Position + " / " + cell.Position.ColumnIndex);
+            Debug.Log(target + " / " + target.Position + " / " + target.Position.ColumnIndex);
             columnDelta = cell.Position.ColumnIndex - target.Position.ColumnIndex;
             if (cell.Position.TeamType == target.Position.TeamType)
                 lineDelta = cell.Position.LineIndex - target.Position.LineIndex;

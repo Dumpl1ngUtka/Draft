@@ -15,8 +15,10 @@ namespace Grid.SelectDungeonGrid
             base.Enter();
             _model = new SelectDungeonGridModel();
             _view = GetComponent<SelectDungeonGridView>();
-            SubscribeToCells(_view.Cells.Select(x => x as GridCell).ToList());
-            _view.ControlCellSize();
+            foreach (var cell in _view.Cells)
+                cell.SetAlphaHitTestMinimumThreshold(0.5f);
+            SubscribeToCells(_view.Cells.Select(x => x as GridCell).ToList()); 
+            //_view.ControlCellSize();
         }
         
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)

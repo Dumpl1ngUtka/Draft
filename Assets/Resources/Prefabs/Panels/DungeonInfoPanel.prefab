@@ -858,6 +858,7 @@ MonoBehaviour:
   _itemIcon: {fileID: 0}
   _textField: {fileID: 0}
   _cardInfoPanel: {fileID: 3651784270702840302}
+  _dungeonImage: {fileID: 8462882397622240384}
   _dungeonName: {fileID: 4190205334294120567}
   _dungeonDescription: {fileID: 5173765823825212156}
 --- !u!114 &3990195491669293946

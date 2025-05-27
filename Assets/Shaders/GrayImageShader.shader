@@ -4,6 +4,8 @@ Shader "Custom/TintedGreyscaleShader"
     {
         _MainTex("Texture", 2D) = "white" {}
         _Color("Tint Color", Color) = (1,1,1,1)
+        _Contrast("Contrast", Range(0, 2)) = 1
+        _Brightness("Brightness", Range(-1, 1)) = 0
     }
     SubShader
     {
@@ -33,6 +35,8 @@ Shader "Custom/TintedGreyscaleShader"
                 sampler2D _MainTex;
                 float4 _MainTex_ST;
                 fixed4 _Color;
+                float _Contrast;
+                float _Brightness;
  
                 v2f vert(appdata v) {
                     v2f o;
@@ -45,6 +49,13 @@ Shader "Custom/TintedGreyscaleShader"
                 {
                     fixed4 col = tex2D(_MainTex, i.uv);
                     float grey = dot(col.rgb, float3(0.299, 0.587, 0.114));
+                    
+                    // Apply brightness
+                    grey = saturate(grey + _Brightness);
+                    
+                    // Apply contrast
+                    grey = saturate((grey - 0.5) * _Contrast + 0.5);
+                    
                     fixed4 tinted = fixed4(grey * _Color.r, grey * _Color.g, grey * _Color.b, col.a * _Color.a);
                     return tinted;
                 }

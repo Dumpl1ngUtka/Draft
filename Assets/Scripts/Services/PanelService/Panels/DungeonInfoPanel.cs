@@ -2,6 +2,8 @@ using System;
 using DungeonMap;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Services.PanelService.Panels
@@ -9,6 +11,7 @@ namespace Services.PanelService.Panels
     public class DungeonInfoPanel : InfoPanel
     {
         [SerializeField] private RectTransform _cardInfoPanel;
+        [SerializeField] private Image _dungeonImage;
         [SerializeField] private TMP_Text _dungeonName;
         [SerializeField] private TMP_Text _dungeonDescription;
         private Action<DungeonInfo> _callback;
@@ -25,10 +28,10 @@ namespace Services.PanelService.Panels
 
         private void Render(DungeonInfo dungeon)
         {
+            _dungeonImage.sprite = dungeon.Image;
             _dungeonName.text = dungeon.Name;
             _dungeonDescription.text = dungeon.Description;
-            
-        }
+            }
         
         private void SetRandomRotation()
         {
