@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Services.SaveLoadSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +16,6 @@ namespace Services.PanelService.Panels
             get
             {
                 if (!_textMessage)
-                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                     _textMessage = GetComponent<TMP_Text>();
                 return _textMessage;
             }
@@ -46,16 +46,17 @@ namespace Services.PanelService.Panels
         }
     
         private void CheckLinks () {
-            Regex regx = new Regex (_format , RegexOptions.IgnoreCase | RegexOptions.Singleline); 
-            MatchCollection matches = regx.Matches (TextMessage.text); 
-            foreach (Match match in matches) 
-                TextMessage.text = TextMessage.text.Replace(match.Value, FormatLink(match.Value));     	
+            Regex regx = new Regex(_format , RegexOptions.IgnoreCase | RegexOptions.Singleline); 
+            MatchCollection matches = regx.Matches(TextMessage.text);
+            foreach (Match match in matches)
+                TextMessage.text = TextMessage.text.Replace(match.Value, FormatLink(match.Value));
         }
     
-        private string FormatLink (string link) {
+        private string FormatLink (string link) { 
             link = Regex.Replace(link, @"\[|\]", "");
-            var text = link; // name from file
-            return $"<u><link=\"{link}\">{text}</link></u>";
+            var data = SaveLoadService.Instance.GetAdviceByKey(link);
+            var text = $"<color={data.ColorHex}>{data.Name}</color>";
+            return $"<link=\"{link}\">{text}</link>";
         }
     }
 }

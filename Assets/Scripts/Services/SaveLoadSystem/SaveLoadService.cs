@@ -97,8 +97,8 @@ namespace Services.SaveLoadSystem
 
         private Dictionary<string, PanelData> _adviceCache;
         private Dictionary<string, PanelData> _errorCache;
-        private const string _advicePath = "CSV/Advice"; 
-        private const string _errorPath = "CSV/Error"; 
+        private const string _advicePath = "CSV/advices_en"; 
+        private const string _errorPath = "CSV/errors_en"; 
         
         public PanelData GetAdviceByKey(string key)
         {
@@ -131,13 +131,20 @@ namespace Services.SaveLoadSystem
                     try { description = data[2];}
                     catch {;}
                     
-                    var panelData = new PanelData(panelName, description);
+                    var color = "#3D372B";
+                    try
+                    {
+                        color = data[3].Remove(color.Length - 1, 1);
+                    }
+                    catch {;}
+                    
+                    var panelData = new PanelData(panelName, description, color);
                     cache.Add(data[0], panelData);
                 }
             }
 
             if (!cache.TryGetValue(key, out var result))
-                result = new PanelData("empty_" + key, "");
+                result = new PanelData("empty_" + key, "", "");
 
             return result;
         }

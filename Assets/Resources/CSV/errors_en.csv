@@ -1,0 +1,7 @@
+teammete;You can't use this ability on your teammates!
+line_index_mismatch;You can swap targets from one line.
+unit_null;The cell should not be empty.[line_index_mismatch_error]
+draft_fill_cells;Your teammates should be the target!
+unit_not_ready;You have to fill in all the cells!
+no_player_unit;Unit is not ready!
+target_dead;You can only control your units.

@@ -745,7 +745,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "The higher the duck's level, the greater its power\\n+1 to the main characteristic
     for every 5 levels\\n+1 to the secondary characteristic for every 10 levels\\n+1
-    to the rest of the stats for every 20 levels\r"
+    to the rest of the stats for every 20 <link = \"asasd\"><color=#ffffff>word</color></link>
+    levels\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
