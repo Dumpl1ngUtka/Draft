@@ -5,6 +5,7 @@ using Grid.SelectDungeonGrid;
 using Services.GameControlService;
 using Services.GlobalAnimation;
 using Services.PanelService;
+using Services.SaveLoadSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -25,6 +26,7 @@ namespace Bootstrappers
             CreatePanelSevice();
             CreateGameControlService();
             CreateGlobalAnimationService();
+            CreateSaveLoadService();
             
             GameControlService.Instance.ChangeGrid(_dungeonGridPrefab);
         }
@@ -53,14 +55,14 @@ namespace Bootstrappers
             DontDestroyOnLoad(obj);
         }
 
-        /*private void CreateSaveLoadService()
+        private void CreateSaveLoadService()
         {
             var jsonSaveLoadService = new JsonSaveLoadRepository();
             var obj = new GameObject("SaveLoadService");
             var service = obj.AddComponent<SaveLoadService>();
             service.Init(jsonSaveLoadService);
             DontDestroyOnLoad(obj);
-        }*/
+        }
 
     }
 }

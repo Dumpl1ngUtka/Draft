@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 namespace Services.PanelService.Panels
 {
-    public class CardInfoPanel : InfoPanel
+    public class CardInfoPanel : Panel
     {
         [Header("Card Info")]
-        [SerializeField] private RectTransform _cardInfoPanel;
         [SerializeField] private Image _duckIcon;
         [SerializeField] private TMP_Text _nameField;
         [SerializeField] private TMP_Text _classField;
@@ -19,17 +18,11 @@ namespace Services.PanelService.Panels
         [SerializeField] private TMP_Text _strength;
         [SerializeField] private TMP_Text _dexterity;
         [SerializeField] private TMP_Text _intelligence;
-        private float _maxRotation = 3;
         
         public void Init(Unit unit)
         {
             Render(unit);
             SetRandomRotation();
-        }
-
-        private void SetRandomRotation()
-        {
-            _cardInfoPanel.rotation = Quaternion.Euler(0, 0, Random.Range(-_maxRotation, _maxRotation));
         }
 
         public void Render(Unit unit)

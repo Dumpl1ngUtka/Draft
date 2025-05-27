@@ -47,10 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridModel.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\SaveData.cs" />
     <Compile Include="Assets\Scripts\Units\GridPosition.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemistryBoard\ChemistryObserver.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatModifierFunction.cs" />
+    <Compile Include="Assets\Scripts\Services\PanelService\Panels\Panel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\ChangeRowOrColumn.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridController.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatInt.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\JsonSaveLoadRepository.cs" />
     <Compile Include="Assets\Scripts\PathMap\RunInfo.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\ISaveLoadRepository.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitBelongingInteractor.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\DungeonInfoPanel.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\Reaction.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverTextInteractor.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\RunData.cs" />
     <Compile Include="Assets\Scripts\Units\Covenant.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\CircleParameterCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\SaveLoadService.cs" />
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridController.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffectsCombination.cs" />
     <Compile Include="Assets\Scripts\Units\EnemyPositionPreset.cs" />
@@ -163,6 +169,7 @@
     <Compile Include="Assets\Scripts\Grid\TeamType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\CustomObserver\IObservable.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\ISaveData.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\GraduationParameter\GraduationParameterHolder.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityRangeFilter.cs" />
     <Compile Include="Assets\Scripts\Grid\GridModel.cs" />
@@ -179,6 +186,7 @@
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\SizeInteractor.cs" />
     <Compile Include="Assets\Scripts\Abilities\HitProbabilityCalculator.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\ErrorPanel.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\PanelData.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
     <Compile Include="Assets\Scripts\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
