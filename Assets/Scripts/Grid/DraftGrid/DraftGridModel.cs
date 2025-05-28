@@ -32,7 +32,6 @@ namespace Grid.DraftGrid
 
         public void AddUnit(Unit unit)
         {
-            //unitGridCell.AddUnit(unit);
             _draftedUnits.Add(unit);
             ChemestryInteractor.UnitAdded(unit);
         }

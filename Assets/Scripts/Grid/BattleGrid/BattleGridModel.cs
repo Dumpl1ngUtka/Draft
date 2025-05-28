@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.Grid;
 using Services.GameControlService;
 using Units;
+using UnityEngine;
 
 namespace Grid.BattleGrid
 {
@@ -15,6 +16,10 @@ namespace Grid.BattleGrid
         public BattleGridModel()
         {
             _playerUnits = GameControlService.CurrentRunInfo.PlayerUnits.ToList();
+            foreach (var unit in _playerUnits)
+            {
+                Debug.Log(unit);
+            }
             _enemyUnits = GenerateEnemies();
             
             _turnInteractor = new TurnInteractor(_playerUnits, _enemyUnits);

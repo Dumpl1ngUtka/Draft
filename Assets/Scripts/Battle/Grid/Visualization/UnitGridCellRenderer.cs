@@ -8,7 +8,7 @@ using Unit = Units.Unit;
 namespace Battle.Grid.Visualization
 {
     public class UnitGridCellRenderer : MonoBehaviour, 
-        IObserver<UnitStats>, IObserver<PassiveEffectsHolder>
+        IObserver<UnitStats>
     {
         [Header("Interactors")]
         [SerializeField] private DuckIconInteractor _duckIconInteractor;
@@ -29,7 +29,7 @@ namespace Battle.Grid.Visualization
             GroupInteractors();
             foreach (var interactor in _allInteractors) 
                 interactor.Init(_unit);
-            _overPanelInteractor.Init();
+            //_overPanelInteractor.Init();
             _overTextInteractor.SetText("");
         }
         
@@ -56,6 +56,10 @@ namespace Battle.Grid.Visualization
             foreach (var interactor in _allInteractors) 
                 interactor.Init(unit);
 
+            unit.PassiveEffectsHolder.EffectApplied += EffectApplied;
+
+            unit.PassiveEffectsHolder.PassiveEffectsChanged += () => _passiveInteractor.TryUpdateInfo();
+
             UpdateObserver(unit.Stats);
             
             _unit = unit;
@@ -64,14 +68,15 @@ namespace Battle.Grid.Visualization
         public void UnsubscribeFromUnit()
         {
             _unit.Stats.RemoveObserver(this);
+            _unit.PassiveEffectsHolder.EffectApplied -= EffectApplied;
             
             _unit = null;
             
             foreach (var interactor in _allInteractors) 
                 interactor.Init(null);
             
+            
             UpdateObserver((UnitStats)null);
-            UpdateObserver((PassiveEffectsHolder)null);
         }
 
         private void EffectApplied(PassiveEffect effect, TriggerType type)
@@ -86,12 +91,12 @@ namespace Battle.Grid.Visualization
         private void Update()
         {
             _sizeInteractor.Update();
-            _overPanelInteractor.Update();
+            //_overPanelInteractor.Update();
         }
 
         public void PlayAnimation(AnimationClip animationClip, float duration)
         {
-            _overPanelInteractor.PlayOneShotAnimation(animationClip, duration);
+            _overPanelInteractor.PlayAnimation(animationClip);
         }
         
         public void SetOverText(string text)
@@ -101,7 +106,7 @@ namespace Battle.Grid.Visualization
 
         public void SetOverPanel(Color color = default)
         {
-            _overPanelInteractor.SetColor(color);
+            //_overPanelInteractor.SetColor(color);
         }
         
         public void SetSize(float size, bool instantly = false)
@@ -128,9 +133,9 @@ namespace Battle.Grid.Visualization
                 _diceInteractor.RenderAdditionalValue(value);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            _overPanelInteractor.OnDestroy();
+            UnsubscribeFromUnit();
         }
 
         public void UpdateObserver(UnitStats interactor)
@@ -139,11 +144,6 @@ namespace Battle.Grid.Visualization
             _chemistryInteractor.TryUpdateInfo();
             _parameterInteractor.TryUpdateInfo();
             _healthInteractor.TryUpdateInfo();
-        }
-        
-        public void UpdateObserver(PassiveEffectsHolder interactor)
-        {
-            _passiveInteractor.TryUpdateInfo();
         }
     }
 }

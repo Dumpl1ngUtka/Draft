@@ -17,6 +17,7 @@ namespace Battle.PassiveEffects
                 return;
             
             effect.OnAdd();
+            NotifyObservers();
             EffectApplied?.Invoke(effect, TriggerType.Add);
             if (effect.TurnCount == 0)
             {

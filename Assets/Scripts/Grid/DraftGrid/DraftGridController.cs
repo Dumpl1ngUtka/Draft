@@ -34,6 +34,7 @@ namespace Grid.DraftGrid
 
         public void SelectMenuFinished(Unit selectedUnit)
         {
+            selectedUnit.Position = _draftedCell.Position;
             _model.AddUnit(selectedUnit);
             var unitGridCells = _view.Cells.Find(cell => cell.Position.OwnEquals(_draftedCell.Position));
             unitGridCells.AddUnit(selectedUnit);
@@ -97,6 +98,9 @@ namespace Grid.DraftGrid
         {
             var fromUnitCell = (UnitGridCell)from;
             var toUnitCell = (UnitGridCell)to;
+            
+            if (fromUnitCell ==  null || toUnitCell == null)
+                return;
             
             _view.Visualizer.ResetSize();
             SwitchCard(fromUnitCell, toUnitCell);
