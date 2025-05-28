@@ -27,26 +27,17 @@ namespace Grid.DraftGrid
             _view = gameObject.GetComponent<DraftGridView>();
             _view.InstantiateCells();
             SubscribeToCells(_view.Cells.Select(cell => (GridCell)cell).ToList());
-            _selectUnitsPanel.Init();
+            _selectUnitsPanel.Init(this);
             _view.HideSelectMenu();
             _view.InitChemistryObserver(_model.ChemestryInteractor);
         }
 
-        public void OnSelectMenuFinished()
+        public void SelectMenuFinished(Unit selectedUnit)
         {
-            var selectedCell = _selectUnitsPanel.SelectedCell;
-            if (selectedCell == null)
-            {
-                PanelService.Instance.InstantiateErrorPanel("select_cell_empty_error");
-            }
-            else
-            {
-                var unit = selectedCell.Unit;
-                _model.AddUnit(unit);
-                var unitGridCells = _view.Cells.Find(cell => cell.Position.OwnEquals(_draftedCell.Position));
-                unitGridCells.AddUnit(unit);
-                _view.HideSelectMenu();
-            }
+            _model.AddUnit(selectedUnit);
+            var unitGridCells = _view.Cells.Find(cell => cell.Position.OwnEquals(_draftedCell.Position));
+            unitGridCells.AddUnit(selectedUnit);
+            _view.HideSelectMenu();
         }
 
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)

@@ -2,56 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using Units;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Grid.DraftGrid.SelectUnitsMenu
 {
-    public class SelectUnitsPanel : MonoBehaviour
+    public class SelectUnitsPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private SelectUnitsCell[] _selectUnitsCells;
-        [SerializeField] private GridLayoutGroup _container;
+        [SerializeField] private SelectUnitsCell _selectUnitsCellPrefab;
+        [SerializeField] private Transform _container;
         [Header("Animation")]
         [SerializeField] private RectTransform _animatedBody;
         [SerializeField] private float _animationDuration;
         [SerializeField] private AnimationCurve _heightCurve;
-        public SelectUnitsCell SelectedCell { get; private set; }
-        
-        public void Init()
+        [SerializeField] private Image _backgroundImage;
+        [SerializeField] private float _cellMoveSpeed;
+        private List<SelectUnitsCell> _selectUnitsCells = new List<SelectUnitsCell>();
+        private List<Unit> _units;
+        private int _selectedUnitIndex;
+        private DraftGridController _controller;
+        private Vector2 _delta;
+        private Vector2 _center;
+        private SelectUnitsCell _cellOnTop => _selectUnitsCells[_selectedUnitIndex];
+
+        public void Init(DraftGridController draftController)
         {
-            ControlSize();
+            _controller = draftController;
+            // ReSharper disable once PossibleLossOfFraction
+            _center = new Vector2(Screen.width / 2, Screen.height / 2);
         }
         
         public void SetActive(bool isActive)
         {
-            SelectedCell = null;
-            SelectUnitCell(SelectedCell);
             gameObject.SetActive(isActive);
-            if (isActive)
-                StartCoroutine(EnableAimation());
+            //if (isActive)
+                
+                //StartCoroutine(EnableAimation());
         }
 
         public void RenderUnits(List<Unit> units)
         {
-            var i = 0;
-            foreach (var cell in _selectUnitsCells)
-                cell.Init(this, units[i++]);
+            ClearCells();
+            _selectedUnitIndex = 0;
+            _units = units;
+            var maxHeight = Screen.height / 2;
+
+            for (var i = 0; i < _units.Count; i++)
+            {
+                var unit = units[i];
+                _selectUnitsCells.Add(CreateCellInstance(i + 1, _units.Count, unit));
+            }
+            _selectUnitsCells[0].transform.SetAsLastSibling();
         }
 
-        public void SelectUnitCell(SelectUnitsCell selectedCell)
+        private void ClearCells()
         {
-            foreach (var cell in _selectUnitsCells)
+            _selectUnitsCells.Clear();
+            foreach (Transform child in _container)
             {
-                cell.SetOutline(false);
+                Destroy(child.gameObject);
             }
-            selectedCell?.SetOutline(true);
-            SelectedCell = selectedCell;
+        }
+
+        private void SwitchCell(bool isPositive)
+        {
+            _selectedUnitIndex += isPositive ? -1 : 1;
+            if (_selectedUnitIndex < 0)
+                _selectedUnitIndex = _units.Count - 1;
+            if (_selectedUnitIndex >= _units.Count)
+                _selectedUnitIndex = 0;
+            _selectUnitsCells[_selectedUnitIndex].transform.SetAsLastSibling();
         }
         
-        private void ControlSize()
+        private SelectUnitsCell CreateCellInstance(int index, int maxIndex, Unit unit)
         {
-            var cellWidth = (((RectTransform)_container.transform).rect.width) / _container.constraintCount;
-            var cellHeight = (((RectTransform)_container.transform).rect.height) / (_selectUnitsCells.Length / _container.constraintCount);
-            _container.cellSize = new Vector2(cellWidth, cellHeight);
+            var instance = Instantiate(_selectUnitsCellPrefab, _container);
+            instance.Init(index, maxIndex, unit);
+            return instance;
         }
 
         private IEnumerator EnableAimation()
@@ -66,6 +93,34 @@ namespace Grid.DraftGrid.SelectUnitsMenu
                 timer += Time.deltaTime;
                 yield return null;
             }
+        }
+
+        private void SetCellsActive(bool isActive)
+        {
+            _container.gameObject.SetActive(isActive);
+            _backgroundImage.color = new Color(0, 0, 0, isActive ? 0.9f : 0.05f);
+        }
+        
+        public void OnDrag(PointerEventData eventData)
+        {
+            _delta += eventData.delta;
+            if (_delta.y > Screen.width * 0.2f && _container.gameObject.activeInHierarchy)
+                SetCellsActive(false);
+            else if (_delta.y < Screen.width * 0.2f && !_container.gameObject.activeInHierarchy)
+                SetCellsActive(true);
+            _cellOnTop.SetDelta(_delta/ 10);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _cellOnTop.SetDelta(Vector2.zero);
+            if (_delta.magnitude > Screen.width * 0.2f)
+                if (Mathf.Abs(_delta.x) > Mathf.Abs(_delta.y))
+                    SwitchCell(_delta.x > 0);
+                else if (_delta.y < 0)
+                    _controller.SelectMenuFinished(_units[_selectedUnitIndex]);
+            _delta = new Vector2();
+            SetCellsActive(true);
         }
     }
 }
