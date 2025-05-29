@@ -67,6 +67,8 @@ namespace Battle.Grid.Visualization
         
         public void UnsubscribeFromUnit()
         {
+            if (_unit == null)
+                return;
             _unit.Stats.RemoveObserver(this);
             _unit.PassiveEffectsHolder.EffectApplied -= EffectApplied;
             

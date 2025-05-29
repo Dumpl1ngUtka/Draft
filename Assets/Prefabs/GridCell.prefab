@@ -1188,6 +1188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64699af5ad6e44f58fe18d6c7245d469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdTime: 0.5
+  doubleClickTime: 0.3
 --- !u!114 &426114959665832530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1203,7 +1205,7 @@ MonoBehaviour:
   _duckIconInteractor:
     _icon: {fileID: 2578084785235674488}
     _deadSprite: {fileID: 0}
-    _emptySprite: {fileID: 0}
+    _emptySprite: {fileID: 21300000, guid: 4253e37a469167047911beab6553636d, type: 3}
   _chemistryInteractor:
     _chemistry: {fileID: 0}
   _passiveInteractor:
@@ -1227,9 +1229,7 @@ MonoBehaviour:
   _overTextInteractor:
     _overText: {fileID: 3249455532983646117}
   _overPanelInteractor:
-    _animationImage: {fileID: 5419581382735740065}
     _animator: {fileID: 4495458366390885892}
-    _defaultImage: {fileID: 21300000, guid: 11a0acdfde5faed4cb2991b28aa9824f, type: 3}
   _sizeInteractor:
     _transform: {fileID: 7421837362807884559}
 --- !u!1 &6626260266681531055

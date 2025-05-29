@@ -65,14 +65,12 @@ namespace Grid.DraftGrid
         {
             var unitCell = (UnitGridCell)from;
             if (unitCell.Unit == null)
-            {
-                //InstantiateErrorPanel("unit_null_error");
                 return;
-            }
 
             var noSwichCells = GetNoSwichCells(unitCell);
             _inactiveCells = noSwichCells;
             _view.Visualizer.SetSizeFor(0.5f, noSwichCells);
+            _view.Visualizer.SetSizeFor(1.2f, unitCell);
         }
         
         protected override void HoldFinished(GridCell cell)

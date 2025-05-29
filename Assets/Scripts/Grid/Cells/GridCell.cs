@@ -7,8 +7,8 @@ namespace Grid.Cells
 {
     public class GridCell : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
-        private const float _doubleClickTime = 0.1f;
-        private const float _holdTime = 0.2f;
+        private const float _doubleClickTime = 0.2f;
+        private const float _holdTime = 0.3f;
 
         private int _clickCount;
         private GridCell _dragOverCell;
@@ -23,7 +23,8 @@ namespace Grid.Cells
 
         private Coroutine _doubleClickRoutine;
         private Coroutine _holdRoutine;
-        private bool _isInteracting;
+        private bool _isHolding;
+        private bool _isDoubleClicking = false;
         
         // ReSharper disable Unity.PerformanceAnalysis
         protected IEnumerator TimerRoutine(float time, Action callback)
@@ -43,22 +44,21 @@ namespace Grid.Cells
                 return;
             }
 
-            if (_isInteracting)
+            if (_isHolding)
             {
                 HoldFinished?.Invoke(this);
-                _isInteracting = false;
+                _isHolding = false;
                 return;
             }
 
-            if (_clickCount++ == 0)
+            if (_isDoubleClicking)
             {
-                _doubleClickRoutine = StartCoroutine(TimerRoutine(_doubleClickTime * 2, OneTouch));
+                _isDoubleClicking = false;
+                return;
             }
-            else
-            {
-                StopCoroutine(_doubleClickRoutine);
-                DoubleTouch();
-            }
+
+            if (_clickCount++ == 0) 
+                _doubleClickRoutine = StartCoroutine(TimerRoutine(_doubleClickTime, OneTouch));
         }
         
         private void OneTouch()
@@ -109,12 +109,20 @@ namespace Grid.Cells
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (_clickCount > 0)
+            {
+                _isDoubleClicking = true;
+                StopCoroutine(_doubleClickRoutine);
+                DoubleTouch();
+                return;
+            }
+            
             _holdRoutine = StartCoroutine(TimerRoutine(_holdTime, Hold));
         }
 
         private void Hold()
         {
-            _isInteracting = true;
+            _isHolding = true;
             HoldBegin?.Invoke(this);
         }
     }

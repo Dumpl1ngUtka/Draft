@@ -11,6 +11,14 @@ namespace Grid
         {
             foreach (var cell in cells)
             {
+                cell.DragFinished += (gridCell, cell1) =>  Debug.Log("DragFinished");
+                cell.DraggedToCell += (gridCell, cell1) =>  Debug.Log("DraggedToCell");
+                cell.DraggedFromCell += (gridCell, cell1) =>  Debug.Log("DraggedFromCell");
+                cell.HoldFinished += (gridCell) =>  Debug.Log("HoldFinished");
+                cell.HoldBegin+= (gridCell) =>  Debug.Log("HoldBegin");
+                cell.Clicked+= (gridCell ) =>  Debug.Log("Clicked");
+                cell.DoubleClicked += (gridCell ) =>  Debug.Log("DoubleClicked");
+                
                 cell.DragFinished += DragFinished;
                 cell.DraggedToCell += DraggedToCell;
                 cell.DraggedFromCell += DraggedFromCell;
