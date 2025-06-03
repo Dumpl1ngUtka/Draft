@@ -15,11 +15,10 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _color: {r: 0, g: 0, b: 0, a: 0}
   _turnCount: 0
-  _addClip: {fileID: 0}
+  _addClip: {fileID: 7400000, guid: 111a8bfcffd0df74791d61d2d7efd8ba, type: 2}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
   _baseDamage: 3
   _damageType: 0
   _damageAttribute: 2
   _damagePerAttribute: 1
-  DamageValue: 0

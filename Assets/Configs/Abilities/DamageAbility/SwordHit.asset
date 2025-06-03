@@ -16,7 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   AbillityEffect: {fileID: 11400000, guid: 72fcaec8114288443a79b2bb75c38b2f, type: 2}
   TargetFilter:
-    IsPlayerUnitTarget: 1
+    IsPlayerUnitTarget: 0
     IsEnemyUnitTarget: 1
     IsDeadPlayerUnitTarget: 0
     IsDeadEnemyUnitTarget: 0

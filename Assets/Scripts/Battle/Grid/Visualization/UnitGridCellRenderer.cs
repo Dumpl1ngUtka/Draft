@@ -28,8 +28,7 @@ namespace Battle.Grid.Visualization
         {
             GroupInteractors();
             foreach (var interactor in _allInteractors) 
-                interactor.Init(_unit);
-            //_overPanelInteractor.Init();
+                interactor.Init(null);
             _overTextInteractor.SetText("");
         }
         
@@ -78,7 +77,7 @@ namespace Battle.Grid.Visualization
                 interactor.Init(null);
             
             
-            UpdateObserver((UnitStats)null);
+            UpdateObserver(null);
         }
 
         private void EffectApplied(PassiveEffect effect, TriggerType type)
@@ -129,10 +128,7 @@ namespace Battle.Grid.Visualization
 
         public void RenderDiceAdditionValue(int value)
         {
-            var isZero = value == 0;
-            _diceInteractor.SetActiveAdditionalValue(!isZero);
-            if (!isZero)
-                _diceInteractor.RenderAdditionalValue(value);
+            _diceInteractor.RenderAdditionalValue(value);
         }
 
         private void OnDisable()
@@ -146,6 +142,12 @@ namespace Battle.Grid.Visualization
             _chemistryInteractor.TryUpdateInfo();
             _parameterInteractor.TryUpdateInfo();
             _healthInteractor.TryUpdateInfo();
+            _diceInteractor.TryUpdateInfo();
+        }
+
+        public void SetSpriteColor(Color color)
+        {
+            _duckIconInteractor.SetSpriteColor(color);
         }
     }
 }

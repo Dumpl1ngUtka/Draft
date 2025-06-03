@@ -24,5 +24,11 @@ namespace Battle.Grid.Visualization
             if (!isActive && _icon != null)
                 _icon.sprite = _emptySprite;
         }
+
+        public void SetSpriteColor(Color color)
+        {
+            if (_icon != null)
+                _icon.color = color;
+        }
     }
 }

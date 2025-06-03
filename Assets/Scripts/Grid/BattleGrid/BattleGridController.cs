@@ -11,7 +11,7 @@ namespace Grid.BattleGrid
         private BattleGridModel _model;
         private BattleGridView _view;
         private bool _isDragStartSeccess;
-        private UnitGridCell _draftedCell;
+        private UnitGridCell _startInteractedCell;
 
         // ReSharper disable Unity.PerformanceAnalysis
         public override void Enter()
@@ -28,7 +28,7 @@ namespace Grid.BattleGrid
             SubscribeToCells(enemyCells.Where(x => x.IsActive).Select(x => x as GridCell).ToList());
             
             _model.StartTurn();
-            //_view.Visualizer.ResetOverPanels();
+            InteractFinised();
         }
 
         public override void Exit()
@@ -73,12 +73,16 @@ namespace Grid.BattleGrid
         
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)
         {
-            //_view.Visualizer.SetSizeFor(1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
+            _view.ResetSize();
         }
 
         protected override void DraggedToCell(GridCell startDraggingCell, GridCell overCell)
         {
-            //_view.Visualizer.SetSizeFor(1.1f,startDraggingCell.Unit.CurrentAbility.GetRange(startDraggingCell, overCell, _playerCells, _enemyCells));
+            var unitOverCell = overCell as UnitGridCell;
+            var unitStartDraggingCell = startDraggingCell as UnitGridCell;
+            
+            if (unitOverCell == null || unitStartDraggingCell == null) return;
+            _view.SetSizeFor(1.1f, _model.GetMaskableUnits(unitStartDraggingCell.Unit, unitOverCell.Unit));
         }
 
         protected override void DoubleClicked(GridCell cell)
@@ -117,6 +121,7 @@ namespace Grid.BattleGrid
         protected override void HoldBegin(GridCell from)
         {
             var cell = from as UnitGridCell;
+            _startInteractedCell = cell;
             if (cell == null) return;
             
             _isDragStartSeccess = false;
@@ -140,9 +145,10 @@ namespace Grid.BattleGrid
             }
             
             _isDragStartSeccess = true;
-            //GridVisualizer.SetOverPanelColor(from, new Color(0.6f, 0,0, 0.4f));
-            //GridVisualizer.SetSizeFor(1.1f,from.Unit.CurrentAbility.GetRange(from, from, _playerCells, _enemyCells));
-            //GridVisualizer.RenderDiceAdditionValueFor(1, from.Unit.Reaction.GetReactionCells(from, _playerCells));
+            _view.SetSpriteColorFor(cell.Unit, Color.red);
+            _view.SetSpriteColorFor(_model.GetUnavailableUnits(cell.Unit), new Color(0f, 0,0, 0.4f));
+            _view.SetSizeFor(1.1f, _model.GetMaskableUnits(cell.Unit, cell.Unit));
+            _view.SetDiceAdditionValue(_model.DiceAdditionCells(cell.Unit), 1);
             //GridVisualizer.RenderHitProbabilityForAll(from);
         }
 
@@ -166,13 +172,12 @@ namespace Grid.BattleGrid
         
         private void InteractFinised()
         {
-            //GridVisualizer.ResetDiceAdditionValue();
-            //GridVisualizer.ResetSize();
             //GridVisualizer.HideOverText();
-            //GridVisualizer.ResetOverPanels();
-
+            
+            _view.ResetSize();
+            _view.ResetSpriteColor();
             _model.CheckEndBattle();
+            _view.ResetDiceAdditionValue();
         }
-
     }
 }

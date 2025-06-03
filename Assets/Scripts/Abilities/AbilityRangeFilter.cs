@@ -61,13 +61,13 @@ namespace Abilities
             };
         }
         
-        private void CalculateDelta(Unit target, Unit cell, out int lineDelta, out int columnDelta)
+        private void CalculateDelta(Unit cell1, Unit cell2, out int lineDelta, out int columnDelta)
         {
-            columnDelta = cell.Position.ColumnIndex - target.Position.ColumnIndex;
-            if (cell.Position.TeamType == target.Position.TeamType)
-                lineDelta = cell.Position.LineIndex - target.Position.LineIndex;
+            columnDelta = cell2.Position.ColumnIndex - cell1.Position.ColumnIndex;
+            if (cell2.Position.TeamType == cell1.Position.TeamType)
+                lineDelta = cell2.Position.LineIndex - cell1.Position.LineIndex;
             else
-                lineDelta = -cell.Position.LineIndex - target.Position.LineIndex - 1;
+                lineDelta = -cell2.Position.LineIndex - cell1.Position.LineIndex - 1;
         }
     }
 }

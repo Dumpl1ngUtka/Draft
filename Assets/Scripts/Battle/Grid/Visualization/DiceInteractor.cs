@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Battle.Grid.Visualization
@@ -10,48 +11,52 @@ namespace Battle.Grid.Visualization
     {
         private Sprite _noneIcon;
         [SerializeField] private Image _diceIcon;
-        [SerializeField] private TMP_Text _additionalValueText;
-        [SerializeField] private Image _additionalValueImage;
+        [SerializeField] private Image _upgradeIcon;
+        [SerializeField] private Image _downgradedIcon;
+        [Header("Colors")]
+        [SerializeField] private Color _upgradeColor;
+        [SerializeField] private Color _downgradedColor;
 
         protected override void UpdateInfo()
         {
             if (_diceIcon == null)
                 return;
+
+            Debug.Log(Unit.IsReady);
+            _diceIcon.gameObject.SetActive(Unit.IsReady);
+            RenderAdditionalValue(0);
             
-            if (!Unit.IsReady)
-            {
-                if (_noneIcon == null)
-                    _noneIcon = Resources.Load<Sprite>("Sprites/None");
-                
-                _diceIcon.sprite = _noneIcon;
-                return;
-            }
-            
-            var value = Unit.DicePower + 1;
-            _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/" + value);
+            _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/Dice" + (Unit.DicePower + 1));
         }
 
         protected override void SetActive(bool isActive)
         {
-            _diceIcon.gameObject.SetActive(isActive);
-            _additionalValueText.gameObject.SetActive(isActive);
-            _additionalValueImage.gameObject.SetActive(isActive);
+            _diceIcon?.gameObject.SetActive(isActive);
+            _upgradeIcon?.gameObject.SetActive(isActive);
+            _downgradedIcon?.gameObject.SetActive(isActive);
         }
-
-        public void SetActiveAdditionalValue(bool isActive)
-        {
-            _additionalValueImage?.gameObject.SetActive(isActive);
-            _additionalValueText?.gameObject.SetActive(isActive);
-        }
-
+        
         public void RenderAdditionalValue(int value)
         {
-            if (_additionalValueImage == null || _additionalValueText == null)
+            Debug.Log("RenderAdditionalValue");
+
+            if (_upgradeIcon == null || _downgradedIcon == null)
                 return;
             
+            if (!Unit.IsReady)
+                return;
+
+            if (value == 0)
+            {
+                _upgradeIcon.gameObject.SetActive(false);
+                _downgradedIcon.gameObject.SetActive(false);
+                _diceIcon.color = Color.white;
+                return;
+            }
             var isPositive = value > 0;
-            _additionalValueText.text = (isPositive ? "+" : "") + value;
-            _additionalValueImage.color = isPositive ? Color.green : Color.red;
+            _upgradeIcon.gameObject.SetActive(isPositive);
+            _downgradedIcon.gameObject.SetActive(!isPositive);
+            _diceIcon.color = isPositive ? _upgradeColor : _downgradedColor;
         }
     }
 }

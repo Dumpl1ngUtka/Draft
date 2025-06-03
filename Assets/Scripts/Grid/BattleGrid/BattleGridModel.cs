@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
+using Grid.Cells;
 using Services.GameControlService;
 using Units;
 using UnityEngine;
@@ -16,10 +17,6 @@ namespace Grid.BattleGrid
         public BattleGridModel()
         {
             _playerUnits = GameControlService.CurrentRunInfo.PlayerUnits.ToList();
-            foreach (var unit in _playerUnits)
-            {
-                Debug.Log(unit);
-            }
             _enemyUnits = GenerateEnemies();
             
             _turnInteractor = new TurnInteractor(_playerUnits, _enemyUnits);
@@ -35,8 +32,8 @@ namespace Grid.BattleGrid
         public void EndTurn()
         {
             _turnInteractor.EndTurn();
-            //EnemyAttack();
-
+            EnemyAttack();
+            _turnInteractor.StartTurn();
         }
         
         private void EnemyAttack()
@@ -94,6 +91,28 @@ namespace Grid.BattleGrid
         {
             playerUnits = _playerUnits;
             enemyUnits = _enemyUnits;
+        }
+
+        public List<Unit> GetMaskableUnits(Unit caster, Unit target)
+        {
+            return caster.CurrentAbility.GetRange(caster, target, _playerUnits, _enemyUnits);
+        }
+
+        public List<Unit> DiceAdditionCells(Unit cellUnit)
+        {
+            return cellUnit.Reaction.GetReactionCells(cellUnit, _playerUnits);
+        }
+
+        public List<Unit> GetUnavailableUnits(Unit caster)
+        {
+            return _playerUnits.Concat(_enemyUnits).Where(unit => 
+                !caster.CurrentAbility.IsRightTarget(caster, unit)).ToList();
+        }
+        
+        public List<Unit> GetAvailableUnits(Unit caster)
+        {
+            return _playerUnits.Concat(_enemyUnits).Where(unit => 
+                caster.CurrentAbility.IsRightTarget(caster, unit)).ToList();
         }
     }
 }

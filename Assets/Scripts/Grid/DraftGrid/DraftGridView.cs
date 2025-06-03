@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Battle.Grid.Visualization;
 using Grid.Cells;
 using Grid.DraftGrid.ChemistryBoard;
-using Grid.GridEffects.UnitGridCellEffects;
 using Units;
 using UnityEngine;
 

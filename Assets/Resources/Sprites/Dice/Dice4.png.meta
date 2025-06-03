@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c11e8074c79229843bf53345f8bb81ca
+guid: 6cd03f2dd8c47ce4e806a087b5038c7e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1641456826788812390
-    second: dice-six-faces-two_0
+      213: -3216283430304802289
+    second: Dice4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dice-six-faces-two_0
+      name: Dice4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 512
+        width: 114
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 66613e28940a7c610800000000000000
-      internalID: 1641456826788812390
+      spriteID: f0a15bfb2477d53d0800000000000000
+      internalID: -3216283430304802289
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dice-six-faces-two_0: 1641456826788812390
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

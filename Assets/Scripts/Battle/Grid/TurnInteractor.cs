@@ -30,7 +30,6 @@ namespace Battle.Grid
         {
             UnitEndTurn(_playerUnits);
             UnitEndTurn(_enemyUnits);
-            StartTurn();
         }
 
         private void UnitEndTurn(List<Unit> units)
@@ -43,8 +42,8 @@ namespace Battle.Grid
         {
             foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead))
             {
-                unit.SetRandomDicePower();
                 unit.SetReady(true);
+                unit.SetRandomDicePower();
             }
         }
     }

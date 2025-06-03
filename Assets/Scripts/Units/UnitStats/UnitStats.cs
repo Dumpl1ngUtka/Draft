@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Battle.DamageSystem;
-using UnityEngine;
 using IObserver = CustomObserver.IObserver<Units.UnitStats>;
 
 namespace Units
@@ -117,7 +116,7 @@ namespace Units
 
         #region Observers
 
-        private List<IObserver> _observers = new();
+        private readonly List<IObserver> _observers = new();
         
         public void AddObserver(IObserver observer)
         {
