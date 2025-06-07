@@ -42,7 +42,7 @@ namespace Battle.Grid
         {
             foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead))
             {
-                unit.SetReady(true);
+                unit.Stats.Energy.AddModifier(p);
                 unit.SetRandomDicePower();
             }
         }

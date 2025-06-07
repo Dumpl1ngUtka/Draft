@@ -52,6 +52,7 @@ namespace Abilities
                 var effect = AbillityEffect.GetInstance(caster.Stats, cell.Stats);
                 cell.PassiveEffectsHolder.AddEffect(effect);
             }
+            caster.Stats.Energy.AddModifier(new PermanentStatModifier(-1));
         }
 
         public Unit GetPreferredTarget(List<Unit> potentialTargets)

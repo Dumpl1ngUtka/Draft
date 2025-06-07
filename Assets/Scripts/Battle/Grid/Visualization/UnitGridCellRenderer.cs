@@ -7,8 +7,7 @@ using Unit = Units.Unit;
 
 namespace Battle.Grid.Visualization
 {
-    public class UnitGridCellRenderer : MonoBehaviour, 
-        IObserver<UnitStats>
+    public class UnitGridCellRenderer : MonoBehaviour
     {
         [Header("Interactors")]
         [SerializeField] private DuckIconInteractor _duckIconInteractor;
@@ -50,16 +49,13 @@ namespace Battle.Grid.Visualization
         
         public void SubscribeToUnit(Unit unit)
         {
-            unit.Stats.AddObserver(this);
-
-            foreach (var interactor in _allInteractors) 
+            foreach (var interactor in _allInteractors)
+            {
                 interactor.Init(unit);
+                interactor.TryUpdateInfo();
+            }
 
-            unit.PassiveEffectsHolder.EffectApplied += EffectApplied;
-
-            unit.PassiveEffectsHolder.PassiveEffectsChanged += () => _passiveInteractor.TryUpdateInfo();
-
-            UpdateObserver(unit.Stats);
+            SubscrabeToUnitAction(unit);
             
             _unit = unit;
         }
@@ -68,34 +64,18 @@ namespace Battle.Grid.Visualization
         {
             if (_unit == null)
                 return;
-            _unit.Stats.RemoveObserver(this);
-            _unit.PassiveEffectsHolder.EffectApplied -= EffectApplied;
             
+            UnsubscrabeFromUnitAction();
             _unit = null;
-            
-            foreach (var interactor in _allInteractors) 
-                interactor.Init(null);
-            
-            
-            UpdateObserver(null);
-        }
 
-        private void EffectApplied(PassiveEffect effect, TriggerType type)
-        {
-            var clip = effect.GetClipByType(type);
-            if (clip != null)
+            foreach (var interactor in _allInteractors)
             {
-                PlayAnimation(clip, clip.length);
+                interactor.Init(null);
+                interactor.TryUpdateInfo();
             }
         }
-
-        private void Update()
-        {
-            _sizeInteractor.Update();
-            //_overPanelInteractor.Update();
-        }
-
-        public void PlayAnimation(AnimationClip animationClip, float duration)
+        
+        public void PlayAnimation(AnimationClip animationClip)
         {
             _overPanelInteractor.PlayAnimation(animationClip);
         }
@@ -103,11 +83,6 @@ namespace Battle.Grid.Visualization
         public void SetOverText(string text)
         {
             _overTextInteractor.SetText(text);
-        }
-
-        public void SetOverPanel(Color color = default)
-        {
-            //_overPanelInteractor.SetColor(color);
         }
         
         public void SetSize(float size, bool instantly = false)
@@ -131,11 +106,6 @@ namespace Battle.Grid.Visualization
             _diceInteractor.RenderAdditionalValue(value);
         }
 
-        private void OnDisable()
-        {
-            UnsubscribeFromUnit();
-        }
-
         public void UpdateObserver(UnitStats interactor)
         {
             _duckIconInteractor.TryUpdateInfo();
@@ -148,6 +118,42 @@ namespace Battle.Grid.Visualization
         public void SetSpriteColor(Color color)
         {
             _duckIconInteractor.SetSpriteColor(color);
+        }
+        
+        private void Update()
+        {
+            _sizeInteractor.Update();
+        }
+
+        private void SubscrabeToUnitAction(Unit unit)
+        {
+            unit.PassiveEffectsHolder.EffectApplied += _overPanelInteractor.PlayEffectAnimation;
+            unit.PassiveEffectsHolder.PassiveEffectsChanged += _passiveInteractor.TryUpdateInfo;
+            
+            unit.Stats.HealthChanged += _healthInteractor.TryUpdateInfo;
+            unit.Stats.HealthChanged += _duckIconInteractor.TryUpdateInfo;
+            unit.Stats.HealthChanged += _chemistryInteractor.TryUpdateInfo;
+            unit.Stats.HealthChanged += _diceInteractor.TryUpdateInfo;
+            
+            unit.Stats.AttributeChanged += _parameterInteractor.TryUpdateInfo;
+        }
+
+        private void UnsubscrabeFromUnitAction()
+        {
+            _unit.PassiveEffectsHolder.EffectApplied -= _overPanelInteractor.PlayEffectAnimation;
+            _unit.PassiveEffectsHolder.PassiveEffectsChanged -= _passiveInteractor.TryUpdateInfo;
+            
+            _unit.Stats.HealthChanged -= _healthInteractor.TryUpdateInfo;
+            _unit.Stats.HealthChanged -= _duckIconInteractor.TryUpdateInfo;
+            _unit.Stats.HealthChanged -= _chemistryInteractor.TryUpdateInfo;
+            _unit.Stats.HealthChanged -= _diceInteractor.TryUpdateInfo;
+            
+            _unit.Stats.AttributeChanged -= _parameterInteractor.TryUpdateInfo;
+        }
+        
+        private void OnDisable()
+        {
+            UnsubscribeFromUnit();
         }
     }
 }

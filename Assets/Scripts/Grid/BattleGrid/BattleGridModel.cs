@@ -49,7 +49,7 @@ namespace Grid.BattleGrid
                 foreach (var unit in range)
                 {
                     if (!ability.IsRightTarget(enemy, unit)) continue;
-                    if (unit.Stats.IsDead || !unit.IsReady) continue;
+                    if (unit.Stats.IsDead || !unit.Stats.IsReady) continue;
                     
                     ability.UseAbility(enemy, unit, _enemyUnits, _playerUnits);
                 }
@@ -59,7 +59,6 @@ namespace Grid.BattleGrid
         public void UseAbility(Unit from, Unit to)
         {
             from.CurrentAbility.UseAbility(from, to, _playerUnits, _enemyUnits);
-            from.SetReady(false);
             from.Reaction.UseReaction(from, _playerUnits);
         }
         

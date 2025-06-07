@@ -20,7 +20,6 @@ namespace Units
         public Covenant Covenant;
         public UnitStats Stats { get; }
         public int DicePower { get; private set; }
-        public bool IsReady { get; private set; } = false;
         
         public PassiveEffectsHolder PassiveEffectsHolder;
         public Ability CurrentAbility => Abilities.GetAbilityByIndex(DicePower);
@@ -41,11 +40,6 @@ namespace Units
         public void EndTurn()
         {
             PassiveEffectsHolder.OnTurnEnded();
-        }
-
-        public void SetReady(bool isReady)
-        {
-            IsReady = isReady;
         }
         
         public void SetDicePower(int newPower)

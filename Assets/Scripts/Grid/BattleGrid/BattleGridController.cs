@@ -98,7 +98,7 @@ namespace Grid.BattleGrid
                 return;
             }
             
-            if (!unitCell.Unit.IsReady)
+            if (!unitCell.Unit.Stats.IsReady)
             {
                 PanelService.Instance.InstantiateErrorPanel("unit_not_ready_error");
                 return;
@@ -132,7 +132,7 @@ namespace Grid.BattleGrid
                 return;
             }
             
-            if (!cell.Unit.IsReady)
+            if (!cell.Unit.Stats.IsReady)
             {
                 PanelService.Instance.InstantiateErrorPanel("unit_not_ready_error");
                 return;

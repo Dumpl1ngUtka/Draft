@@ -21,9 +21,8 @@ namespace Battle.Grid.Visualization
         {
             if (_diceIcon == null)
                 return;
-
-            Debug.Log(Unit.IsReady);
-            _diceIcon.gameObject.SetActive(Unit.IsReady);
+            
+            _diceIcon.gameObject.SetActive(Unit.Stats.IsReady);
             RenderAdditionalValue(0);
             
             _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/Dice" + (Unit.DicePower + 1));
@@ -38,12 +37,10 @@ namespace Battle.Grid.Visualization
         
         public void RenderAdditionalValue(int value)
         {
-            Debug.Log("RenderAdditionalValue");
-
             if (_upgradeIcon == null || _downgradedIcon == null)
                 return;
             
-            if (!Unit.IsReady)
+            if (!Unit.Stats.IsReady)
                 return;
 
             if (value == 0)

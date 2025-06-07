@@ -32,21 +32,6 @@ namespace Battle.Grid.Visualization
                 cell.Renderer.SetSize(1f);
         }
 
-        public void RenderDiceAdditionValueFor(int value, List<UnitGridCell> cells)
-        {
-            foreach (var cell in cells)
-            {
-                if (cell.Unit.IsReady)
-                    cell.Renderer.RenderDiceAdditionValue(value);
-            }
-        }
-        
-        public void ResetDiceAdditionValue()
-        {
-            foreach (var cell in _allCells)
-                cell.Renderer.RenderDiceAdditionValue(0);
-        }
-
         public void RenderHitProbabilityForAll(UnitGridCell caster)
         {
             /*var ablility = caster.Unit.CurrentAbility;
@@ -58,19 +43,6 @@ namespace Battle.Grid.Visualization
                 var probability = ablility.GetHitProbability(caster, cell);
                 cell.Renderer.SetOverText((probability).ToString("0%"));
             }*/
-        }
-
-        public void SetOverPanelColor(UnitGridCell cell, Color color)
-        {
-            cell.Renderer.SetOverPanel(color);
-        }
-
-        public void ResetOverPanels()
-        {
-            foreach (var cell in _allCells)
-            {
-                cell.Renderer.SetOverPanel(new Color(0,0,0,0));
-            }
         }
         
         public void HideOverText()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Battle.DamageSystem;
+using UnityEngine;
 using IObserver = CustomObserver.IObserver<Units.UnitStats>;
 
 namespace Units
@@ -50,7 +51,15 @@ namespace Units
         
         #endregion
 
+        #region Other
+
+        public StatInt Energy;
         public StatInt Chemistry;
+
+        public bool IsReady => Energy.Value > 0;
+        
+        #endregion
+        
         
         public UnitStats(Attributes attributes)
         {
@@ -70,6 +79,10 @@ namespace Units
             MaxHealth.AddModifier(new StatModifier(StatModifierType.BeforeBaseValueAddition, 
                 value => value + HealthAttribute.Value * 3));
             
+            CurrentHealth = new StatInt(MaxHealth.Value);
+            CurrentHealth.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
+                value => Math.Clamp(value, 0, MaxHealth.Value)));
+            
             Armor = new StatInt(0, true);
             //Armor.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
             //    value => Math.Max(value, 0)));
@@ -78,9 +91,7 @@ namespace Units
             Chemistry.AddModifier(new StatModifier(StatModifierType.SystemModifier,
                 value => Math.Min(10, value)));
             
-            CurrentHealth = new StatInt(MaxHealth.Value);
-            CurrentHealth.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
-                value => Math.Clamp(value, 0, MaxHealth.Value)));
+            Energy = new StatInt(1);
         }
 
         private void InitializedActions()

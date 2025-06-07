@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.PassiveEffects;
 using Services.GlobalAnimation;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -13,14 +14,20 @@ namespace Battle.Grid.Visualization
         private Queue<AnimationClip> _animationQueue = new Queue<AnimationClip>();
         private bool _isPlaying;
 
+        public void PlayEffectAnimation(PassiveEffect effect, TriggerType type)
+        {
+            var clip = effect.GetClipByType(type);
+            Debug.Log(effect + " ; " + clip);
+            if (clip != null) 
+                PlayAnimation(clip);
+        }
+        
         public void PlayAnimation(AnimationClip clip)
         {
             _animationQueue.Enqueue(clip);
 
-            if (!_isPlaying)
-            {
+            if (!_isPlaying) 
                 PlayNextAnimation();
-            }
         }
 
         private void PlayNextAnimation()
@@ -36,7 +43,7 @@ namespace Battle.Grid.Visualization
 
             var controller = new AnimatorController();
             controller.AddLayer("Base Layer");
-            var state = controller.AddMotion(nextClip, 0);
+            //var state = controller.AddMotion(nextClip, 0);
 
             _animator.runtimeAnimatorController = controller;
             
