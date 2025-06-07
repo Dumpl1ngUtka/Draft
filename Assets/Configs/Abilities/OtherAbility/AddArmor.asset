@@ -41,3 +41,4 @@ MonoBehaviour:
     _targetAttributeType: 0
     _subtractionProbabilityByAttribute: 0
     _additionProbabilityByDistance: 0
+  EnergyReduceEffect: {fileID: 11400000, guid: 4f11e533c10db4040b4925040bd22704, type: 2}

@@ -25,7 +25,7 @@ namespace Battle.Grid.Visualization
             _diceIcon.gameObject.SetActive(Unit.Stats.IsReady);
             RenderAdditionalValue(0);
             
-            _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/Dice" + (Unit.DicePower + 1));
+            _diceIcon.sprite = Resources.Load<Sprite>("Sprites/Dice/Dice" + (Unit.DiceInteractor.DicePower + 1));
         }
 
         protected override void SetActive(bool isActive)

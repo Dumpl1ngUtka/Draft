@@ -3,6 +3,7 @@ using System.Linq;
 using Battle.PassiveEffects;
 using Units;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Abilities
 {
@@ -15,6 +16,7 @@ namespace Abilities
         public AbilityTargetFilter TargetFilter;
         public AbilityRangeFilter RangeFilter;
         public HitProbabilityCalculator HitProbabilityCalculator;
+        public EnergyReduce EnergyReduceEffect;
         
         public Ability GetInstance()
         {
@@ -25,6 +27,7 @@ namespace Abilities
             instance.TargetFilter = this.TargetFilter;
             instance.RangeFilter = this.RangeFilter;
             instance.HitProbabilityCalculator = this.HitProbabilityCalculator;
+            instance.EnergyReduceEffect = this.EnergyReduceEffect;
             return instance;
         }
         
@@ -52,7 +55,7 @@ namespace Abilities
                 var effect = AbillityEffect.GetInstance(caster.Stats, cell.Stats);
                 cell.PassiveEffectsHolder.AddEffect(effect);
             }
-            caster.Stats.Energy.AddModifier(new PermanentStatModifier(-1));
+            caster.PassiveEffectsHolder.AddEffect(EnergyReduceEffect.GetInstance(caster.Stats, caster.Stats));
         }
 
         public Unit GetPreferredTarget(List<Unit> potentialTargets)

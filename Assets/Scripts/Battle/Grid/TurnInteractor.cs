@@ -40,11 +40,8 @@ namespace Battle.Grid
         
         private void SetReady(List<Unit> units)
         {
-            foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead))
-            {
-                unit.Stats.Energy.AddModifier(p);
-                unit.SetRandomDicePower();
-            }
+            foreach (var unit in units.Where(unit => unit != null && !unit.Stats.IsDead)) 
+                unit.DiceInteractor.SetRandomDicePower();
         }
     }
 }

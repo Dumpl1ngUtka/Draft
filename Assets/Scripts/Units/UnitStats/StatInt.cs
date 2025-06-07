@@ -38,6 +38,7 @@ namespace Units
 
         public void AddModifier(StatModifier modifier)
         {
+            modifier.ModifireRemoved += RemoveModifier;
             if (modifier.Type == (int)StatModifierType.PermanentAdditiveValue)
             {
                 _permanentAdditionModifier += (int)modifier.Function(0);
@@ -64,16 +65,16 @@ namespace Units
             StatChanged?.Invoke();
         }
 
-        public void RemoveModifier(StatModifier modifier)
+        public void CurrentValueOutdated()
+        {
+            _isNeedToUpdate = true;
+        }
+        
+        private void RemoveModifier(StatModifier modifier)
         {
             _modifiers.Remove(modifier);
             CurrentValueOutdated();
             StatChanged?.Invoke();
-        }
-
-        public void CurrentValueOutdated()
-        {
-            _isNeedToUpdate = true;
         }
 
         private int GetUpdatedResult()

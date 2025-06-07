@@ -19,6 +19,9 @@ namespace Battle.Grid.Visualization
             var effects = Unit.PassiveEffectsHolder.GetPassiveEffects();
             foreach (var effect in effects)
             {
+                if (effect.Icon == null)
+                    continue;
+                
                 var renderer = Object.Instantiate(_prefab, _container);
                 renderer.Init(effect);
             }

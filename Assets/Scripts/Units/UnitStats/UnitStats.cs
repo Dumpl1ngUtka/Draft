@@ -6,7 +6,7 @@ using IObserver = CustomObserver.IObserver<Units.UnitStats>;
 
 namespace Units
 {
-    public class UnitStats : CustomObserver.IObservable<UnitStats>
+    public class UnitStats
     {
         #region Attributes
 
@@ -105,8 +105,6 @@ namespace Units
             CurrentHealth.StatChanged += () => HealthChanged?.Invoke();
             Armor.StatChanged += () => HealthChanged?.Invoke();
             
-            Chemistry.StatChanged += NotifyObservers;
-
             AttributeChanged += SetCurrentValueOutdated;
             HealthChanged += SetCurrentValueOutdated;
         }
@@ -122,29 +120,7 @@ namespace Units
             CurrentHealth.CurrentValueOutdated();
             Armor.CurrentValueOutdated();
             
-            NotifyObservers();
+            Debug.Log(Energy.Value);
         }
-
-        #region Observers
-
-        private readonly List<IObserver> _observers = new();
-        
-        public void AddObserver(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void RemoveObserver(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers) observer.UpdateObserver(this);
-        }
-        
-        #endregion
-        
     }
 }

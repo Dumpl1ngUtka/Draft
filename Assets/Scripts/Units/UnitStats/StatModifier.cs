@@ -1,14 +1,20 @@
+using System;
+using Battle.PassiveEffects;
+
 namespace Units
 {
     public class StatModifier
     {
         public readonly int Type;
         public readonly StatModifierFunction Function;
+        public Action<StatModifier> ModifireRemoved;
 
-        public StatModifier(StatModifierType type, StatModifierFunction function)
+        public StatModifier(StatModifierType type, StatModifierFunction function, PassiveEffect holder = null)
         {
             Type = (int)type;
             Function = function;
+            if (holder != null) 
+                holder.EffectRemoved += () => ModifireRemoved?.Invoke(this);
         }
     }
     

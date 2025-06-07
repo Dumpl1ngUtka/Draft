@@ -22,6 +22,8 @@ namespace Battle.PassiveEffects
         
         public void ReduceCount() => _turnCount--;
         
+        public Action EffectRemoved;
+        
         public void OnAdd()
         {
             AddEffect();
@@ -35,6 +37,7 @@ namespace Battle.PassiveEffects
         public void Destroy()
         {
             RemoveEffect();
+            EffectRemoved?.Invoke();
             Destroy(this);
         }
 

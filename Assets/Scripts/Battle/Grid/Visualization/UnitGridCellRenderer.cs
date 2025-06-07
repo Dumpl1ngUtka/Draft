@@ -133,7 +133,9 @@ namespace Battle.Grid.Visualization
             unit.Stats.HealthChanged += _healthInteractor.TryUpdateInfo;
             unit.Stats.HealthChanged += _duckIconInteractor.TryUpdateInfo;
             unit.Stats.HealthChanged += _chemistryInteractor.TryUpdateInfo;
-            unit.Stats.HealthChanged += _diceInteractor.TryUpdateInfo;
+            
+            unit.Stats.Energy.StatChanged += _diceInteractor.TryUpdateInfo;
+            unit.DiceInteractor.DiceValueChanged += _diceInteractor.TryUpdateInfo;
             
             unit.Stats.AttributeChanged += _parameterInteractor.TryUpdateInfo;
         }
@@ -146,7 +148,9 @@ namespace Battle.Grid.Visualization
             _unit.Stats.HealthChanged -= _healthInteractor.TryUpdateInfo;
             _unit.Stats.HealthChanged -= _duckIconInteractor.TryUpdateInfo;
             _unit.Stats.HealthChanged -= _chemistryInteractor.TryUpdateInfo;
-            _unit.Stats.HealthChanged -= _diceInteractor.TryUpdateInfo;
+            
+            _unit.Stats.Energy.StatChanged -= _diceInteractor.TryUpdateInfo;
+            _unit.DiceInteractor.DiceValueChanged -= _diceInteractor.TryUpdateInfo;
             
             _unit.Stats.AttributeChanged -= _parameterInteractor.TryUpdateInfo;
         }

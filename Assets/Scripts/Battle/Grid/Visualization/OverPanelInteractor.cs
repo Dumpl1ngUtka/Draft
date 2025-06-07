@@ -17,7 +17,6 @@ namespace Battle.Grid.Visualization
         public void PlayEffectAnimation(PassiveEffect effect, TriggerType type)
         {
             var clip = effect.GetClipByType(type);
-            Debug.Log(effect + " ; " + clip);
             if (clip != null) 
                 PlayAnimation(clip);
         }

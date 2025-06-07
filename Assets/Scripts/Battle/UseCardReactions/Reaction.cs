@@ -14,7 +14,7 @@ namespace Battle.UseCardReactions
         public void UseReaction(Unit caster, List<Unit> allies)
         {
             foreach (var unit in GetReactionCells(caster, allies)) 
-                unit.SetDicePower(unit.DicePower + _value);
+                unit.DiceInteractor.AddDicePower(_value);
         }
     }
 }

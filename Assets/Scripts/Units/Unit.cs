@@ -2,12 +2,13 @@ using Abilities;
 using Battle.PassiveEffects;
 using Battle.UseCardReactions;
 using Grid;
+using Units.Interactors;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Units
 {
-   
+
     public class Unit
     {
         public GridPosition Position;
@@ -19,10 +20,9 @@ namespace Units
         public Class Class;
         public Covenant Covenant;
         public UnitStats Stats { get; }
-        public int DicePower { get; private set; }
-        
-        public PassiveEffectsHolder PassiveEffectsHolder;
-        public Ability CurrentAbility => Abilities.GetAbilityByIndex(DicePower);
+        public DiceInteractor DiceInteractor { get; }
+        public PassiveEffectsHolder PassiveEffectsHolder { get; }
+        public Ability CurrentAbility => Abilities.GetAbilityByIndex(DiceInteractor.DicePower);
         
         public Unit(UnitPreset unitPreset)
         {
@@ -34,24 +34,13 @@ namespace Units
             Covenant = unitPreset.Covenant;
             Stats = new UnitStats(unitPreset.Attributes);
             Abilities = new AbilitiesHolder(unitPreset.Abilities);
+            DiceInteractor = new DiceInteractor(Abilities);
             PassiveEffectsHolder = new PassiveEffectsHolder();
         }
 
         public void EndTurn()
         {
             PassiveEffectsHolder.OnTurnEnded();
-        }
-        
-        public void SetDicePower(int newPower)
-        {
-            if (newPower >= Abilities.AbilityCount)
-                newPower -=  Abilities.AbilityCount;
-            DicePower = newPower;
-        }
-
-        public void SetRandomDicePower()
-        {
-            DicePower = Random.Range(0,  Abilities.AbilityCount);
         }
     }
 }

@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Grid\Cells\DungeonCell.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridModel.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityTargetFilter.cs" />
+    <Compile Include="Assets\Scripts\Units\Interactors\DiceInteractor.cs" />
     <Compile Include="Assets\Scripts\Units\Interactors\Response.cs" />
     <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\ShakeEffect.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridController.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemistryBoard\ChemistryObserverCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\EnergyReduce.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ParametersInteractor.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\PathCellRule.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
