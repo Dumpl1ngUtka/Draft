@@ -10,7 +10,7 @@ namespace Grid.BattleGrid
     {
         private BattleGridModel _model;
         private BattleGridView _view;
-        private bool _isDragStartSeccess;
+        private bool _isDragStartSeccess = false;
         private UnitGridCell _startInteractedCell;
 
         // ReSharper disable Unity.PerformanceAnalysis
@@ -82,7 +82,8 @@ namespace Grid.BattleGrid
             var unitStartDraggingCell = startDraggingCell as UnitGridCell;
             
             if (unitOverCell == null || unitStartDraggingCell == null) return;
-            _view.SetSizeFor(1.1f, _model.GetMaskableUnits(unitStartDraggingCell.Unit, unitOverCell.Unit));
+            if (startDraggingCell != overCell)
+                _view.SetSizeFor(1.1f, _model.GetMaskableUnits(unitStartDraggingCell.Unit, unitOverCell.Unit));
         }
 
         protected override void DoubleClicked(GridCell cell)
@@ -124,8 +125,6 @@ namespace Grid.BattleGrid
             _startInteractedCell = cell;
             if (cell == null) return;
             
-            _isDragStartSeccess = false;
-            
             if (cell.Unit.Stats.IsDead)
             {
                 PanelService.Instance.InstantiateErrorPanel("unit_is_dead_error");
@@ -145,9 +144,9 @@ namespace Grid.BattleGrid
             }
             
             _isDragStartSeccess = true;
-            _view.SetSpriteColorFor(cell.Unit, Color.red);
             _view.SetSpriteColorFor(_model.GetUnavailableUnits(cell.Unit), new Color(0f, 0,0, 0.4f));
             _view.SetSizeFor(1.1f, _model.GetMaskableUnits(cell.Unit, cell.Unit));
+            _view.SetSpriteColorFor(cell.Unit, Color.red);
             _view.SetDiceAdditionValue(_model.DiceAdditionCells(cell.Unit), 1);
             //GridVisualizer.RenderHitProbabilityForAll(from);
         }
@@ -163,10 +162,11 @@ namespace Grid.BattleGrid
             InteractFinised();
             var fromUnitCell = from as UnitGridCell;
             var toUnitCell = to as UnitGridCell;
-            
+
             if (!_isDragStartSeccess)
                 return;
-
+            _isDragStartSeccess = false;
+            
             _model.UseAbility(fromUnitCell?.Unit, toUnitCell?.Unit);
         }
         

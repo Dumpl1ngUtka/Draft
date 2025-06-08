@@ -26,17 +26,17 @@ namespace Battle.PassiveEffects
 
         protected override void AddEffect()
         {
-            var damage = _baseDamage + _damagePerAttribute *
+            float damage = _baseDamage + _damagePerAttribute *
                 Owner.GetAttributeByType(_damageAttribute).Value ;
-            
-            var armorValue = Owner.Armor.Value;
-            var damageToArmorMultiplayer = _damageType == DamageType.Acid ? 2 : 1;
-            
-            var damageToArmor = Math.Min(armorValue, damage * damageToArmorMultiplayer);
-            Owner.Armor.AddModifier(new PermanentStatModifier(-damageToArmor));
 
-            var damageToHealth = damage - damageToArmor / damageToArmorMultiplayer;
-            Owner.CurrentHealth.AddModifier(new PermanentStatModifier(-damageToHealth));
+            if (Owner.Immunities.Contains(_damageType))
+                damage = 0;
+            if (Owner.Resistances.Contains(_damageType))
+                damage /= 2;
+            if (Owner.Vulnerability.Contains(_damageType))
+                damage *= 2;
+            
+            Owner.CurrentHealth.AddModifier(new PermanentStatModifier(-(int)damage));
         }
 
         protected override void TurnEffect()

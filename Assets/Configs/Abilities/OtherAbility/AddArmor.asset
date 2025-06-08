@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Add armor
   Icon: {fileID: 0}
-  AbillityEffect: {fileID: 11400000, guid: 1f6f13649359df84fb6d9d3af8e875e9, type: 2}
   TargetFilter:
+    IsSelfTarget: 1
     IsPlayerUnitTarget: 1
     IsEnemyUnitTarget: 0
     IsDeadPlayerUnitTarget: 0
@@ -34,11 +34,13 @@ MonoBehaviour:
         x: 0
         y: 0
         z: 0
-  HitProbabilityCalculator:
-    _baseHitProbability: 1
-    _casterAttributType: 0
-    _additionProbabilityByAttribute: 0
-    _targetAttributeType: 0
-    _subtractionProbabilityByAttribute: 0
-    _additionProbabilityByDistance: 0
+  Effects:
+  - Effect: {fileID: 11400000, guid: 1f6f13649359df84fb6d9d3af8e875e9, type: 2}
+    Probability:
+      _baseHitProbability: 1
+      _casterAttributType: 0
+      _additionProbabilityByAttribute: 0
+      _targetAttributeType: 0
+      _subtractionProbabilityByAttribute: 0
+      _additionProbabilityByDistance: 0
   EnergyReduceEffect: {fileID: 11400000, guid: 4f11e533c10db4040b4925040bd22704, type: 2}

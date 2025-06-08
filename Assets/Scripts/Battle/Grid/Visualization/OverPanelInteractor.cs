@@ -64,5 +64,11 @@ namespace Battle.Grid.Visualization
         {
             ;
         }
+
+        public void OnDestroy()
+        {
+            if (GlobalAnimationSevice.Instance != null)
+                GlobalAnimationSevice.Instance.StopAllCoroutines();
+        }
     }
 }

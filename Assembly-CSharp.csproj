@@ -61,7 +61,6 @@
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridController.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\DungeonInfo.cs" />
-    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ITagReader.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemestryInteractor.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\DamageType.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridController.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsPanel.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\TextWithLinks.cs" />
-    <Compile Include="Assets\Scripts\Units\Tag.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemistryBoard\ChemistryObserverCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
@@ -170,8 +168,10 @@
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Grid\TeamType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\StunEffect.cs" />
     <Compile Include="Assets\Scripts\CustomObserver\IObservable.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\ISaveData.cs" />
+    <Compile Include="Assets\Scripts\Abilities\AbilityEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\GraduationParameter\GraduationParameterHolder.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityRangeFilter.cs" />
     <Compile Include="Assets\Scripts\Grid\GridModel.cs" />

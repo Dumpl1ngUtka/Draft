@@ -158,6 +158,7 @@ namespace Battle.Grid.Visualization
         private void OnDisable()
         {
             UnsubscribeFromUnit();
+            _overPanelInteractor.OnDestroy();
         }
     }
 }

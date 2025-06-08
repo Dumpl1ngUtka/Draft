@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb7a96a56204cbdb14d14096ab32db0, type: 3}
+  m_Name: Axid
+  m_EditorClassIdentifier: 
+  Name: Axid
+  Icon: {fileID: -7282886668606283007, guid: 8c3b697f79282744ca79947020b3cee4, type: 3}
+  TargetFilter:
+    IsSelfTarget: 1
+    IsPlayerUnitTarget: 1
+    IsEnemyUnitTarget: 1
+    IsDeadPlayerUnitTarget: 0
+    IsDeadEnemyUnitTarget: 0
+  RangeFilter:
+    _matrix:
+      c0:
+        x: 0
+        y: 0
+        z: 0
+      c1:
+        x: 0
+        y: 1
+        z: 0
+      c2:
+        x: 0
+        y: 0
+        z: 0
+  Effects:
+  - Effect: {fileID: 11400000, guid: c47e805b591c95645ad232ee20c75627, type: 2}
+    Probability:
+      _baseHitProbability: 1
+      _casterAttributType: 0
+      _additionProbabilityByAttribute: 0
+      _targetAttributeType: 0
+      _subtractionProbabilityByAttribute: 0
+      _additionProbabilityByDistance: 0
+  EnergyReduceEffect: {fileID: 11400000, guid: 4f11e533c10db4040b4925040bd22704, type: 2}

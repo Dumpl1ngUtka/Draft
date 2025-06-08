@@ -7,7 +7,7 @@ namespace Battle.PassiveEffects
     public abstract class PassiveEffect : ScriptableObject
     {
         [SerializeField] protected Sprite _icon;
-        [SerializeField] protected Color _color;
+        [SerializeField] protected Color _color = Color.white;
         [SerializeField] protected int _turnCount;
         [Header("Animation Clips")]
         [SerializeField] protected AnimationClip _addClip;

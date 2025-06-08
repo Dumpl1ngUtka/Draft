@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Sword Hit
   Icon: {fileID: 0}
-  AbillityEffect: {fileID: 11400000, guid: 72fcaec8114288443a79b2bb75c38b2f, type: 2}
   TargetFilter:
+    IsSelfTarget: 0
     IsPlayerUnitTarget: 0
     IsEnemyUnitTarget: 1
     IsDeadPlayerUnitTarget: 0
@@ -34,11 +34,13 @@ MonoBehaviour:
         x: 0
         y: 0
         z: 0
-  HitProbabilityCalculator:
-    _baseHitProbability: 0.4
-    _casterAttributType: 2
-    _additionProbabilityByAttribute: 0.2
-    _targetAttributeType: 3
-    _subtractionProbabilityByAttribute: 0.1
-    _additionProbabilityByDistance: -0.1
+  Effects:
+  - Effect: {fileID: 11400000, guid: 72fcaec8114288443a79b2bb75c38b2f, type: 2}
+    Probability:
+      _baseHitProbability: 1
+      _casterAttributType: 2
+      _additionProbabilityByAttribute: 0
+      _targetAttributeType: 3
+      _subtractionProbabilityByAttribute: 0
+      _additionProbabilityByDistance: 0
   EnergyReduceEffect: {fileID: 11400000, guid: 4f11e533c10db4040b4925040bd22704, type: 2}

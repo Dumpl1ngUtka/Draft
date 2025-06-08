@@ -3,10 +3,13 @@ using UnityEngine;
  
 namespace Battle.PassiveEffects
 {
+    [CreateAssetMenu(menuName = "Config/PassiveEffects/NoArmorEffect")]
     public class Slippery : PassiveEffect
     {
         [SerializeField] private float _baseChance = 0.7f;
         [SerializeField] private float _decreasePerDexterity = 0.05f;
+        
+        public float ProcChance => _baseChance + _decreasePerDexterity;
         
         protected override PassiveEffect CreateInstance(UnitStats caster, UnitStats owner)
         {
@@ -26,11 +29,6 @@ namespace Battle.PassiveEffects
 
         protected override void RemoveEffect()
         {
-        }
-
-        public float Calculate(PassiveEffect combinationEffect)
-        {
-            return 0.1f;
         }
     }
 }

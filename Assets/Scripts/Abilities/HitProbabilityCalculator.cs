@@ -11,13 +11,13 @@ namespace Abilities
         [SerializeField, Range(0f, 1f)] private float _baseHitProbability;
         [Header("Caster")]
         [SerializeField] private AttributesType _casterAttributType;
-        [SerializeField] private float _additionProbabilityByAttribute;
+        [SerializeField, Range(0f, 1f)] private float _additionProbabilityByAttribute;
         [Header("Target")]
         [SerializeField] private AttributesType _targetAttributeType;
-        [SerializeField] private float _subtractionProbabilityByAttribute;
+        [SerializeField, Range(0f, 1f)] private float _subtractionProbabilityByAttribute;
         [Header("Distance")]
-        [SerializeField] private float _additionProbabilityByDistance;
-
+        [SerializeField, Range(0f, 1f)] private float _additionProbabilityByDistance;
+        
         public float GetHitProbability(Unit caster, Unit target)
         {
             var probability = _baseHitProbability;

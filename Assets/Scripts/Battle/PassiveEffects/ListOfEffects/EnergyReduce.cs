@@ -14,7 +14,7 @@ namespace Battle.PassiveEffects
 
         protected override void AddEffect()
         {
-            Caster.Energy.AddModifier(new StatModifier(StatModifierType.AdditiveValue, value => value - 1, this));
+            Caster.Energy.AddModifier(new StatModifier(StatModifierType.BaseValueAddition, value => value - 1, this));
         }
 
         protected override void TurnEffect()

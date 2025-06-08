@@ -3,7 +3,7 @@ using System.Linq;
 using Battle.PassiveEffects;
 using Units;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Abilities
 {
@@ -12,10 +12,9 @@ namespace Abilities
     {
         public string Name;
         public Sprite Icon;
-        public PassiveEffect AbillityEffect;
         public AbilityTargetFilter TargetFilter;
         public AbilityRangeFilter RangeFilter;
-        public HitProbabilityCalculator HitProbabilityCalculator;
+        public List<AbilityEffectHolder> Effects;
         public EnergyReduce EnergyReduceEffect;
         
         public Ability GetInstance()
@@ -23,17 +22,11 @@ namespace Abilities
             var instance = ScriptableObject.CreateInstance<Ability>();
             instance.Name = this.Name;
             instance.Icon = this.Icon;
-            instance.AbillityEffect = this.AbillityEffect;
+            instance.Effects = this.Effects;
             instance.TargetFilter = this.TargetFilter;
             instance.RangeFilter = this.RangeFilter;
-            instance.HitProbabilityCalculator = this.HitProbabilityCalculator;
             instance.EnergyReduceEffect = this.EnergyReduceEffect;
             return instance;
-        }
-        
-        public float GetHitProbability(Unit caster, Unit target)
-        {
-            return HitProbabilityCalculator.GetHitProbability(caster, target);
         }
 
         public List<Unit> GetRange(Unit caster, Unit target, List<Unit> allies, List<Unit> enemies)
@@ -52,15 +45,28 @@ namespace Abilities
             var rangeCells = RangeFilter.GetRelevantCells(target, allies, enemies);
             foreach (var cell in rangeCells)
             {
-                var effect = AbillityEffect.GetInstance(caster.Stats, cell.Stats);
-                cell.PassiveEffectsHolder.AddEffect(effect);
+                foreach (var holder in Effects)
+                {
+                    if (IsEffectProc(holder.Probability, caster, target))
+                    {
+                        var effect = holder.Effect.GetInstance(caster.Stats, cell.Stats);
+                        cell.PassiveEffectsHolder.AddEffect(effect);
+                    }
+                }
             }
             caster.PassiveEffectsHolder.AddEffect(EnergyReduceEffect.GetInstance(caster.Stats, caster.Stats));
         }
 
-        public Unit GetPreferredTarget(List<Unit> potentialTargets)
+        public Unit GetPreferredTarget(Unit caster, List<Unit> allies, List<Unit> enemies)
         {
-            return potentialTargets[Random.Range(0, potentialTargets.Count)];       
+            var potentialTargets = allies.Concat(enemies).Where(cell => IsRightTarget(caster, cell)).ToList();
+            return !potentialTargets.Any() ? null : potentialTargets[Random.Range(0, potentialTargets.Count)];
+        }
+
+        private bool IsEffectProc(HitProbabilityCalculator effectProbability, Unit caster, Unit target)
+        {
+            var random = Random.Range(0f, 1f);
+            return random < effectProbability.GetHitProbability(caster, target);  
         }
     }
 }

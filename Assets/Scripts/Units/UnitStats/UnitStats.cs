@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Battle.DamageSystem;
-using UnityEngine;
-using IObserver = CustomObserver.IObserver<Units.UnitStats>;
 
 namespace Units
 {
@@ -56,7 +54,7 @@ namespace Units
         public StatInt Energy;
         public StatInt Chemistry;
 
-        public bool IsReady => Energy.Value > 0;
+        public bool IsReady => Energy.Value > 0 && !IsDead;
         
         #endregion
         
@@ -119,8 +117,6 @@ namespace Units
             MaxHealth.CurrentValueOutdated();
             CurrentHealth.CurrentValueOutdated();
             Armor.CurrentValueOutdated();
-            
-            Debug.Log(Energy.Value);
         }
     }
 }

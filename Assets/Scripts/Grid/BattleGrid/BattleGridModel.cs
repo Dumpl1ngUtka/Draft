@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
-using Grid.Cells;
 using Services.GameControlService;
+using Services.PanelService;
 using Units;
 using UnityEngine;
 
@@ -31,8 +31,8 @@ namespace Grid.BattleGrid
 
         public void EndTurn()
         {
-            _turnInteractor.EndTurn();
             EnemyAttack();
+            _turnInteractor.EndTurn();
             _turnInteractor.StartTurn();
         }
         
@@ -40,24 +40,25 @@ namespace Grid.BattleGrid
         {
             foreach (var enemy in _enemyUnits)
             {
-                if (enemy.Stats.IsDead)
+                if (!enemy.Stats.IsReady)
                     continue;
 
                 var ability = enemy.CurrentAbility;
-                var target = ability.GetPreferredTarget(_playerUnits);
-                var range = ability.GetRange(enemy, target, _enemyUnits, _playerUnits);
-                foreach (var unit in range)
-                {
-                    if (!ability.IsRightTarget(enemy, unit)) continue;
-                    if (unit.Stats.IsDead || !unit.Stats.IsReady) continue;
-                    
-                    ability.UseAbility(enemy, unit, _enemyUnits, _playerUnits);
-                }
+                var target = ability.GetPreferredTarget(enemy, _enemyUnits, _playerUnits);
+                if (target == null)
+                    continue;
+                //Debug.Log(target.Name);
+                UseAbility(enemy, target);
             }
         }
         
         public void UseAbility(Unit from, Unit to)
         {
+            if (!from.CurrentAbility.IsRightTarget(from, to))
+            {
+                PanelService.Instance.InstantiateErrorPanel("no_right_target");
+                return;
+            }
             from.CurrentAbility.UseAbility(from, to, _playerUnits, _enemyUnits);
             from.Reaction.UseReaction(from, _playerUnits);
         }
