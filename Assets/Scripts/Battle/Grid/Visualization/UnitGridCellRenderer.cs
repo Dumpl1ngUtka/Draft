@@ -27,7 +27,7 @@ namespace Battle.Grid.Visualization
         {
             GroupInteractors();
             foreach (var interactor in _allInteractors) 
-                interactor.Init(null);
+                interactor.Init(null, this);
             _overTextInteractor.SetText("");
         }
         
@@ -51,7 +51,7 @@ namespace Battle.Grid.Visualization
         {
             foreach (var interactor in _allInteractors)
             {
-                interactor.Init(unit);
+                interactor.Init(unit, this);
                 interactor.TryUpdateInfo();
             }
 
@@ -70,7 +70,7 @@ namespace Battle.Grid.Visualization
 
             foreach (var interactor in _allInteractors)
             {
-                interactor.Init(null);
+                interactor.Init(null, this);
                 interactor.TryUpdateInfo();
             }
         }

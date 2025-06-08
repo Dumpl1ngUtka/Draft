@@ -13,6 +13,7 @@ namespace Battle.PassiveEffects
         [SerializeField] protected AnimationClip _addClip;
         [SerializeField] protected AnimationClip _turnClip;
         [SerializeField] protected AnimationClip _destroyClip;
+        [SerializeField] protected AnimationClip _effectClip; //if add some new field, update GetInstance method
         protected UnitStats Caster;
         protected UnitStats Owner;
         
@@ -48,6 +49,7 @@ namespace Battle.PassiveEffects
                 TriggerType.Add => _addClip,
                 TriggerType.TurnEnded => _turnClip,
                 TriggerType.Destroy => _destroyClip,
+                TriggerType.Effect => _effectClip,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
@@ -63,6 +65,7 @@ namespace Battle.PassiveEffects
             instance._addClip = _addClip;
             instance._turnClip = _turnClip;
             instance._destroyClip = _destroyClip;
+            instance._effectClip = _effectClip;
             return instance;
         }
         protected abstract PassiveEffect CreateInstance(UnitStats caster, UnitStats owner);
@@ -79,5 +82,6 @@ namespace Battle.PassiveEffects
         Add,
         TurnEnded,
         Destroy,
+        Effect,
     }
 }

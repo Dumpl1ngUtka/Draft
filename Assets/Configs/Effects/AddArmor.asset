@@ -18,4 +18,5 @@ MonoBehaviour:
   _addClip: {fileID: 7400000, guid: e2ae578de15d737429d5a371cffadef1, type: 2}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
+  _effectClip: {fileID: 7400000, guid: 111a8bfcffd0df74791d61d2d7efd8ba, type: 2}
   Value: 5

@@ -4,6 +4,7 @@ using Battle.PassiveEffects;
 using Services.GlobalAnimation;
 using UnityEditor.Animations;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Battle.Grid.Visualization
 {
@@ -11,6 +12,8 @@ namespace Battle.Grid.Visualization
     public class OverPanelInteractor : GridCellInteractor
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private EffectAnimation _effectAnimationPrefab;
+        [SerializeField] private Transform _frontEffectContainer;
         private Queue<AnimationClip> _animationQueue = new Queue<AnimationClip>();
         private bool _isPlaying;
 
@@ -19,8 +22,18 @@ namespace Battle.Grid.Visualization
             var clip = effect.GetClipByType(type);
             if (clip != null) 
                 PlayAnimation(clip);
+
+            var effectClip = effect.GetClipByType(TriggerType.Effect);
+            if (effectClip != null)
+                InstantiateEffectAnimation(effectClip, effect);
         }
-        
+
+        private void InstantiateEffectAnimation(AnimationClip effectClip, PassiveEffect effect)
+        {
+            var instance = Object.Instantiate(_effectAnimationPrefab, _frontEffectContainer);
+            instance.Init(effectClip, effect);
+        }
+
         public void PlayAnimation(AnimationClip clip)
         {
             _animationQueue.Enqueue(clip);
@@ -42,11 +55,11 @@ namespace Battle.Grid.Visualization
 
             var controller = new AnimatorController();
             controller.AddLayer("Base Layer");
-            //var state = controller.AddMotion(nextClip, 0);
+            var state = controller.AddMotion(nextClip, 0);
 
             _animator.runtimeAnimatorController = controller;
             
-            GlobalAnimationSevice.Instance.StartCoroutine(WaitForAnimationEnd(nextClip.length));
+            Renderer.StartCoroutine(WaitForAnimationEnd(nextClip.length));
         }
 
         private System.Collections.IEnumerator WaitForAnimationEnd(float animationLength)
@@ -67,8 +80,8 @@ namespace Battle.Grid.Visualization
 
         public void OnDestroy()
         {
-            if (GlobalAnimationSevice.Instance != null)
-                GlobalAnimationSevice.Instance.StopAllCoroutines();
+            if (Renderer != null)
+                Renderer.StopAllCoroutines();
         }
     }
 }

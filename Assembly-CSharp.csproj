@@ -190,6 +190,7 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\ErrorPanel.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\PanelData.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
+    <Compile Include="Assets\Scripts\Battle\Grid\Visualization\EffectAnimation.cs" />
     <Compile Include="Assets\Scripts\Units\AttributesType.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />

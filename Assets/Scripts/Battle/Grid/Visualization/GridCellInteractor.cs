@@ -5,10 +5,12 @@ namespace Battle.Grid.Visualization
     public abstract class GridCellInteractor 
     {
         protected Unit Unit;
+        protected UnitGridCellRenderer Renderer;
         
-        public void Init(Unit unit)
+        public void Init(Unit unit, UnitGridCellRenderer renderer)
         {
             Unit = unit;
+            Renderer = renderer;
             SetActive(unit != null);
         }
 
