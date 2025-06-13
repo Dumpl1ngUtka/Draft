@@ -2,11 +2,11 @@ namespace DungeonMap
 {
     public enum PathCellType
     {
-        Monsters = 0,
-        Event = 1,
-        MiniBoss = 2,
-        Rest = 3,
-        Treasures = 4,
-        Empty = 5,
+        Empty = 0,
+        Monsters = 1,
+        Event = 2,
+        MiniBoss = 3,
+        Rest = 4,
+        Treasures = 5,
     }
 }

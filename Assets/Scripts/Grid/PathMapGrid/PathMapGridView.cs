@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using DungeonMap;
 using Grid.Cells;
+using Units;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Grid.PathMapGrid
@@ -12,16 +14,20 @@ namespace Grid.PathMapGrid
         [SerializeField] private Transform _cellContainer;
         [SerializeField] private PathMapCell _pathCellPrefab;
         [SerializeField] private GridLayoutGroup _gridLayoutGroup;
+        [Header("Color")]
+        [SerializeField] private Color _disableColor;
+        [SerializeField] private Color _enableColor;
+        [SerializeField] private Color _visitedColor;
         private List<List<PathMapCell>> _cells;
         
         public List<List<PathMapCell>> Cells => _cells;
         
-        public void GenerateMap(List<List<int>> paths, List<List<PathCellType>> types)
+        public void GenerateMap(int[,] map, int[] path)
         {
             ClearContainer(_cellContainer);
             
-            var lineCount = types.Count;
-            var columnCount = types[0].Count;
+            var lineCount = map.GetLength(0);
+            var columnCount = map.GetLength(1);
 
             SetGridLayoutGroupValues(columnCount);
             
@@ -33,21 +39,40 @@ namespace Grid.PathMapGrid
                 for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
                 {
                     var cell = Instantiate(_pathCellPrefab, _cellContainer);
-                    cell.Init(types[lineIndex][columnIndex]);
+                    cell.Init(map[lineIndex, columnIndex], new GridPosition(lineIndex, columnIndex, TeamType.Player));
                     line.Add(cell);
+                    MarkCell(cell, path);
                 }
                 cells.Add(line);
             }
+            _cells = cells;
+        }
 
-            foreach (var path in paths)
+        private void MarkCell(PathMapCell cell, int[] path)
+        {
+            cell.SetEnable(false);
+            cell.SetColor(_enableColor);
+            var lineIndex = cell.Position.LineIndex;
+            var columnIndex = cell.Position.ColumnIndex;
+            
+            if (lineIndex < path.Length)
             {
-                for (int lineIndex = 1; lineIndex < lineCount; lineIndex++)
+                cell.SetColor(_disableColor);
+                cell.SetEnable(false);
+                if (path.Length >= lineIndex && path[lineIndex] == columnIndex)
+                    cell.SetColor(_visitedColor);
+            }
+            else if (lineIndex == path.Length)
+            {
+                cell.SetEnable(true);
+                cell.SetColor(_enableColor);
+                
+                if (path.Length != 0 && Math.Abs(path[^1] - columnIndex) > 1)
                 {
-                    cells[lineIndex - 1][path[lineIndex - 1]].SetNextCell(cells[lineIndex][path[lineIndex]]);
+                    cell.SetEnable(false);
+                    cell.SetColor(_disableColor);
                 }
             }
-            
-            _cells = cells;
         }
 
         private void SetGridLayoutGroupValues(int columnCount)
@@ -56,26 +81,6 @@ namespace Grid.PathMapGrid
             _gridLayoutGroup.constraintCount = columnCount;
             _gridLayoutGroup.cellSize = Vector2.one * (screenWidth * 0.9f) / (columnCount * 2 - 1);
             _gridLayoutGroup.spacing = Vector2.one * (screenWidth * 0.9f) / (columnCount * 2 - 1);
-        }
-
-        private void OnEnable()
-        {
-            Invoke(nameof(FillMap), 0.1f);
-        }
-        
-        public void FillMap()
-        {
-            for (var lineIndex = 0; lineIndex < _cells.Count - 1; lineIndex++)
-            {
-                var line = _cells[lineIndex];
-                foreach (var cell in line)
-                {
-                    if (!cell.HasNextCell)
-                        cell.Init(PathCellType.Empty);
-                    else
-                        cell.RenderPaths();
-                }
-            }
         }
     }
 }

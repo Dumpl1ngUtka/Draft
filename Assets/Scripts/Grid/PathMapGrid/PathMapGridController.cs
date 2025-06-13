@@ -1,5 +1,6 @@
 using System.Linq;
 using Grid.Cells;
+using UnityEngine;
 
 namespace Grid.PathMapGrid
 {
@@ -13,7 +14,7 @@ namespace Grid.PathMapGrid
             base.Enter();
             _model = new PathMapGridModel();
             _view = GetComponent<PathMapGridView>();
-            _view.GenerateMap(_model.Paths, _model.CellsTypes);
+            _view.GenerateMap(_model.Map, _model.Path);
             var gridCells = _view.Cells.SelectMany(pathMapCells => pathMapCells).Select(cell => cell as GridCell).ToList();
             SubscribeToCells(gridCells);
         }
@@ -48,7 +49,8 @@ namespace Grid.PathMapGrid
         protected override void Clicked(GridCell cell)
         {
             var pathCell = cell as PathMapCell;
-            _model.SelectPathCell(pathCell);
+            if (pathCell != null && pathCell.IsEnabled)
+                _model.SelectPathCell(pathCell);
         }
 
         protected override void DragFinished(GridCell from, GridCell to)

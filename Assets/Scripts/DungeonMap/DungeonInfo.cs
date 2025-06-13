@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Units;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.Serialization;
+using Random = System.Random;
 
 namespace DungeonMap
 {
@@ -19,7 +20,8 @@ namespace DungeonMap
         [Header("Path Generate Data")]
         public int LineCount;
         public int ColumnCount;
-        public int PathCount;
+        public int StartPointCount;
+        [Range(0f,1f)] public float BranchingChance;
         [SerializeField] private PathCellChances[] PathCellChances;
         [SerializeField] PathCellRule[] PathCellRules;
         [Header("Other Data")]
@@ -35,10 +37,10 @@ namespace DungeonMap
         public EnemyPositionPreset GetEnemyPositionPreset()
         {
             var presets = GetEnemyPositionPresets();
-            return presets[Random.Range(0, presets.Count)];
+            return presets[new Random().Next(presets.Count)];
         }
 
-        public PathCellType GetRandomPathCellType(int lineIndex)
+        public PathCellType GetRandomPathCellType(int lineIndex, Random random)
         {
             foreach (var rule in PathCellRules)
             {
@@ -47,7 +49,7 @@ namespace DungeonMap
             }
             
             var sumFrequency = PathCellChances.Sum(chance => chance.Frequency);
-            var randomNum = Random.Range(0, sumFrequency) + 1;
+            var randomNum = random.Next(0, sumFrequency) + 1;
             for (int i = 0; i < PathCellChances.Length; i++)
             {
                 randomNum -= PathCellChances[i].Frequency;

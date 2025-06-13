@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using DungeonMap;
 using Grid.Cells;
 using Services.GameControlService;
-using Services.GameControlService.GridStateMachine;
 using UnityEngine;
 using Random = System.Random;
 
@@ -10,90 +10,142 @@ namespace Grid.PathMapGrid
 {
     public class PathMapGridModel : GridModel
     {
-        private const int _maxCrossing = 3;
-        
-        private List<List<int>> _paths;
-        private List<List<PathCellType>> _cellsTypes;
-        
+        private int[,] _map;
+
         private DungeonInfo _currentDungeonInfo => GameControlService.Instance.CurrentDungeonInfo;
         private int _lineCount => _currentDungeonInfo.LineCount;
         private int _columnCount => _currentDungeonInfo.ColumnCount;
-        private int _pathCount => _currentDungeonInfo.PathCount;
-        
-        public List<List<int>> Paths
+
+        public int[,] Map
         {
-            get { return _paths ??= GeneratePaths(); }
+            get { return _map ??= GenerateMap(); }
         }
-        public List<List<PathCellType>> CellsTypes
-        {
-            get { return _cellsTypes ??= GenerateCellTypes(); }
-        }
+
+        public int[] Path => GameControlService.CurrentRunInfo.Path;
+
+        private readonly Random _random;
 
         public PathMapGridModel()
         {
-            //GameControlService.CurrentRunInfo.Path
+            if (GameControlService.CurrentRunInfo.PathSeed == 0)
+                GameControlService.CurrentRunInfo.PathSeed = (int) DateTime.Now.Ticks & 0x0000FFFF;
+            
+            _random = new Random(GameControlService.CurrentRunInfo.PathSeed);
         }
 
-        private List<List<PathCellType>> GenerateCellTypes()
+        private int[,] GenerateMap()
         {
-            var cellTypes = new List<List<PathCellType>>();
-            for (int line = 0; line < _lineCount; line++)
+            var map = new int[_lineCount, _columnCount];
+            var activePaths = new List<int>();
+            
+            for (int i = 0; i < _currentDungeonInfo.StartPointCount; i++)
             {
-                var cellLine = new List<PathCellType>();
-                for (int column = 0; column < _columnCount; column++)
+                int startPos;
+                do
                 {
-                    var type = _currentDungeonInfo.GetRandomPathCellType(line);
-                    cellLine.Add(type);
-                }
-                cellTypes.Add(cellLine);
+                    startPos = _random.Next(0, _columnCount);
+                } while (map[0, startPos] == 1);
+
+                map[0, startPos] = 1;
+                activePaths.Add(startPos);
             }
 
-            return cellTypes;
-        }
-
-        private List<List<int>> GeneratePaths()
-        {
-            var random = new Random();
-            
-            var paths = new List<List<int>>();
-
-            for (int pathIdx = 0; pathIdx < _pathCount; pathIdx++)
+            for (int row = 1; row < _lineCount; row++)
             {
-                var path = new List<int>();
-                path.Add(random.Next(_columnCount));
+                var newActivePaths = new List<int>();
 
-                for (int i = 1; i < _lineCount; i++)
+                foreach (var pathPos in activePaths)
                 {
-                    var validColumns = new List<int>();
-                    for (int col = 0; col < _columnCount; col++)
-                        validColumns.Add(col);
+                    int minNextPos = Math.Max(0, pathPos - 1);
+                    int maxNextPos = Math.Min(_columnCount - 1, pathPos + 1);
 
-                    for (int crossingLen = 1; crossingLen <= _maxCrossing; crossingLen++)
+                    int nextPosition = _random.Next(minNextPos, maxNextPos + 1);
+
+                    map[row, nextPosition] = 1;
+                    if (!newActivePaths.Contains(nextPosition))
+                        newActivePaths.Add(nextPosition);
+
+                    if (_random.NextDouble() < _currentDungeonInfo.BranchingChance && minNextPos != maxNextPos)
                     {
-                        if (i >= crossingLen)
+                        int branchPos;
+                        do
                         {
-                            bool allSame = true;
-                            for (int j = 1; j < crossingLen; j++)
+                            branchPos = _random.Next(minNextPos, maxNextPos + 1);
+                        } while (branchPos == nextPosition);
+
+                        map[row, branchPos] = 1;
+                        if (!newActivePaths.Contains(branchPos))
+                            newActivePaths.Add(branchPos);
+                    }
+                }
+
+                activePaths = newActivePaths;
+
+                if (activePaths.Count == 0)
+                {
+                    int newPathPos = _random.Next(0, _columnCount);
+                    map[row, newPathPos] = 1;
+                    activePaths.Add(newPathPos);
+                }
+            }
+
+            for (int lineIndex = 0; lineIndex < _lineCount - 1; lineIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < _columnCount; columnIndex++)
+                {
+                    if (map[lineIndex, columnIndex] == 0 && _random.NextDouble() < 0.15)
+                    {
+                        bool hasConnectionAbove = false;
+                        bool hasConnectionBelow = false;
+
+                        if (lineIndex > 0)
+                        {
+                            int minAbove = Math.Max(0, columnIndex - 1);
+                            int maxAbove = Math.Min(_columnCount - 1, columnIndex + 1);
+                            for (int aboveCol = minAbove; aboveCol <= maxAbove; aboveCol++)
                             {
-                                if (path[i - j] != path[i - j - 1])
+                                if (map[lineIndex - 1, aboveCol] == 1)
                                 {
-                                    allSame = false;
+                                    hasConnectionAbove = true;
                                     break;
                                 }
                             }
+                        }
 
-                            if (allSame && crossingLen == _maxCrossing)
+                        if (lineIndex < _lineCount - 1)
+                        {
+                            int minBelow = Math.Max(0, columnIndex - 1);
+                            int maxBelow = Math.Min(_columnCount - 1, columnIndex + 1);
+                            for (int belowCol = minBelow; belowCol <= maxBelow; belowCol++)
                             {
-                                validColumns.Remove(path[i - 1]);
+                                if (map[lineIndex + 1, belowCol] == 1)
+                                {
+                                    hasConnectionBelow = true;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    path.Add(validColumns[random.Next(validColumns.Count)]);
+                        if (hasConnectionAbove && hasConnectionBelow)
+                        {
+                            map[lineIndex, columnIndex] = 1;
+                        }
+                    }
                 }
-                paths.Add(path);
             }
-            return paths;
+
+            for (int lineIndex = 0; lineIndex < map.GetLength(0); lineIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < map.GetLength(1); columnIndex++)
+                {
+                    if (map[lineIndex, columnIndex] == 1)
+                    {
+                        map[lineIndex, columnIndex] = (int)_currentDungeonInfo.GetRandomPathCellType(lineIndex,_random);
+                    }
+                }
+            }
+
+            return map;
         }
 
         public void SelectPathCell(PathMapCell pathCell)
@@ -101,6 +153,7 @@ namespace Grid.PathMapGrid
             if (pathCell.PathCellType == PathCellType.Monsters)
             {
                 GameControlService.ChangeGrid(GameControlService.BattleGridPrefab);
+                GameControlService.CurrentRunInfo.UpdatePath(pathCell.Position.ColumnIndex);
             }
         }
     }

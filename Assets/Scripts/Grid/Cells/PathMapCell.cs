@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DungeonMap;
+using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +13,23 @@ namespace Grid.Cells
         private List<PathMapCell> _nextCells = new List<PathMapCell>();
         private PathCellType _pathCellType; 
         private RectTransform RectTransform => transform as RectTransform;
-            
-        public bool HasNextCell => _nextCells.Count > 0;
-        public List<PathMapCell> NextCells => _nextCells;
-        public PathCellType PathCellType => _pathCellType;
+        private bool _isEnabled = true;
         
-        public void Init(PathCellType type)
+        public GridPosition Position { get; private set; }
+        public PathCellType PathCellType => _pathCellType;
+        public bool IsEnabled => _isEnabled;
+
+        public void Init(PathCellType type, GridPosition position)
         {
+            Position = position;
             _pathCellType = type;
             _image.sprite = Resources.Load<Sprite>("Sprites/PathCellTypes/" + type);
-            enabled = (type != PathCellType.Empty);
+            SetEnable(type != PathCellType.Empty);
+        }
+        
+        public void Init(int type, GridPosition position)
+        {
+            Init((PathCellType)type, position);
         }
         
         public void SetNextCell(PathMapCell pathMapCell)
@@ -45,6 +53,16 @@ namespace Grid.Cells
                 var rotationDegree = -Mathf.Sign(delta.x) * Mathf.Atan(Mathf.Abs(delta.x / delta.y)) * Mathf.Rad2Deg;
                 path.Rotate(Vector3.forward, rotationDegree);
             }
+        }
+
+        public void SetEnable(bool isEnable)
+        {
+            _isEnabled = isEnable;
+        }
+
+        public void SetColor(Color color)
+        {
+            _image.color = color;
         }
     }
 }

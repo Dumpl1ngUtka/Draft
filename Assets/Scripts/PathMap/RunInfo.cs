@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Units;
@@ -7,8 +8,8 @@ namespace PathMap
 {
     public class RunInfo
     {
-        public int[] Path { get; private set; }
-        public int[] SelectedPath { get; private set; }
+        public int PathSeed { get; set; }
+        public int[] Path { get; private set; } = Array.Empty<int>();
         public Unit[] PlayerUnits { get; private set; }
 
         public void UpdatePath(int newIndex)

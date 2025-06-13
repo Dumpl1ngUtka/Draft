@@ -314,19 +314,20 @@ MonoBehaviour:
     IsCompleted: 0
     LineCount: 7
     ColumnCount: 5
-    PathCount: 3
+    StartPointCount: 3
+    BranchingChance: 0
     PathCellChances:
-    - Type: 0
-      Frequency: 5
     - Type: 1
-      Frequency: 3
+      Frequency: 5
     - Type: 2
-      Frequency: 1
+      Frequency: 3
     - Type: 3
+      Frequency: 1
+    - Type: 4
       Frequency: 1
     PathCellRules:
     - LineIndex: 0
-      Type: 0
+      Type: 1
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
@@ -510,19 +511,24 @@ MonoBehaviour:
     Name: Second Dungeon
     Description: 
     IsCompleted: 0
-    LineCount: 7
+    LineCount: 10
     ColumnCount: 5
-    PathCount: 3
+    StartPointCount: 2
+    BranchingChance: 0.3
     PathCellChances:
-    - Type: 0
-      Frequency: 5
     - Type: 1
-      Frequency: 3
+      Frequency: 5
     - Type: 2
-      Frequency: 1
+      Frequency: 3
     - Type: 3
       Frequency: 1
-    PathCellRules: []
+    - Type: 4
+      Frequency: 1
+    PathCellRules:
+    - LineIndex: 0
+      Type: 1
+    - LineIndex: 4
+      Type: 4
     Classes:
     - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
     - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}

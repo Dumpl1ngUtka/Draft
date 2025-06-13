@@ -662,3 +662,6 @@ MonoBehaviour:
   _cellContainer: {fileID: 2910703136538804448}
   _pathCellPrefab: {fileID: 2719816353470716851, guid: 551d1f8034eb78d4b980f0bc475b0e15, type: 3}
   _gridLayoutGroup: {fileID: 7396050651583857941}
+  _disableColor: {r: 0.6603774, g: 0.65355504, b: 0.45229617, a: 1}
+  _enableColor: {r: 0.2905661, g: 0.28713286, b: 0.18585265, a: 1}
+  _visitedColor: {r: 0.6830188, g: 0.22319743, b: 0.1791313, a: 1}

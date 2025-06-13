@@ -39,7 +39,7 @@ namespace Grid.DraftGrid
         public void DraftFinished()
         {
             GameControlService.CurrentRunInfo.SavePlayerUnits(_draftedUnits);
-            GameControlService.ChangeGrid(GameControlService.BattleGridPrefab);
+            GameControlService.ChangeGrid(GameControlService.PathMapGridPrefab);
         }
     }
 }
