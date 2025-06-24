@@ -2,6 +2,7 @@ using System.Linq;
 using DungeonMap;
 using Grid.Cells;
 using Services.PanelService;
+using UnityEngine;
 
 namespace Grid.SelectDungeonGrid
 {
@@ -15,10 +16,23 @@ namespace Grid.SelectDungeonGrid
             base.Enter();
             _model = new SelectDungeonGridModel();
             _view = GetComponent<SelectDungeonGridView>();
+
+            var completedDungeons = _model.LocationData.CompletedDungeonsIndexes;
             foreach (var cell in _view.Cells)
+            {
                 cell.SetAlphaHitTestMinimumThreshold(0.5f);
+                var isActiveCell = true;
+                foreach (var previousID in cell.DungeonInfo.PreviousDungeonsID)
+                {
+                    if (completedDungeons.Length == 0 || !completedDungeons.Contains(previousID))
+                    {
+                        isActiveCell = false;
+                        break;
+                    }
+                }
+                cell.SetActive(isActiveCell);   
+            }
             SubscribeToCells(_view.Cells.Select(x => x as GridCell).ToList()); 
-            //_view.ControlCellSize();
         }
         
         protected override void DraggedFromCell(GridCell startDraggingCell, GridCell overCell)

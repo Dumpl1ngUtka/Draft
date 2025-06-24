@@ -16,7 +16,7 @@ namespace DungeonMap
         public Sprite Image;
         public string Name;
         public string Description;
-        public bool IsCompleted;
+        public int[] PreviousDungeonsID;
         [Header("Path Generate Data")]
         public int LineCount;
         public int ColumnCount;

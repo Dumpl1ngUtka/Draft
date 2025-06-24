@@ -19,5 +19,11 @@ namespace Grid.Cells
             
             _image.alphaHitTestMinimumThreshold = value;
         }
+
+        public void SetActive(bool isActive)
+        {
+            _image.raycastTarget = isActive;
+            _image.color = isActive ? Color.white : Color.gray;
+        }
     }
 }

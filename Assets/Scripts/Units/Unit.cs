@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 namespace Units
 {
-
     public class Unit
     {
         public GridPosition Position;

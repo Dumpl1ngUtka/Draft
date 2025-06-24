@@ -1,9 +1,9 @@
 namespace Services.SaveLoadSystem
 {
-    public interface ISaveLoadRepository
+    public interface ISaveLoadRepository<T>
     {
-        public SaveData LoadDataFrom(string path);
+        public T LoadDataFrom(string path);
         
-        public void SaveDataTo(SaveData data, string path);
+        public void SaveDataTo(T data, string path);
     }
 }

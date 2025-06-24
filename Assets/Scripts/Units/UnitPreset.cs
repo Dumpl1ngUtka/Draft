@@ -17,9 +17,6 @@ namespace Units
         public Class Class;
         public Covenant Covenant;
         public Attributes Attributes;
-        public List<DamageType> Immunities;
-        public List<DamageType> Resistances;
-        public List<DamageType> Vulnerabilities;
         public Ability[] Abilities;
         public Reaction Reaction;
 
@@ -32,9 +29,6 @@ namespace Units
             unitPreset.Reaction = unitPreset.Race.Reaction;
             unitPreset.Name = unitPreset.Race.AvailableNames[Random.Range(0, unitPreset.Race.AvailableNames.Length)];
             unitPreset.Covenant = unitPreset.Race.AvailableCovenants[Random.Range(0, unitPreset.Race.AvailableCovenants.Length)];
-            unitPreset.Immunities = unitPreset.Race.Immunities;
-            unitPreset.Resistances = unitPreset.Race.Resistances;
-            unitPreset.Vulnerabilities = unitPreset.Race.Vulnerability;
             unitPreset.Attributes = new Attributes(_startAttributePoints);
             unitPreset.Abilities = unitClass.Abilities;
             return unitPreset;

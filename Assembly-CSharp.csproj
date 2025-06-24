@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\ApplyDamage.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\Data\ISaveData.cs" />
     <Compile Include="Assets\Scripts\Battle\UseCardReactions\SameRaceReaction.cs" />
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridView.cs" />
     <Compile Include="Assets\Scripts\Grid\UnitGridCellContainer.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridController.cs" />
     <Compile Include="Assets\Scripts\Units\UnitStats\StatInt.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\Data\LocationData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\JsonSaveLoadRepository.cs" />
     <Compile Include="Assets\Scripts\PathMap\RunInfo.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Assets\Scripts\Grid\PathMapGrid\PathMapGridModel.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityTargetFilter.cs" />
     <Compile Include="Assets\Scripts\Units\Interactors\DiceInteractor.cs" />
+    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\Units\UnitSaveData.cs" />
     <Compile Include="Assets\Scripts\Units\Interactors\Response.cs" />
     <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\ShakeEffect.cs" />
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridController.cs" />
@@ -170,7 +173,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\StunEffect.cs" />
     <Compile Include="Assets\Scripts\CustomObserver\IObservable.cs" />
-    <Compile Include="Assets\Scripts\Services\SaveLoadSystem\ISaveData.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\GraduationParameter\GraduationParameterHolder.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityRangeFilter.cs" />

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Services.SaveLoadSystem
 {
     [Serializable]
-    public class SaveData : ISaveData
+    public class SaveData
     {
         public string SaveName;
         public long saveDate;

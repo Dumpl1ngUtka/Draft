@@ -3,17 +3,18 @@ using UnityEngine;
 
 namespace Services.SaveLoadSystem
 {
-    public class JsonSaveLoadRepository : ISaveLoadRepository
+    public class JsonSaveLoadRepository<T> : ISaveLoadRepository<T> where T : new()
     {
-        public SaveData LoadDataFrom(string path)
+        public T LoadDataFrom(string path)
         {
-            if (!File.Exists(path)) return new SaveData();
+            if (!File.Exists(path))
+                return new T();
             
             var json = File.ReadAllText(path);
-            return JsonUtility.FromJson<SaveData>(json);
+            return JsonUtility.FromJson<T>(json);
         }
         
-        public void SaveDataTo(SaveData data, string path)
+        public void SaveDataTo(T data, string path)
         {
             var json = JsonUtility.ToJson(data);
             File.WriteAllText(path, json);        
