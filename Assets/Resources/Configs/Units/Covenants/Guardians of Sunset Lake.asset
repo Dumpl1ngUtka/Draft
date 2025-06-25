@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baad7e0a9b9843e09a7cecd5ed336015, type: 3}
   m_Name: Guardians of Sunset Lake
   m_EditorClassIdentifier: 
+  ShortName: Blue1
   Name: Guardians of Sunset Lake
   Icon: {fileID: 5938907658398131759, guid: babcd96ee99f92a4f9680b30abac53aa, type: 3}
+  Type: 0

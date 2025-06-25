@@ -37,6 +37,19 @@ namespace Units
             PassiveEffectsHolder = new PassiveEffectsHolder();
         }
 
+        public Unit WithHealth(int health)
+        {
+            var startHPModifier = new StatModifier(StatModifierType.BeforeBaseValueAddition, value => health);
+            Stats.CurrentHealth.AddModifier(startHPModifier);
+            return this;
+        }
+        
+        public Unit WithPosition(GridPosition position)
+        {
+            Position = position;
+            return this;    
+        }
+
         public void EndTurn()
         {
             PassiveEffectsHolder.OnTurnEnded();

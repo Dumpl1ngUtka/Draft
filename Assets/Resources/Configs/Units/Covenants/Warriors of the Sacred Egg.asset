@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baad7e0a9b9843e09a7cecd5ed336015, type: 3}
   m_Name: Warriors of the Sacred Egg
   m_EditorClassIdentifier: 
+  ShortName: Red2
   Name: Warriors of the Sacred Egg
   Icon: {fileID: 7922037785900976780, guid: 06d2ef09a529ab847aa2048a5e0ef8b1, type: 3}
   Type: 1

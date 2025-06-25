@@ -58,12 +58,13 @@ namespace Bootstrappers
         private void CreateSaveLoadService()
         {
             var dungeonRepositiory = new JsonSaveLoadRepository<LocationData>();
+            var belongingRepositiory = new JsonSaveLoadRepository<BelongingData>();
+            var runRepository = new JsonSaveLoadRepository<RunData>();
             
             var obj = new GameObject("SaveLoadService");
             var service = obj.AddComponent<SaveLoadService>();
-            service.Init(dungeonRepositiory);
+            service.Init(dungeonRepositiory, belongingRepositiory, runRepository);
             DontDestroyOnLoad(obj);
         }
-
     }
 }

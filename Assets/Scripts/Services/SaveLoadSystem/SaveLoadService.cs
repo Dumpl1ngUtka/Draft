@@ -6,32 +6,54 @@ namespace Services.SaveLoadSystem
 {
     public class SaveLoadService : MonoBehaviour
     {
-        private static SaveLoadService _instance;
+        private const string _saveDirectory = "Saves/";
+        private const string _dungeonSaveFileName = "dungeon.json";
+        private const string _belongingSaveFileName = "belonging.json";
+        private const string _runDataFileName = "run.json";
         
-        private string _dungeonSaveDirectory;
+        private static SaveLoadService _instance;
+
+        private string _savePath;
         private ISaveLoadRepository<LocationData> _dungeonRepository;
+        private ISaveLoadRepository<BelongingData> _belongingRepository;
+        private ISaveLoadRepository<RunData> _runRepository;
         public static SaveLoadService Instance => _instance == null ? 
             _instance = FindAnyObjectByType<SaveLoadService>() : _instance;
 
-        public void Init(ISaveLoadRepository<LocationData> dungeonRepository)
+        public void Init(
+            ISaveLoadRepository<LocationData> dungeonRepository,
+            ISaveLoadRepository<BelongingData> belongingRepository,
+            ISaveLoadRepository<RunData> runRepository)
         {
             _dungeonRepository = dungeonRepository;
-            _dungeonSaveDirectory = Path.Combine(Application.persistentDataPath, "Saves/Dungeon/savefile.json");
+            _belongingRepository = belongingRepository;
+            _runRepository = runRepository;
             
-            if (!Directory.Exists(_dungeonSaveDirectory))
-                Directory.CreateDirectory(_dungeonSaveDirectory);
-            
+            _savePath = Path.Combine(Application.persistentDataPath, _saveDirectory);
+            if (!Directory.Exists(_savePath))
+                Directory.CreateDirectory(_savePath);
 
             GetAdviceByKey("");
             GetErrorByKey("");
         }
 
         public void SaveDungeonData(LocationData data) => 
-            _dungeonRepository.SaveDataTo(data, _dungeonSaveDirectory);
+            _dungeonRepository.SaveDataTo(data, _savePath + _dungeonSaveFileName);
         
         public LocationData LoadDungeonData() =>
-            _dungeonRepository.LoadDataFrom(_dungeonSaveDirectory);
+            _dungeonRepository.LoadDataFrom(_savePath + _dungeonSaveFileName);
         
+        public void SaveUnitsBelongingData(BelongingData data) => 
+            _belongingRepository.SaveDataTo(data, _savePath + _belongingSaveFileName);
+        
+        public BelongingData LoadUnitsBelongingData() =>
+            _belongingRepository.LoadDataFrom(_savePath + _belongingSaveFileName);
+        
+        public void SaveRunData(RunData data) => 
+            _runRepository.SaveDataTo(data, _savePath + _runDataFileName);
+        
+        public RunData LoadRunData() =>
+            _runRepository.LoadDataFrom(_savePath + _runDataFileName);
         
         #region CSV
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baad7e0a9b9843e09a7cecd5ed336015, type: 3}
   m_Name: Feathered Swordsmen Guild
   m_EditorClassIdentifier: 
+  ShortName: Red1
   Name: Feathered Swordsmen Guild
   Icon: {fileID: -1128919944905022255, guid: 81b79cb9deda0f64bafdc6d005f1e493, type: 3}
   Type: 1

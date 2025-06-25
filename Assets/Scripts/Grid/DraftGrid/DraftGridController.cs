@@ -162,7 +162,7 @@ namespace Grid.DraftGrid
         {
             foreach (var cell in _view.Cells)
             {
-                var unit = UnitPreset.GenerateUnit(GameControlService.Instance.CurrentDungeonInfo.Classes[Random.Range(0, GameControlService.Instance.CurrentDungeonInfo.Classes.Count)]);
+                var unit = _model.GetUnitsForDraft(cell.Position.LineIndex).First();
                 unit.Position = cell.Position;
                 _model.AddUnit(unit);
             }

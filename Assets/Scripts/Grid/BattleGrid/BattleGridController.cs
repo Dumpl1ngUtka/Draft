@@ -52,6 +52,7 @@ namespace Grid.BattleGrid
             foreach (var unit in playerUnits)
             {
                 var cell = playerCells.Find(cell => cell.Position.OwnEquals(unit.Position));
+                Debug.Log(unit);
                 cell.AddUnit(unit);
             }
 

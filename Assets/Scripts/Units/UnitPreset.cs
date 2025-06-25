@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+using System;
 using Abilities;
-using Battle.DamageSystem;
 using Battle.UseCardReactions;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Units
 {
@@ -20,23 +20,27 @@ namespace Units
         public Ability[] Abilities;
         public Reaction Reaction;
 
-        public static UnitPreset GeneratePreset(Class unitClass)
+        public static UnitPreset GeneratePreset(Class unitClass, Race race, Covenant covenant)
+        {
+            var random = new Random();
+            var attributes = new Attributes(_startAttributePoints, random);
+            return GeneratePreset(unitClass, race, covenant, attributes);
+        }
+
+        public static UnitPreset GeneratePreset(Class unitClass, Race race, Covenant covenant, Attributes attributes)
         {
             var unitPreset = ScriptableObject.CreateInstance<UnitPreset>();
             unitPreset.Class = unitClass; 
+            unitPreset.Race = race;
+            unitPreset.Covenant = covenant;
+            unitPreset.Attributes = attributes;
+            
             unitPreset.Icon = unitClass.Icon;
-            unitPreset.Race = unitClass.Races[Random.Range(0, unitClass.Races.Length)];
             unitPreset.Reaction = unitPreset.Race.Reaction;
-            unitPreset.Name = unitPreset.Race.AvailableNames[Random.Range(0, unitPreset.Race.AvailableNames.Length)];
-            unitPreset.Covenant = unitPreset.Race.AvailableCovenants[Random.Range(0, unitPreset.Race.AvailableCovenants.Length)];
-            unitPreset.Attributes = new Attributes(_startAttributePoints);
+            unitPreset.Name = unitPreset.Race.AvailableNames[0];
             unitPreset.Abilities = unitClass.Abilities;
+            
             return unitPreset;
-        }
-
-        public static Unit GenerateUnit(Class unitClass)
-        {
-            return new Unit(GeneratePreset(unitClass));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Units
     {
         #region Attributes
 
-        private readonly Attributes _attributes;
+        public readonly Attributes Attributes;
         public StatInt HealthAttribute;
         public StatInt StrengthAttribute;
         public StatInt DexterityAttribute;
@@ -61,17 +61,17 @@ namespace Units
         
         public UnitStats(Attributes attributes)
         {
-            _attributes = attributes;
+            Attributes = attributes;
             InitializeStats();
             InitializedActions();
         }
 
         private void InitializeStats()
         {
-            HealthAttribute = new StatInt(_attributes.Health);
-            StrengthAttribute = new StatInt(_attributes.Strength);
-            DexterityAttribute = new StatInt(_attributes.Dexterity);
-            IntelligenceAttribute = new StatInt(_attributes.Intelligence);
+            HealthAttribute = new StatInt(Attributes.Health);
+            StrengthAttribute = new StatInt(Attributes.Strength);
+            DexterityAttribute = new StatInt(Attributes.Dexterity);
+            IntelligenceAttribute = new StatInt(Attributes.Intelligence);
             
             MaxHealth = new StatInt(20);
             MaxHealth.AddModifier(new StatModifier(StatModifierType.BeforeBaseValueAddition, 
