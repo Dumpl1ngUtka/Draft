@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Units;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace DungeonMap
 {
     [Serializable]
-    public struct DungeonInfo
+    [CreateAssetMenu(menuName = "Config/Dungeon")]
+    public class DungeonInfo : ScriptableObject 
     {
+        private const string Path = "Configs/Dungeons/";
+        
         [Header("Dungeon Base Data")] 
         public int ID;
         public Sprite Image;
@@ -23,10 +25,7 @@ namespace DungeonMap
         public int StartPointCount;
         [Range(0f,1f)] public float BranchingChance;
         [SerializeField] private PathCellChances[] PathCellChances;
-        [SerializeField] PathCellRule[] PathCellRules;
-        [Header("Other Data")]
-        public List<Class> Classes;
-        public List<Race> Races;
+        [SerializeField] private PathCellRule[] PathCellRules;
 
         public List<EnemyPositionPreset> GetEnemyPositionPresets()
         {
@@ -57,6 +56,12 @@ namespace DungeonMap
                     return PathCellChances[i].Type;
             }
             return PathCellChances[^1].Type;
+        }
+        
+        public static DungeonInfo GetObjectByID(int id)
+        {
+            var dungeons = Resources.LoadAll<DungeonInfo>(Path);
+            return dungeons.FirstOrDefault(dungeon => dungeon.ID == id);
         }
     }
 }

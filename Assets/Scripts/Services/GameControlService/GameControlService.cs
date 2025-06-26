@@ -4,7 +4,6 @@ using Grid.BattleGrid;
 using Grid.DraftGrid;
 using Grid.PathMapGrid;
 using Grid.SelectDungeonGrid;
-using PathMap;
 using UnityEngine;
 
 namespace Services.GameControlService
@@ -12,8 +11,6 @@ namespace Services.GameControlService
     public class GameControlService : MonoBehaviour
     {
         public static GameControlService Instance {get; private set;}
-        public DungeonInfo CurrentDungeonInfo { get;  set; }
-        public RunInfo CurrentRunInfo { get;  set; }
 
         public DraftGridController DraftGridPrefab;
         public BattleGridController BattleGridPrefab;

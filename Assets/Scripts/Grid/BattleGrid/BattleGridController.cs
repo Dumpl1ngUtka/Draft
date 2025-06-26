@@ -35,7 +35,6 @@ namespace Grid.BattleGrid
         {
             base.Exit();
             _model.GetUnits(out var playerUnits, out var _);
-            GameControlService.Instance.CurrentRunInfo.SavePlayerUnits(playerUnits);
         }
 
         public void OnTurnButtonClicked()

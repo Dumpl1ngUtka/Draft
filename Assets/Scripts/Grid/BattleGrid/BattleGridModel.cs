@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Grid;
-using Services.GameControlService;
+using DungeonMap;
 using Services.PanelService;
 using Services.SaveLoadSystem;
 using Units;
@@ -11,15 +11,15 @@ namespace Grid.BattleGrid
 {
     public class BattleGridModel : GridModel
     {
+        private RunData _runData;
         private List<Unit> _playerUnits;
         private List<Unit> _enemyUnits;        
         private TurnInteractor _turnInteractor;
 
         public BattleGridModel()
         {
-            var runData = SaveLoadService.Instance.LoadRunData();
-            _playerUnits = runData.GetPlayerUnits().ToList();
-            Debug.Log(_playerUnits.Count);
+            _runData = SaveLoadService.Instance.LoadRunData();
+            _playerUnits = _runData.GetPlayerUnits().ToList();
             _enemyUnits = GenerateEnemies();
             
             _turnInteractor = new TurnInteractor(_playerUnits, _enemyUnits);
@@ -27,8 +27,8 @@ namespace Grid.BattleGrid
         
         private List<Unit> GenerateEnemies()
         {
-            var preset = GameControlService.Instance.CurrentDungeonInfo.GetEnemyPositionPreset();
-            return preset.GetUnitPresets().
+            var presets = DungeonInfo.GetObjectByID(_runData.DungeonID).GetEnemyPositionPresets();
+            return presets[Random.Range(0, presets.Count)].GetUnitPresets().
                 Select(unitPreset => unitPreset == null ? null : new Unit(unitPreset)).ToList();
         }
 
@@ -50,7 +50,6 @@ namespace Grid.BattleGrid
                 var target = ability.GetPreferredTarget(enemy, _enemyUnits, _playerUnits);
                 if (target == null)
                     continue;
-                //Debug.Log(target.Name);
                 UseAbility(enemy, target);
             }
         }
@@ -70,19 +69,30 @@ namespace Grid.BattleGrid
         {
             if (!HasAliveUnits(_enemyUnits))
             {
-                GameControlService.ChangeGrid(GameControlService.PathMapGridPrefab);
-                GameControlService.Instance.CurrentRunInfo.SavePlayerUnits(_playerUnits);
+                var isLastLevel = false;
+                if (isLastLevel)
+                {
+                    CalculateGlobalResources(true);
+                    GameControlService.ChangeGrid(GameControlService.SelectDungeonGridPrefab);  
+                }
+                else
+                {
+                    _runData.SavePlayerUnits(_playerUnits.ToArray());
+                    _runData.IsLastPathCellCompleted = true;
+                    SaveLoadService.Instance.SaveRunData(_runData);
+                    GameControlService.ChangeGrid(GameControlService.PathMapGridPrefab);  
+                }
             }
             else if (!HasAliveUnits(_playerUnits))
             {
+                CalculateGlobalResources(false);
                 GameControlService.ChangeGrid(GameControlService.SelectDungeonGridPrefab);
-                //calculateRes
             }
         }
 
-        private bool HasAliveUnits(List<Unit> units)
+        private void CalculateGlobalResources(bool isDungeonCompleted)
         {
-            return units.Any(unit => !unit.Stats.IsDead);
+            
         }
 
         public void StartTurn()
@@ -116,6 +126,11 @@ namespace Grid.BattleGrid
         {
             return _playerUnits.Concat(_enemyUnits).Where(unit => 
                 caster.CurrentAbility.IsRightTarget(caster, unit)).ToList();
+        }
+        
+        private bool HasAliveUnits(List<Unit> units)
+        {
+            return units.Any(unit => !unit.Stats.IsDead);
         }
     }
 }

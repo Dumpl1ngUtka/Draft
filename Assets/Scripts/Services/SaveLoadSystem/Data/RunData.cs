@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Units;
 
@@ -9,7 +8,9 @@ namespace Services.SaveLoadSystem
     public class RunData
     {
         public int PathSeed;
-        public string _path = "";
+        public string _path;
+        public bool IsLastPathCellCompleted;
+        public int DungeonID;
         public UnitData _unit1;
         public UnitData _unit2;
         public UnitData _unit3;
@@ -20,25 +21,35 @@ namespace Services.SaveLoadSystem
         public UnitData _unit8;
         public UnitData _unit9;
 
-        public RunData(int pathSeed)
+        public RunData(int dungeonID = -1, int pathSeed = 0)
         {
-            PathSeed = pathSeed;
+            PathSeed = pathSeed == 0? (int)DateTime.Now.Ticks & 0x0000FFFF : pathSeed;
+            IsLastPathCellCompleted = false;
+            DungeonID = dungeonID;
             _path = "";
         }
 
         public RunData()
         {
             PathSeed = 0;
+            IsLastPathCellCompleted = false;
+            DungeonID = -1;
+            _path = "";
         }
         
         public void UpdatePath(int newIndex)
         {
-            _path += $"/{newIndex}";
+            _path += $"{newIndex}/";
         }
 
         public int[] GetPath()
         {
-            return _path.Split('/').Select(int.Parse).ToArray();
+            if (string.IsNullOrEmpty(_path))
+                return Array.Empty<int>();
+
+            return _path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
         }
 
         public void SavePlayerUnits(Unit[] units)

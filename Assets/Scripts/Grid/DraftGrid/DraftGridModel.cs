@@ -14,6 +14,7 @@ namespace Grid.DraftGrid
         
         public readonly ChemestryInteractor ChemestryInteractor = new();
 
+        private RunData _runData;
         private List<Class> _availableClasses;
         private List<Race> _availableRaces;
         private List<Covenant> _availableCovenants;
@@ -22,10 +23,11 @@ namespace Grid.DraftGrid
 
         public DraftGridModel()
         {
-            var data = SaveLoadService.Instance.LoadUnitsBelongingData();
-            _availableClasses = Class.GetObjectsByNames(data.AvailableUnitClasses).ToList();
-            _availableRaces = Race.GetObjectsByNames(data.AvailableUnitRaces).ToList();
-            _availableCovenants = Covenant.GetObjectsByNames(data.AvailableUnitCovenants).ToList();
+            var profileData = SaveLoadService.Instance.LoadUnitsBelongingData();
+            _runData = SaveLoadService.Instance.LoadRunData();
+            _availableClasses = Class.GetObjectsByNames(profileData.AvailableUnitClasses).ToList();
+            _availableRaces = Race.GetObjectsByNames(profileData.AvailableUnitRaces).ToList();
+            _availableCovenants = Covenant.GetObjectsByNames(profileData.AvailableUnitCovenants).ToList();
         }
         
         public List<Unit> GetUnitsForDraft(int lineIndex, int count = 6)
@@ -59,11 +61,8 @@ namespace Grid.DraftGrid
 
         private void SaveRunData()
         {
-            var newPathSeed = (int)DateTime.Now.Ticks & 0x0000FFFF;
-            var runData = new RunData(newPathSeed);
-            runData.SavePlayerUnits(_draftedUnits.ToArray());
-            
-            SaveLoadService.Instance.SaveRunData(runData);
+            _runData.SavePlayerUnits(_draftedUnits.ToArray());
+            SaveLoadService.Instance.SaveRunData(_runData);
         }
     }
 }

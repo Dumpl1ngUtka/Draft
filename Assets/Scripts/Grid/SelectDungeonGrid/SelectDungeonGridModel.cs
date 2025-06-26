@@ -1,5 +1,4 @@
 using DungeonMap;
-using PathMap;
 using Services.SaveLoadSystem;
 
 namespace Grid.SelectDungeonGrid
@@ -11,8 +10,7 @@ namespace Grid.SelectDungeonGrid
 
         public void DungeonSelected(DungeonInfo info)
         {
-            GameControlService.CurrentDungeonInfo = info;
-            GameControlService.CurrentRunInfo = new RunInfo();
+            SaveLoadService.Instance.SaveRunData(new RunData(info.ID));
             GameControlService.ChangeGrid(GameControlService.DraftGridPrefab);
         }
     }

@@ -95,7 +95,6 @@
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\Data\LocationData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\JsonSaveLoadRepository.cs" />
-    <Compile Include="Assets\Scripts\PathMap\RunInfo.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoadSystem\ISaveLoadRepository.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\UnitBelongingInteractor.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />

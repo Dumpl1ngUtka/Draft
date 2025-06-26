@@ -2,75 +2,71 @@ using System;
 using System.Collections.Generic;
 using DungeonMap;
 using Grid.Cells;
-using Services.GameControlService;
-using UnityEngine;
+using Services.SaveLoadSystem;
 using Random = System.Random;
 
 namespace Grid.PathMapGrid
 {
     public class PathMapGridModel : GridModel
     {
-        private int[,] _map;
+        private readonly RunData _runData;
+        
+        public int[,] Map { get; }
 
-        private DungeonInfo _currentDungeonInfo => GameControlService.Instance.CurrentDungeonInfo;
-        private int _lineCount => _currentDungeonInfo.LineCount;
-        private int _columnCount => _currentDungeonInfo.ColumnCount;
+        public int[] Path { get; }
 
-        public int[,] Map
-        {
-            get { return _map ??= GenerateMap(); }
-        }
-
-        public int[] Path => GameControlService.CurrentRunInfo.Path;
-
-        private readonly Random _random;
 
         public PathMapGridModel()
         {
-            if (GameControlService.CurrentRunInfo.PathSeed == 0)
-                GameControlService.CurrentRunInfo.PathSeed = (int) DateTime.Now.Ticks & 0x0000FFFF;
+            _runData = SaveLoadService.Instance.LoadRunData();
             
-            _random = new Random(GameControlService.CurrentRunInfo.PathSeed);
+            var random = new Random(SaveLoadService.Instance.LoadRunData().PathSeed);
+            var dungeonInfo = DungeonInfo.GetObjectByID(_runData.DungeonID);
+            
+            Map = GenerateMap(random, dungeonInfo);
+            Path = _runData.GetPath();
         }
 
-        private int[,] GenerateMap()
+        private static int[,] GenerateMap(Random random, DungeonInfo dungeonInfo)
         {
-            var map = new int[_lineCount, _columnCount];
+            var lineCount = dungeonInfo.LineCount;
+            var columnCount = dungeonInfo.ColumnCount;
+            var map = new int[lineCount, columnCount];
             var activePaths = new List<int>();
             
-            for (int i = 0; i < _currentDungeonInfo.StartPointCount; i++)
+            for (int i = 0; i < dungeonInfo.StartPointCount; i++)
             {
                 int startPos;
                 do
                 {
-                    startPos = _random.Next(0, _columnCount);
+                    startPos = random.Next(0, columnCount);
                 } while (map[0, startPos] == 1);
 
                 map[0, startPos] = 1;
                 activePaths.Add(startPos);
             }
 
-            for (int row = 1; row < _lineCount; row++)
+            for (int row = 1; row < lineCount; row++)
             {
                 var newActivePaths = new List<int>();
 
                 foreach (var pathPos in activePaths)
                 {
                     int minNextPos = Math.Max(0, pathPos - 1);
-                    int maxNextPos = Math.Min(_columnCount - 1, pathPos + 1);
+                    int maxNextPos = Math.Min(columnCount - 1, pathPos + 1);
 
-                    int nextPosition = _random.Next(minNextPos, maxNextPos + 1);
+                    int nextPosition = random.Next(minNextPos, maxNextPos + 1);
 
                     map[row, nextPosition] = 1;
                     if (!newActivePaths.Contains(nextPosition))
                         newActivePaths.Add(nextPosition);
 
-                    if (_random.NextDouble() < _currentDungeonInfo.BranchingChance && minNextPos != maxNextPos)
+                    if (random.NextDouble() < dungeonInfo.BranchingChance && minNextPos != maxNextPos)
                     {
                         int branchPos;
                         do
                         {
-                            branchPos = _random.Next(minNextPos, maxNextPos + 1);
+                            branchPos = random.Next(minNextPos, maxNextPos + 1);
                         } while (branchPos == nextPosition);
 
                         map[row, branchPos] = 1;
@@ -83,17 +79,17 @@ namespace Grid.PathMapGrid
 
                 if (activePaths.Count == 0)
                 {
-                    int newPathPos = _random.Next(0, _columnCount);
+                    int newPathPos = random.Next(0, columnCount);
                     map[row, newPathPos] = 1;
                     activePaths.Add(newPathPos);
                 }
             }
 
-            for (int lineIndex = 0; lineIndex < _lineCount - 1; lineIndex++)
+            for (int lineIndex = 0; lineIndex < lineCount - 1; lineIndex++)
             {
-                for (int columnIndex = 0; columnIndex < _columnCount; columnIndex++)
+                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
                 {
-                    if (map[lineIndex, columnIndex] == 0 && _random.NextDouble() < 0.15)
+                    if (map[lineIndex, columnIndex] == 0 && random.NextDouble() < 0.15)
                     {
                         bool hasConnectionAbove = false;
                         bool hasConnectionBelow = false;
@@ -101,7 +97,7 @@ namespace Grid.PathMapGrid
                         if (lineIndex > 0)
                         {
                             int minAbove = Math.Max(0, columnIndex - 1);
-                            int maxAbove = Math.Min(_columnCount - 1, columnIndex + 1);
+                            int maxAbove = Math.Min(columnCount - 1, columnIndex + 1);
                             for (int aboveCol = minAbove; aboveCol <= maxAbove; aboveCol++)
                             {
                                 if (map[lineIndex - 1, aboveCol] == 1)
@@ -112,10 +108,10 @@ namespace Grid.PathMapGrid
                             }
                         }
 
-                        if (lineIndex < _lineCount - 1)
+                        if (lineIndex < lineCount - 1)
                         {
                             int minBelow = Math.Max(0, columnIndex - 1);
-                            int maxBelow = Math.Min(_columnCount - 1, columnIndex + 1);
+                            int maxBelow = Math.Min(columnCount - 1, columnIndex + 1);
                             for (int belowCol = minBelow; belowCol <= maxBelow; belowCol++)
                             {
                                 if (map[lineIndex + 1, belowCol] == 1)
@@ -140,7 +136,7 @@ namespace Grid.PathMapGrid
                 {
                     if (map[lineIndex, columnIndex] == 1)
                     {
-                        map[lineIndex, columnIndex] = (int)_currentDungeonInfo.GetRandomPathCellType(lineIndex,_random);
+                        map[lineIndex, columnIndex] = (int)dungeonInfo.GetRandomPathCellType(lineIndex,random);
                     }
                 }
             }
@@ -152,8 +148,9 @@ namespace Grid.PathMapGrid
         {
             if (pathCell.PathCellType == PathCellType.Monsters)
             {
+                _runData.UpdatePath(pathCell.Position.ColumnIndex);
+                SaveLoadService.Instance.SaveRunData(_runData);
                 GameControlService.ChangeGrid(GameControlService.BattleGridPrefab);
-                GameControlService.CurrentRunInfo.UpdatePath(pathCell.Position.ColumnIndex);
             }
         }
     }

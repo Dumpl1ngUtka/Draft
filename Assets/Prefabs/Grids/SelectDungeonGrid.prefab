@@ -305,43 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872717e6cc9346d980b256b93de52008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dungeonInfo:
-    ID: 0
-    Image: {fileID: 21300000, guid: 4253e37a469167047911beab6553636d, type: 3}
-    Name: Begin Dungeon
-    Description: A small town on the very edge of the continent. The path of many
-      young adventurers begins with the local guild.
-    PreviousDungeonsID: 
-    LineCount: 7
-    ColumnCount: 5
-    StartPointCount: 3
-    BranchingChance: 0
-    PathCellChances:
-    - Type: 1
-      Frequency: 5
-    - Type: 2
-      Frequency: 3
-    - Type: 3
-      Frequency: 1
-    - Type: 4
-      Frequency: 1
-    PathCellRules:
-    - LineIndex: 0
-      Type: 1
-    Classes:
-    - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
-    - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
-    - {fileID: 11400000, guid: 6cd7a5503c8f63240b76c64013b7da3f, type: 2}
-    - {fileID: 11400000, guid: 671f48a982a3c944586a5a03bce23cce, type: 2}
-    - {fileID: 11400000, guid: 4d791e0ce73d9964fb818a2beefed62f, type: 2}
-    - {fileID: 11400000, guid: bf30789cc1ca2cb41bd8b7323f60ae4e, type: 2}
-    - {fileID: 11400000, guid: 0b4009f0e5b22734b8a3b81e3ad155bb, type: 2}
-    - {fileID: 11400000, guid: 9d2f26c78a1bc1f42a5b8d2a4a31501c, type: 2}
-    Races:
-    - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
-    - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}
-    - {fileID: 11400000, guid: 14b413c795a09834083080b372e8f9f4, type: 2}
-    - {fileID: 11400000, guid: 542e8cdcab891d4479a4663d0097631e, type: 2}
+  _dungeonInfo: {fileID: 11400000, guid: d778883251d3f1a468df2176192512f5, type: 2}
 --- !u!1 &3939076267983389941
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,44 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872717e6cc9346d980b256b93de52008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dungeonInfo:
-    ID: 1
-    Image: {fileID: 21300000, guid: fb1a1300430b8914c937368c70e1e6a8, type: 3}
-    Name: Second Dungeon
-    Description: 
-    PreviousDungeonsID: 
-    LineCount: 10
-    ColumnCount: 5
-    StartPointCount: 2
-    BranchingChance: 0.3
-    PathCellChances:
-    - Type: 1
-      Frequency: 5
-    - Type: 2
-      Frequency: 3
-    - Type: 3
-      Frequency: 1
-    - Type: 4
-      Frequency: 1
-    PathCellRules:
-    - LineIndex: 0
-      Type: 1
-    - LineIndex: 4
-      Type: 4
-    Classes:
-    - {fileID: 11400000, guid: 13b1911f1a26e3947ac29e6022d46ca4, type: 2}
-    - {fileID: 11400000, guid: ea1f71d3741e7a445bf686990d122f4e, type: 2}
-    - {fileID: 11400000, guid: 6cd7a5503c8f63240b76c64013b7da3f, type: 2}
-    - {fileID: 11400000, guid: 671f48a982a3c944586a5a03bce23cce, type: 2}
-    - {fileID: 11400000, guid: 4d791e0ce73d9964fb818a2beefed62f, type: 2}
-    - {fileID: 11400000, guid: bf30789cc1ca2cb41bd8b7323f60ae4e, type: 2}
-    - {fileID: 11400000, guid: 0b4009f0e5b22734b8a3b81e3ad155bb, type: 2}
-    - {fileID: 11400000, guid: 9d2f26c78a1bc1f42a5b8d2a4a31501c, type: 2}
-    Races:
-    - {fileID: 11400000, guid: 6e0c4d6f527f08a4b98f993de73e7d24, type: 2}
-    - {fileID: 11400000, guid: d38e44f229fa16441aa255ae65743425, type: 2}
-    - {fileID: 11400000, guid: 14b413c795a09834083080b372e8f9f4, type: 2}
-    - {fileID: 11400000, guid: 542e8cdcab891d4479a4663d0097631e, type: 2}
+  _dungeonInfo: {fileID: 11400000, guid: 8a4c4758acc673d439cb3efb49fe5033, type: 2}
 --- !u!1 &5794402475268480224
 GameObject:
   m_ObjectHideFlags: 0
