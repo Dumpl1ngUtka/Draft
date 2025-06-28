@@ -11,6 +11,18 @@ namespace Battle.PassiveEffects
         public Action PassiveEffectsChanged;
         public Action<PassiveEffect, TriggerType> EffectApplied;
 
+        public PassiveEffectsHolder(PassiveEffect[] startPassiveEffects)
+        {
+            if (startPassiveEffects == null || startPassiveEffects.Length == 0)
+                return;
+            foreach (var passiveEffect in startPassiveEffects) 
+                AddEffect(passiveEffect);
+        }
+
+        public PassiveEffectsHolder()
+        {
+        }
+        
         public void AddEffect(PassiveEffect additionalEffect)
         {
             if (additionalEffect == null)
@@ -67,7 +79,7 @@ namespace Battle.PassiveEffects
 
         public List<PassiveEffect> GetPassiveEffects() => _passiveEffects;
 
-        private void RemoveEffect(PassiveEffect effect)
+        public void RemoveEffect(PassiveEffect effect)
         {
             effect.Destroy();
             EffectApplied?.Invoke(effect, TriggerType.Destroy);

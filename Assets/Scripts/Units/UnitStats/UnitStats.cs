@@ -53,6 +53,7 @@ namespace Units
 
         public StatInt Energy;
         public StatInt Chemistry;
+        public StatInt Capacity;
 
         public bool IsReady => Energy.Value > 0 && !IsDead;
         
@@ -90,6 +91,7 @@ namespace Units
                 value => Math.Min(10, value)));
             
             Energy = new StatInt(1);
+            Capacity = new StatInt(5);
         }
 
         private void InitializedActions()

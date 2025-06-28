@@ -7,6 +7,7 @@ namespace Abilities
     public class AbilityEffectHolder
     {
         public PassiveEffect Effect;
+        public int TurnCount;
         public HitProbabilityCalculator Probability;
     }
 }

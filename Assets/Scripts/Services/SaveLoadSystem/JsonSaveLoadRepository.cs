@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -18,6 +19,17 @@ namespace Services.SaveLoadSystem
         {
             var json = JsonUtility.ToJson(data);
             File.WriteAllText(path, json);        
+        }
+    }
+    
+    [Serializable]
+    public class SerializationWrapper<T>
+    {
+        public T[] array;
+    
+        public SerializationWrapper(T[] array)
+        {
+            this.array = array;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Battle.PassiveEffects
         protected override void AddEffect()
         {
             float damage = _baseDamage + _damagePerAttribute *
-                Owner.GetAttributeByType(_damageAttribute).Value ;
+                Caster.GetAttributeByType(_damageAttribute).Value ;
 
             if (Owner.Immunities.Contains(_damageType))
                 damage = 0;

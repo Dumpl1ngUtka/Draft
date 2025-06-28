@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Abilities;
+using Battle.PassiveEffects;
 using Battle.UseCardReactions;
+using Items;
 using UnityEngine;
 
 namespace Units
@@ -15,6 +19,7 @@ namespace Units
         public string[] AvailableNames;
         public Covenant[] AvailableCovenants;
         public Reaction Reaction;
+        public PassiveEffect[] RaceEffects;
 
         public static Race GetObjectByName(string name)
         {
@@ -26,6 +31,15 @@ namespace Units
         {
             var allRaces = Resources.LoadAll<Race>(Path);
             return allRaces.Where(race => names.Contains(race.Name));
+        }
+
+        public PassiveEffect[] GetPassiveEffects(Unit unit)
+        { 
+            if (RaceEffects == null || RaceEffects.Length == 0)
+                return Array.Empty<PassiveEffect>();
+            
+            return RaceEffects.Select(effect => 
+                effect.GetInstance(unit.Stats, unit.Stats, 1000)).ToArray();
         }
     }
 }

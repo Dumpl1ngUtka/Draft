@@ -36,6 +36,7 @@ MonoBehaviour:
         z: 0
   Effects:
   - Effect: {fileID: 11400000, guid: c47e805b591c95645ad232ee20c75627, type: 2}
+    TurnCount: 3
     Probability:
       _baseHitProbability: 1
       _casterAttributType: 0

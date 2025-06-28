@@ -19,7 +19,7 @@ MonoBehaviour:
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
   _effectClip: {fileID: 0}
-  _baseDamage: 100
+  _baseDamage: 1
   _damageType: 0
   _damageAttribute: 2
-  _damagePerAttribute: 1
+  _damagePerAttribute: 10

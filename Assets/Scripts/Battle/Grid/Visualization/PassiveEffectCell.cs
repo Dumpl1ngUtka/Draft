@@ -14,7 +14,7 @@ namespace Battle.Grid.Visualization
         {
             _icon.color = effect.Color;
             _icon.sprite = effect.Icon;
-            _value.text = effect.TurnCount.ToString();
+            _value.text = effect.TurnCount >= 10? "" : effect.TurnCount.ToString();
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\Slippery.cs" />
     <Compile Include="Assets\Scripts\Grid\GridEffects\UnitGridCellEffects\IVisualEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridView.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\DraftGridController.cs" />
     <Compile Include="Assets\Scripts\DungeonMap\DungeonInfo.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Assets\Scripts\Grid\BattleGrid\BattleGridModel.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\EffectAnimation.cs" />
     <Compile Include="Assets\Scripts\Units\AttributesType.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemsHolder.cs" />
     <Compile Include="Assets\Scripts\Battle\DamageSystem\Damage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

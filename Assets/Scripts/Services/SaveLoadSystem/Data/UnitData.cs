@@ -1,4 +1,5 @@
 using System;
+using Items;
 using Units;
 
 namespace Services.SaveLoadSystem
@@ -12,6 +13,7 @@ namespace Services.SaveLoadSystem
         public int HealthValue;
         public GridPosition Position;
         public Attributes Attributes;
+        public Item[] Items;
 
         public UnitData(
             string className,
@@ -20,7 +22,8 @@ namespace Services.SaveLoadSystem
             int randomSeed,
             int healthValue,
             GridPosition position,
-            Attributes attributes)
+            Attributes attributes,
+            Item[] items)
         {
             ClassName = className;
             RaceName = raceName;
@@ -28,6 +31,7 @@ namespace Services.SaveLoadSystem
             HealthValue = healthValue;
             Position = position;
             Attributes = attributes;
+            Items = items;
         }
     }
 }

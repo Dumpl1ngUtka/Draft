@@ -1,7 +1,10 @@
+using System;
+using System.Linq;
 using Abilities;
 using Battle.PassiveEffects;
 using Battle.UseCardReactions;
 using Grid;
+using Items;
 using Units.Interactors;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -21,6 +24,7 @@ namespace Units
         public UnitStats Stats { get; }
         public DiceInteractor DiceInteractor { get; }
         public PassiveEffectsHolder PassiveEffectsHolder { get; }
+        public ItemsHolder ItemsHolder { get; }
         public Ability CurrentAbility => Abilities.GetAbilityByIndex(DiceInteractor.DicePower);
         
         public Unit(UnitPreset unitPreset)
@@ -34,7 +38,9 @@ namespace Units
             Stats = new UnitStats(unitPreset.Attributes);
             Abilities = new AbilitiesHolder(unitPreset.Abilities);
             DiceInteractor = new DiceInteractor(Abilities);
-            PassiveEffectsHolder = new PassiveEffectsHolder();
+            PassiveEffectsHolder = Race != null ? 
+                new PassiveEffectsHolder(Race.GetPassiveEffects(this)) : new PassiveEffectsHolder();
+            ItemsHolder = new ItemsHolder(Stats, PassiveEffectsHolder);
         }
 
         public Unit WithHealth(int health)
@@ -48,6 +54,12 @@ namespace Units
         {
             Position = position;
             return this;    
+        }
+
+        public Unit WithItems(Item[] items)
+        {
+            ItemsHolder.AddItems(items);
+            return this;
         }
 
         public void EndTurn()
