@@ -3,7 +3,8 @@ namespace Battle.DamageSystem
     public enum DamageType
     {
         Physical,
-        Magical,
+        Fire,
+        Ice,
         Acid,
     }
 }

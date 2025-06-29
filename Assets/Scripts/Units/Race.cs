@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Abilities;
 using Battle.PassiveEffects;
 using Battle.UseCardReactions;
-using Items;
 using UnityEngine;
 
 namespace Units
@@ -17,8 +15,6 @@ namespace Units
         public string Name;
         public Sprite Icon;
         public string[] AvailableNames;
-        public Covenant[] AvailableCovenants;
-        public Reaction Reaction;
         public PassiveEffect[] RaceEffects;
 
         public static Race GetObjectByName(string name)

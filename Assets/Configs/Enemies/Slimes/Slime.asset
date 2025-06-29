@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef72a01edfd94c79ab67ec296bce0539, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  Name: Slime
+  Name: Fire Slime
   Icon: {fileID: -7282886668606283007, guid: 8c3b697f79282744ca79947020b3cee4, type: 3}
-  Race: {fileID: 0}
+  Race: {fileID: 11400000, guid: 2e8d7114f2186364e85736780d56db41, type: 2}
   Class: {fileID: 0}
   Covenant: {fileID: 0}
   Attributes:
@@ -22,9 +22,6 @@ MonoBehaviour:
     _dexterity: 1
     _strength: 1
     _intelligence: 1
-  Immunities: 
-  Resistances: 
-  Vulnerabilities: 
   Abilities:
   - {fileID: 11400000, guid: 3ec1dce90a1f0594e80af35409c50574, type: 2}
   Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}

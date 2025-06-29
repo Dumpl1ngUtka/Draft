@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Battle.UseCardReactions;
 using UnityEngine;
 
 namespace Units
@@ -13,6 +14,7 @@ namespace Units
         public string Name;
         public Sprite Icon;
         public CovenantType Type;
+        public Reaction Reaction;
         
         public static Covenant GetObjectByName(string name)
         {

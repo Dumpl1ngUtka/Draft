@@ -101,8 +101,9 @@
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\DungeonInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Units\Class.cs" />
-    <Compile Include="Assets\Scripts\Units\UnitStats\Stat.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\PathMapCell.cs" />
+    <Compile Include="Assets\Scripts\Units\UnitStats\StatsDictionary.cs" />
+    <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\RIVChange.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Grid\Cells\GridCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ChemistryInteractor.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="Assets\Scripts\Grid\SelectDungeonGrid\SelectDungeonGridController.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\PassiveEffectsCombination.cs" />
     <Compile Include="Assets\Scripts\Units\EnemyPositionPreset.cs" />
-    <Compile Include="Assets\Scripts\Battle\DamageSystem\UnitHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />

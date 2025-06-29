@@ -7,10 +7,14 @@ namespace Units
     [CreateAssetMenu(menuName = "Config/EnemyPositionPreset")]
     public class EnemyPositionPreset : ScriptableObject
     {
+        [SerializeField] private int _minLineIndex;
+        [SerializeField] private int _maxLineIndex;
         [SerializeField] private LinePreset _frontLinePreset;
         [SerializeField] private LinePreset _midleLinePreset;
         [SerializeField] private LinePreset _backLinePreset;
 
+        public bool IsValidLineIndex(int lineIndex) => lineIndex >= _minLineIndex && lineIndex <= _maxLineIndex;
+        
         public List<UnitPreset> GetUnitPresets()
         {
             var unitPresets = new List<UnitPreset>();

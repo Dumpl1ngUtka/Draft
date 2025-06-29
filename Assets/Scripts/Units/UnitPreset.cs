@@ -36,7 +36,7 @@ namespace Units
             unitPreset.Attributes = attributes;
             
             unitPreset.Icon = unitClass.Icon;
-            unitPreset.Reaction = unitPreset.Race.Reaction;
+            unitPreset.Reaction = unitPreset.Covenant.Reaction;
             unitPreset.Name = unitPreset.Race.AvailableNames[0];
             unitPreset.Abilities = unitClass.Abilities;
             

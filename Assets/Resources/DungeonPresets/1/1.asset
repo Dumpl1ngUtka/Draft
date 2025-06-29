@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53a7dbdcead43f89eeb37eec05503f6, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
+  _minLineIndex: 0
+  _maxLineIndex: 5
   _frontLinePreset:
     LeftPreset: {fileID: 11400000, guid: b64d7f29f65683349a545dc19671c943, type: 2}
     MidlePreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}

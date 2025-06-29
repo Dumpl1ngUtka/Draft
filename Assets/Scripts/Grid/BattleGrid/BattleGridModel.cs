@@ -27,8 +27,11 @@ namespace Grid.BattleGrid
         
         private List<Unit> GenerateEnemies()
         {
-            var presets = DungeonInfo.GetObjectByID(_runData.DungeonID).GetEnemyPositionPresets();
-            return presets[Random.Range(0, presets.Count)].GetUnitPresets().
+            var lineIndex = _runData.GetPath().Length;
+            var dungeonInfo = DungeonInfo.GetObjectByID(_runData.DungeonID);
+            var presetsList = dungeonInfo.GetEnemyPositionPresets()
+                .Where(preset => preset.IsValidLineIndex(lineIndex)).ToList();
+            return presetsList[Random.Range(0, presetsList.Count)].GetUnitPresets().
                 Select(unitPreset => unitPreset == null ? null : new Unit(unitPreset)).ToList();
         }
 

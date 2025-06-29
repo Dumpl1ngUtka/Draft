@@ -31,10 +31,13 @@ namespace Units
         #endregion
         
         #region Immunities
+
+        public StatsDictionary<DamageType> DefenceRIV;
+        public StatsDictionary<DamageType> AttackRIV;
         
-        public List<DamageType> Immunities => new List<DamageType>();
-        public List<DamageType> Resistances =>  new List<DamageType>();
-        public List<DamageType> Vulnerability => new List<DamageType>();
+        //public List<DamageType> Immunities => new List<DamageType>();
+        //public List<DamageType> Resistances =>  new List<DamageType>();
+        //public List<DamageType> Vulnerability => new List<DamageType>();
         
         #endregion
         
@@ -42,7 +45,6 @@ namespace Units
         
         public StatInt MaxHealth;
         public StatInt CurrentHealth;
-        public StatInt Armor;
         public bool IsDead => CurrentHealth.Value <= 0;
 
         public Action HealthChanged;
@@ -69,6 +71,11 @@ namespace Units
 
         private void InitializeStats()
         {
+            var RIVClampModifier = new StatModifier(StatModifierType.SystemModifier, 
+                value => Math.Clamp(value, -100, 100));
+            DefenceRIV = new StatsDictionary<DamageType>().WithModifier(RIVClampModifier);
+            AttackRIV = new StatsDictionary<DamageType>().WithModifier(RIVClampModifier);
+            
             HealthAttribute = new StatInt(Attributes.Health);
             StrengthAttribute = new StatInt(Attributes.Strength);
             DexterityAttribute = new StatInt(Attributes.Dexterity);
@@ -81,10 +88,6 @@ namespace Units
             CurrentHealth = new StatInt(MaxHealth.Value);
             CurrentHealth.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
                 value => Math.Clamp(value, 0, MaxHealth.Value)));
-            
-            Armor = new StatInt(0, true);
-            //Armor.AddModifier(new StatModifier(StatModifierType.SystemModifier, 
-            //    value => Math.Max(value, 0)));
             
             Chemistry = new StatInt(0);
             Chemistry.AddModifier(new StatModifier(StatModifierType.SystemModifier,
@@ -103,7 +106,6 @@ namespace Units
             
             MaxHealth.StatChanged += () => HealthChanged?.Invoke();
             CurrentHealth.StatChanged += () => HealthChanged?.Invoke();
-            Armor.StatChanged += () => HealthChanged?.Invoke();
             
             AttributeChanged += SetCurrentValueOutdated;
             HealthChanged += SetCurrentValueOutdated;
@@ -118,7 +120,6 @@ namespace Units
             
             MaxHealth.CurrentValueOutdated();
             CurrentHealth.CurrentValueOutdated();
-            Armor.CurrentValueOutdated();
         }
     }
 }

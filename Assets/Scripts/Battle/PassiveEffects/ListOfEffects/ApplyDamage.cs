@@ -1,4 +1,3 @@
-using System;
 using Battle.DamageSystem;
 using Units;
 using UnityEngine;
@@ -13,6 +12,9 @@ namespace Battle.PassiveEffects
         [SerializeField] private DamageType _damageType;
         [SerializeField] private AttributesType _damageAttribute;
         [SerializeField] private int _damagePerAttribute;
+        [Header("Periodic Damage")]
+        [SerializeField] private int _periodicBaseDamage;
+        [SerializeField] private int _periodicDamagePerAttribute;
         
         protected override PassiveEffect CreateInstance(UnitStats caster, UnitStats owner)
         {
@@ -29,18 +31,25 @@ namespace Battle.PassiveEffects
             float damage = _baseDamage + _damagePerAttribute *
                 Caster.GetAttributeByType(_damageAttribute).Value ;
 
-            if (Owner.Immunities.Contains(_damageType))
-                damage = 0;
-            if (Owner.Resistances.Contains(_damageType))
-                damage /= 2;
-            if (Owner.Vulnerability.Contains(_damageType))
-                damage *= 2;
+            var attackMod = ((float)Caster.AttackRIV.GetStatBy(_damageType).Value / 100) + 1;
+            var defenceMod = ((float)Owner.DefenceRIV.GetStatBy(_damageType).Value / 100) + 1;
+            
+            damage = (damage * attackMod) * defenceMod;   
             
             Owner.CurrentHealth.AddModifier(new PermanentStatModifier(-(int)damage));
         }
 
         protected override void TurnEffect()
         {
+            float damage = _periodicBaseDamage + _damagePerAttribute *
+                Caster.GetAttributeByType(_damageAttribute).Value;
+
+            var attackMod = ((float)Caster.AttackRIV.GetStatBy(_damageType).Value / 100) + 1;
+            var defenceMod = ((float)Owner.DefenceRIV.GetStatBy(_damageType).Value / 100) + 1;
+            
+            damage = (damage * attackMod) * defenceMod;   
+            
+            Owner.CurrentHealth.AddModifier(new PermanentStatModifier(-(int)damage));
         }
 
         protected override void RemoveEffect()
