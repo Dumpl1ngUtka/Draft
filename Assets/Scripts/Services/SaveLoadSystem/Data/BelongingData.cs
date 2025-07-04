@@ -15,9 +15,9 @@ namespace Services.SaveLoadSystem
             {
                 "Elf", "Gnome", "Human", "Orc"
             };
-            AvailableUnitClasses = new string[5]
+            AvailableUnitClasses = new string[7]
             {
-                "Bard", "Warrior", "Wizard", "Ranger", "Thief"
+                "Bard", "Warrior", "Wizard", "Ranger", "Thief", "Tank", "Paladin"
             };
             AvailableUnitCovenants = new string[6]
             {

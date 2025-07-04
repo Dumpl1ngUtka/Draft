@@ -20,6 +20,10 @@ namespace Battle.PassiveEffects
                         DestoyAvailableEffect = !(Random.Range(0f, 1f) < slippery.ProcChance)
                     };
                 }
+                case AddArmor when additionalEffect is ApplyDamage applyDamage:
+                {
+                    return new CombinationResult(true, addNewEffect: false, destoyAvailableEffect: true);
+                }
             }
 
             return new CombinationResult(false);

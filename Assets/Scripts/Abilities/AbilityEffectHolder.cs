@@ -1,5 +1,6 @@
 using System;
 using Battle.PassiveEffects;
+using UnityEngine;
 
 namespace Abilities
 {
@@ -8,6 +9,7 @@ namespace Abilities
     {
         public PassiveEffect Effect;
         public int TurnCount;
-        public HitProbabilityCalculator Probability;
+        public bool IsCasterEffect = false;
+        [HideInInspector] public HitProbabilityCalculator Probability;
     }
 }

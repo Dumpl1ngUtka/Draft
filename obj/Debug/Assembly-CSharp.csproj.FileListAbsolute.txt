@@ -464,6 +464,6 @@ C:\Users\damir\YandexGames\Draft\Temp\Bin\Debug\Assembly-CSharp\UnityEngine.Test
 C:\Users\damir\YandexGames\Draft\Temp\Bin\Debug\Assembly-CSharp\UnityEditor.TestRunner.pdb
 C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
 C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly-CSharp.dll
 C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly-CSharp.pdb
+C:\Users\damir\YandexGames\Draft\obj\Debug\Assembly.44154EF1.Up2Date

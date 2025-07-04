@@ -21,9 +21,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14b413c795a09834083080b372e8f9f4, type: 2}
   - {fileID: 11400000, guid: 542e8cdcab891d4479a4663d0097631e, type: 2}
   Abilities:
+  - {fileID: 11400000, guid: 3ec1dce90a1f0594e80af35409c50574, type: 2}
   - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
-  - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
-  - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
-  - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
-  - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
-  - {fileID: 11400000, guid: 2b44dba0610f93e4c817bcd3bd063ce3, type: 2}
+  - {fileID: 11400000, guid: 5341d2bce69400e46954afa37adc07f6, type: 2}
+  - {fileID: 11400000, guid: 67ccd5f1c3beb8e4d8e2d96551b1bba4, type: 2}
+  - {fileID: 11400000, guid: 935d523a575a4df478c01adbd71487ed, type: 2}
+  - {fileID: 11400000, guid: e7ab767b463156c4ca8fcc198b9fb366, type: 2}

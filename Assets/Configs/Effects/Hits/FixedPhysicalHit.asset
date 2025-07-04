@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1f849ab324e1fad0b5912e124d7f4, type: 3}
+  m_Name: FixedPhysicalHit
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: 20628b5677b5abf47a5b7492a2105e0c, type: 3}
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _addClip: {fileID: 7400000, guid: 111a8bfcffd0df74791d61d2d7efd8ba, type: 2}
+  _turnClip: {fileID: 0}
+  _destroyClip: {fileID: 0}
+  _effectClip: {fileID: 0}
+  _baseDamage: 5
+  _damageType: 0
+  _damageAttribute: 2
+  _damagePerAttribute: 0
+  _periodicBaseDamage: 0
+  _periodicDamagePerAttribute: 0

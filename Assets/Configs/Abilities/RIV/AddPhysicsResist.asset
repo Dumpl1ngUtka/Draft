@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fb7a96a56204cbdb14d14096ab32db0, type: 3}
-  m_Name: StanHit
+  m_Name: AddPhysicsResist
   m_EditorClassIdentifier: 
-  Name: Stan Hit
+  Name: Add physics resist
   Icon: {fileID: 0}
   TargetFilter:
-    IsSelfTarget: 0
-    IsPlayerUnitTarget: 0
-    IsEnemyUnitTarget: 1
+    IsSelfTarget: 1
+    IsPlayerUnitTarget: 1
+    IsEnemyUnitTarget: 0
     IsDeadPlayerUnitTarget: 0
     IsDeadEnemyUnitTarget: 0
   RangeFilter:
@@ -35,24 +35,14 @@ MonoBehaviour:
         y: 0
         z: 0
   Effects:
-  - Effect: {fileID: 11400000, guid: 72fcaec8114288443a79b2bb75c38b2f, type: 2}
-    TurnCount: 0
+  - Effect: {fileID: 11400000, guid: 332b8367cb038ee4e87295dd43bb9450, type: 2}
+    TurnCount: 3
     IsCasterEffect: 0
     Probability:
       _baseHitProbability: 1
-      _casterAttributType: 2
-      _additionProbabilityByAttribute: 0.1
-      _targetAttributeType: 3
-      _subtractionProbabilityByAttribute: 0.1
-      _additionProbabilityByDistance: 0
-  - Effect: {fileID: 11400000, guid: 8367015fdb89b81449fd43b72222a1ba, type: 2}
-    TurnCount: 2
-    IsCasterEffect: 0
-    Probability:
-      _baseHitProbability: 1
-      _casterAttributType: 2
-      _additionProbabilityByAttribute: 0.1
-      _targetAttributeType: 3
-      _subtractionProbabilityByAttribute: 0.1
+      _casterAttributType: 0
+      _additionProbabilityByAttribute: 0
+      _targetAttributeType: 0
+      _subtractionProbabilityByAttribute: 0
       _additionProbabilityByDistance: 0
   EnergyReduceEffect: {fileID: 11400000, guid: 4f11e533c10db4040b4925040bd22704, type: 2}

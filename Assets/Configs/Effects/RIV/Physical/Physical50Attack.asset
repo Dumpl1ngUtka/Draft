@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96edbec0dd6945c49fa670877939ed47, type: 3}
-  m_Name: Fire100Attack
+  m_Name: Physical50Attack
   m_EditorClassIdentifier: 
-  _icon: {fileID: 958462467, guid: f605505c6e3653e4e99af411e039595d, type: 3}
-  _color: {r: 1, g: 0.3137255, b: 0, a: 1}
+  _icon: {fileID: 1355261925, guid: f605505c6e3653e4e99af411e039595d, type: 3}
+  _color: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 1}
   _addClip: {fileID: 0}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
   _effectClip: {fileID: 0}
   _type: 0
-  _value: 100
-  _damageType: 1
+  _value: 50
+  _damageType: 0

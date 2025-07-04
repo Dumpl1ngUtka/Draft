@@ -4,7 +4,8 @@ namespace Battle.DamageSystem
     {
         Physical,
         Fire,
-        Ice,
+        Cold,
         Acid,
+        Radiant
     }
 }

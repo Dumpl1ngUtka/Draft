@@ -47,11 +47,21 @@ namespace Abilities
             {
                 foreach (var holder in Effects)
                 {
-                    if (IsEffectProc(holder.Probability, caster, target))
+                    if (holder.IsCasterEffect)
+                    {
+                        var effect = holder.Effect.GetInstance(caster.Stats, caster.Stats, holder.TurnCount);
+                        caster.PassiveEffectsHolder.AddEffect(effect);
+                    }
+                    else
                     {
                         var effect = holder.Effect.GetInstance(caster.Stats, cell.Stats, holder.TurnCount);
                         cell.PassiveEffectsHolder.AddEffect(effect);
                     }
+                    /*if (IsEffectProc(holder.Probability, caster, target))
+                    {
+                        var effect = holder.Effect.GetInstance(caster.Stats, cell.Stats, holder.TurnCount);
+                        cell.PassiveEffectsHolder.AddEffect(effect);
+                    }*/
                 }
             }
             caster.PassiveEffectsHolder.AddEffect(EnergyReduceEffect.GetInstance(caster.Stats, caster.Stats, 1));

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8b5fdd817a5414ba3eb37030525cd5e, type: 3}
-  m_Name: ShortStunEffect
+  m_Name: StunEffect
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: 20628b5677b5abf47a5b7492a2105e0c, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
