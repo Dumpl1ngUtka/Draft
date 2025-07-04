@@ -140,6 +140,7 @@ MonoBehaviour:
     TeamType: 1
   - Container: {fileID: 4417992104272443361}
     TeamType: 2
+  _background: {fileID: 1582941110803205904}
 --- !u!1 &6750483170432659526
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,8 +339,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6dc837b2708731045bd9a765c2f6f339, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 3383016452190782798, guid: 82334049d69f4cf4b9d662b3b215d774, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

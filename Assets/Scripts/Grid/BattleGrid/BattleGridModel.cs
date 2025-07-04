@@ -65,7 +65,7 @@ namespace Grid.BattleGrid
                 return;
             }
             from.CurrentAbility.UseAbility(from, to, _playerUnits, _enemyUnits);
-            from.Reaction.UseReaction(from, _playerUnits);
+            from.Reaction?.UseReaction(from, _playerUnits);
         }
         
         public void CheckEndBattle()
@@ -116,7 +116,9 @@ namespace Grid.BattleGrid
 
         public List<Unit> DiceAdditionCells(Unit cellUnit)
         {
-            return cellUnit.Reaction.GetReactionCells(cellUnit, _playerUnits);
+            return cellUnit.Reaction == null 
+                ? new List<Unit>() 
+                : cellUnit.Reaction.GetReactionCells(cellUnit, _playerUnits);
         }
 
         public List<Unit> GetUnavailableUnits(Unit caster)

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef72a01edfd94c79ab67ec296bce0539, type: 3}
-  m_Name: Slime
+  m_Name: Fire Slime
   m_EditorClassIdentifier: 
   Name: Fire Slime
-  Icon: {fileID: -7282886668606283007, guid: 8c3b697f79282744ca79947020b3cee4, type: 3}
-  Race: {fileID: 11400000, guid: 2e8d7114f2186364e85736780d56db41, type: 2}
+  Icon: {fileID: -1886757339846038820, guid: fb90dcd9eb2188c4badf4f08b13f37a7, type: 3}
+  Race: {fileID: 0}
   Class: {fileID: 0}
   Covenant: {fileID: 0}
   Attributes:
@@ -25,3 +25,6 @@ MonoBehaviour:
   Abilities:
   - {fileID: 11400000, guid: 3ec1dce90a1f0594e80af35409c50574, type: 2}
   Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}
+  PassiveEffects:
+  - {fileID: 11400000, guid: a19755aa376eefb4b859c90436394255, type: 2}
+  - {fileID: 11400000, guid: 704c17ddeaaa8f342882b49dcda4c8c3, type: 2}

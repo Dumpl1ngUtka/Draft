@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using DungeonMap;
 using Grid.Cells;
+using Services.SaveLoadSystem;
 using Units;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Grid.BattleGrid
 {
     public class BattleGridView : GridView
     {
+        [SerializeField] private Image _background; 
         private List<UnitGridCell> _playerCells;
         private List<UnitGridCell> _enemyCells;
 
@@ -15,6 +19,12 @@ namespace Grid.BattleGrid
         {
             GetCells(out var playerCells, out var enemyCells);
             return playerCells.Concat(enemyCells).ToList();
+        }
+
+        public void InitBackgroundTexture()
+        {
+            var dungeonID = SaveLoadService.Instance.LoadRunData().DungeonID;
+            _background.sprite = DungeonInfo.GetObjectByID(dungeonID).BackgroundTexture;
         }
         
         public void GetCells(out List<UnitGridCell> playerCells, out List<UnitGridCell> enemyCells)

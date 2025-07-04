@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: The Winged Legion
   Icon: {fileID: 8533406688032873994, guid: 9a337d8d22c49f0449a80349ee1c65e8, type: 3}
   Type: 2
+  Reaction: {fileID: 11400000, guid: 0f8ddffbedb5a5048b3099991163526d, type: 2}

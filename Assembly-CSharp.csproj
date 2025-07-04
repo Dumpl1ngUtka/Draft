@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\Services\PanelService\Panels\TextWithLinks.cs" />
     <Compile Include="Assets\Scripts\Grid\DraftGrid\ChemistryBoard\ChemistryObserverCell.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\OverPanelInteractor.cs" />
+    <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\ClickableObject.cs" />
     <Compile Include="Assets\Scripts\Services\GameControlService\GridStateMachine\GridStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\EnergyReduce.cs" />
     <Compile Include="Assets\Scripts\Battle\Grid\Visualization\ParametersInteractor.cs" />

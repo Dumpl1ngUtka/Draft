@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Feathered Swordsmen Guild
   Icon: {fileID: -1128919944905022255, guid: 81b79cb9deda0f64bafdc6d005f1e493, type: 3}
   Type: 1
+  Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}

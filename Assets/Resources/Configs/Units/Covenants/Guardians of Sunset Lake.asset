@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Guardians of Sunset Lake
   Icon: {fileID: 5938907658398131759, guid: babcd96ee99f92a4f9680b30abac53aa, type: 3}
   Type: 0
+  Reaction: {fileID: 11400000, guid: 0f8ddffbedb5a5048b3099991163526d, type: 2}

@@ -16,6 +16,7 @@ namespace DungeonMap
         [Header("Dungeon Base Data")] 
         public int ID;
         public Sprite Image;
+        public Sprite BackgroundTexture;
         public string Name;
         public string Description;
         public int[] PreviousDungeonsID;

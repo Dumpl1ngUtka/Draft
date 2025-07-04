@@ -1,0 +1,480 @@
+fileFormatVersion: 2
+guid: c426a2e1692d4f046a4ff06bd91da7b2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8735477681017460610
+    second: ReactionSheme_0
+  - first:
+      213: -8098301364217348317
+    second: ReactionSheme_1
+  - first:
+      213: 928749377032107181
+    second: ReactionSheme_2
+  - first:
+      213: -3407766301935567635
+    second: ReactionSheme_3
+  - first:
+      213: 5830898379678077991
+    second: ReactionSheme_4
+  - first:
+      213: -1349053790157027348
+    second: ReactionSheme_5
+  - first:
+      213: 5132002665165656606
+    second: ReactionSheme_6
+  - first:
+      213: -3398286583533934384
+    second: ReactionSheme_7
+  - first:
+      213: -2664462624082270832
+    second: ReactionSheme_8
+  - first:
+      213: -8454644628076326245
+    second: ReactionSheme_9
+  - first:
+      213: 7202120155074016574
+    second: ReactionSheme_10
+  - first:
+      213: 8961856299736267843
+    second: ReactionSheme_11
+  - first:
+      213: -7222958668770965580
+    second: ReactionSheme_12
+  - first:
+      213: -4478664630762159506
+    second: ReactionSheme_13
+  - first:
+      213: 5265302139889211252
+    second: ReactionSheme_14
+  - first:
+      213: -4435627713122814514
+    second: ReactionSheme_15
+  - first:
+      213: 8691960380857002125
+    second: ReactionSheme_16
+  - first:
+      213: -6300627590015108206
+    second: ReactionSheme_17
+  - first:
+      213: -4158926022212945408
+    second: ReactionSheme_18
+  - first:
+      213: 3868904571706155177
+    second: ReactionSheme_19
+  - first:
+      213: 941195475714596213
+    second: ReactionSheme_20
+  - first:
+      213: 2260006077596166829
+    second: ReactionSheme_21
+  - first:
+      213: 3635866748221419986
+    second: ReactionSheme_22
+  - first:
+      213: 8199665024722981334
+    second: ReactionSheme_23
+  - first:
+      213: -8119067319699386445
+    second: ReactionSheme_24
+  - first:
+      213: 4441614880653752185
+    second: ReactionSheme_25
+  - first:
+      213: 49785971233003728
+    second: ReactionSheme_26
+  - first:
+      213: 653861879614411465
+    second: ReactionSheme_27
+  - first:
+      213: 3039598763139775898
+    second: ReactionSheme_28
+  - first:
+      213: 5667926244439622346
+    second: ReactionSheme_29
+  - first:
+      213: 7416746498612169738
+    second: ReactionSheme_30
+  - first:
+      213: -7678524519687717533
+    second: ReactionSheme_31
+  - first:
+      213: -1661940990552373635
+    second: ReactionSheme_32
+  - first:
+      213: -9107028039026888071
+    second: ReactionSheme_33
+  - first:
+      213: -727751067996753228
+    second: ReactionSheme_34
+  - first:
+      213: 586363058513328695
+    second: ReactionSheme_35
+  - first:
+      213: 1031488060181931357
+    second: ReactionSheme_36
+  - first:
+      213: 1964770169775080254
+    second: ReactionSheme_37
+  - first:
+      213: -50296643556336403
+    second: ReactionSheme_38
+  - first:
+      213: 4400264103943480672
+    second: ReactionSheme_39
+  - first:
+      213: 5893625658862296864
+    second: ReactionSheme_40
+  - first:
+      213: -1625630750865526120
+    second: ReactionSheme_41
+  - first:
+      213: 5824010290944800040
+    second: ReactionSheme_42
+  - first:
+      213: 4816601967076393907
+    second: ReactionSheme_43
+  - first:
+      213: 5773016766161445018
+    second: ReactionSheme_44
+  - first:
+      213: -865468483173144803
+    second: ReactionSheme_45
+  - first:
+      213: -4117216974379714823
+    second: ReactionSheme_46
+  - first:
+      213: -1668262149404471388
+    second: ReactionSheme_47
+  - first:
+      213: -3501863413620486787
+    second: ReactionSheme_48
+  - first:
+      213: -5882325495348128113
+    second: ReactionSheme_49
+  - first:
+      213: 9075694621658874172
+    second: ReactionSheme_50
+  - first:
+      213: -716604639639634374
+    second: ReactionSheme_51
+  - first:
+      213: -1837462020892586709
+    second: ReactionSheme_52
+  - first:
+      213: 5472550745674102571
+    second: ReactionSheme_53
+  - first:
+      213: 8800876244660504916
+    second: ReactionSheme_54
+  - first:
+      213: -5008782029656109838
+    second: ReactionSheme_55
+  - first:
+      213: 5333706143705434031
+    second: ReactionSheme_56
+  - first:
+      213: 3913195606060475942
+    second: ReactionSheme_57
+  - first:
+      213: 4323886847116550727
+    second: ReactionSheme_58
+  - first:
+      213: 3983128917156254172
+    second: ReactionSheme_59
+  - first:
+      213: -4013596352087211317
+    second: ReactionSheme_60
+  - first:
+      213: -4619957674237751059
+    second: ReactionSheme_61
+  - first:
+      213: -3441819862227720189
+    second: ReactionSheme_62
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ReactionSheme_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83992e7897a959d4a8bced0a45d83362
+      internalID: -1160632273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff048737edc67f545bcd738a884f3762
+      internalID: 98226500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 132
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ffbf28a64b754f409d1d0761fdcb9ea
+      internalID: 2024783962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_3
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 384
+        width: 124
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd14fc05ba9f1bf4dbd741a2baa711bc
+      internalID: -1617103099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011e071e31d87be40ad172c84a9f4cdc
+      internalID: 2092677695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55342e2e72d2dc543aff6b02fc42100e
+      internalID: 1010054518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReactionSheme_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 132
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149488e782b65f64eb6df8926c46ea7d
+      internalID: -686763691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e9dc59e00aa6e24ea2a2943f85378bd
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ReactionSheme_0: -1160632273
+      ReactionSheme_1: 98226500
+      ReactionSheme_2: 2024783962
+      ReactionSheme_3: -1617103099
+      ReactionSheme_4: 2092677695
+      ReactionSheme_5: 1010054518
+      ReactionSheme_6: -686763691
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

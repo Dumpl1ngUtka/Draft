@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Order of the Defenders of the Pond
   Icon: {fileID: -1710425734139575809, guid: 74ecfaf5307efd94db886b21ecf06629, type: 3}
   Type: 0
+  Reaction: {fileID: 11400000, guid: 5415095477ccfde44bd67ad2116a9573, type: 2}

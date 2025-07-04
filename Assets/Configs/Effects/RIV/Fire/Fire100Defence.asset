@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96edbec0dd6945c49fa670877939ed47, type: 3}
   m_Name: Fire100Defence
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _color: {r: 1, g: 1, b: 1, a: 1}
+  _icon: {fileID: 21300000, guid: bcf7a90a113b1974dbf217284bfb1d24, type: 3}
+  _color: {r: 1, g: 0, b: 0, a: 1}
   _addClip: {fileID: 0}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}

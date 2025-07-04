@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Warriors of the Sacred Egg
   Icon: {fileID: 7922037785900976780, guid: 06d2ef09a529ab847aa2048a5e0ef8b1, type: 3}
   Type: 1
+  Reaction: {fileID: 11400000, guid: 5415095477ccfde44bd67ad2116a9573, type: 2}

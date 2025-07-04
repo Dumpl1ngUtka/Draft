@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Swords of the Lake Maiden
   Icon: {fileID: -1272905501517454987, guid: 58f33e49c7168d54790090316bb481cb, type: 3}
   Type: 2
+  Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}

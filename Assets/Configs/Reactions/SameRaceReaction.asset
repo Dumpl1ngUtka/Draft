@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: SameRaceReaction
   m_EditorClassIdentifier: 
   _value: 1
+  _key: same_race_reaction
+  _icon: {fileID: -686763691, guid: c426a2e1692d4f046a4ff06bd91da7b2, type: 3}

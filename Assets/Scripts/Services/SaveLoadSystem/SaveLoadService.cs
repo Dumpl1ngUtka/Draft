@@ -59,17 +59,25 @@ namespace Services.SaveLoadSystem
 
         private Dictionary<string, PanelData> _adviceCache;
         private Dictionary<string, PanelData> _errorCache;
-        private const string _advicePath = "CSV/advices_en"; 
-        private const string _errorPath = "CSV/errors_en"; 
+        private Dictionary<string, string> _descriptionCache;
+        private const string _language = "_en";
+        private const string _descriptionPath = "CSV/description"; 
+        private const string _advicePath = "CSV/advices"; 
+        private const string _errorPath = "CSV/errors"; 
+        
+        public PanelData GetDescriptionByKey(string key)
+        {
+            return FindDataInCache(key, _adviceCache, _descriptionPath + _language);
+        }
         
         public PanelData GetAdviceByKey(string key)
         {
-            return FindDataInCache(key, _adviceCache, _advicePath);
+            return FindDataInCache(key, _adviceCache, _advicePath + _language);
         }
         
         public PanelData GetErrorByKey(string key)
         {
-            return FindDataInCache(key, _errorCache, _errorPath);
+            return FindDataInCache(key, _errorCache, _errorPath + _language);
         }
 
         private PanelData FindDataInCache(string key, Dictionary<string, PanelData> cache, string path)

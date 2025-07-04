@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Battle.PassiveEffects
 {
@@ -15,6 +16,7 @@ namespace Battle.PassiveEffects
         {
             if (startPassiveEffects == null || startPassiveEffects.Length == 0)
                 return;
+            
             foreach (var passiveEffect in startPassiveEffects) 
                 AddEffect(passiveEffect);
         }

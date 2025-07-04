@@ -2,6 +2,8 @@ using System.Linq;
 using Grid.Cells;
 using Services.GameControlService;
 using Services.PanelService;
+using Services.SaveLoadSystem;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 namespace Grid.BattleGrid
@@ -20,6 +22,7 @@ namespace Grid.BattleGrid
             _model = new BattleGridModel();
             _view = gameObject.GetComponent<BattleGridView>();
             _view.InitiateUnitCells();
+            _view.InitBackgroundTexture();
             
             Fill();
 

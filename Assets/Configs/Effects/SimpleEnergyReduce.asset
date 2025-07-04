@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4539ba8b012b4ed1a9f34f71b570da8b, type: 3}
   m_Name: SimpleEnergyReduce
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: -1016949116, guid: 7c063a6820d33054dbdcf2bd1c3c1581, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _turnCount: 1
   _addClip: {fileID: 0}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
+  _effectClip: {fileID: 0}

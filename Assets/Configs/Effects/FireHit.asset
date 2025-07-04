@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca1f849ab324e1fad0b5912e124d7f4, type: 3}
   m_Name: FireHit
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: fb1a1300430b8914c937368c70e1e6a8, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _addClip: {fileID: 7400000, guid: 111a8bfcffd0df74791d61d2d7efd8ba, type: 2}
   _turnClip: {fileID: 0}

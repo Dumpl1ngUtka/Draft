@@ -22,9 +22,7 @@ MonoBehaviour:
     _dexterity: 1
     _strength: 1
     _intelligence: 1
-  Immunities: 
-  Resistances: 
-  Vulnerabilities: 
   Abilities:
   - {fileID: 11400000, guid: 3ec1dce90a1f0594e80af35409c50574, type: 2}
-  Reaction: {fileID: 11400000, guid: d7d1464d893739d4fa10f6bee2301bbe, type: 2}
+  Reaction: {fileID: 0}
+  PassiveEffects: []

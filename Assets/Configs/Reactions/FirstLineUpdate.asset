@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: FirstLineUpdate
   m_EditorClassIdentifier: 
   _value: 1
+  _key: first_line_reaction
+  _icon: {fileID: -1160632273, guid: c426a2e1692d4f046a4ff06bd91da7b2, type: 3}
   _islineUpgradable: 1
   _isUnitLineUpgradable: 0
   _line: 0

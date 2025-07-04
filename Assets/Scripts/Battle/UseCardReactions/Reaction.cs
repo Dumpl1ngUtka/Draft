@@ -8,6 +8,11 @@ namespace Battle.UseCardReactions
     public abstract class Reaction : ScriptableObject
     {
         [SerializeField] private int _value = 1;
+        [SerializeField] private string _key;
+        [SerializeField] private Sprite _icon;
+        
+        public string Key => _key;
+        public Sprite Icon => _icon;
         
         public abstract List<Unit> GetReactionCells(Unit caster, List<Unit> allies);
 

@@ -38,8 +38,7 @@ namespace Units
             Stats = new UnitStats(unitPreset.Attributes);
             Abilities = new AbilitiesHolder(unitPreset.Abilities);
             DiceInteractor = new DiceInteractor(Abilities);
-            PassiveEffectsHolder = Race != null ? 
-                new PassiveEffectsHolder(Race.GetPassiveEffects(this)) : new PassiveEffectsHolder();
+            PassiveEffectsHolder = new PassiveEffectsHolder(unitPreset.GetPassiveEffects(this));
             ItemsHolder = new ItemsHolder(Stats, PassiveEffectsHolder);
         }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8c3b697f79282744ca79947020b3cee4
+guid: fbcc8b2a61844e4439e068edb193b191
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7282886668606283007
-    second: Slime_0
+      213: 4416115040974280765
+    second: MushroomBoy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Slime_0
+      name: MushroomBoy_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 261
-        height: 188
+        x: 93
+        y: 9
+        width: 351
+        height: 472
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1036b4a492dfdea90800000000000000
-      internalID: -7282886668606283007
+      spriteID: d3818807b31394d30800000000000000
+      internalID: 4416115040974280765
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Slime_0: -7282886668606283007
+      MushroomBoy_0: 4416115040974280765
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
