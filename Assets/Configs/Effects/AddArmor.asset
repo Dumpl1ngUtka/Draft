@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9eb15b1a47d40af881ec8713f142672, type: 3}
   m_Name: AddArmor
   m_EditorClassIdentifier: 
+  _dbKey: armor
   _icon: {fileID: 7409653341989596904, guid: 2bd21e7d33f6b1746a19723d4ddaa915, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _turnCount: 2
   _addClip: {fileID: 7400000, guid: e2ae578de15d737429d5a371cffadef1, type: 2}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}
   _effectClip: {fileID: 0}
-  Value: 5

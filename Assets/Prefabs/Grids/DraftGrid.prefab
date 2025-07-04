@@ -2391,7 +2391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3196164fc7abe4ca7acb68116aed3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectUnitsCellPrefab: {fileID: 8316221664465457030, guid: ae23dfda8beb94e49b457acec22b176a, type: 3}
+  _cardInfoPanelPrefab: {fileID: 544343592574891171, guid: 433da395486b532448fb95d5ee04d8d2, type: 3}
   _container: {fileID: 7563049068704317328}
   _animatedBody: {fileID: 7563049068704317328}
   _animationDuration: 0.4

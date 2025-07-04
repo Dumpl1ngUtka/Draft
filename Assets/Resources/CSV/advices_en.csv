@@ -1,11 +1,37 @@
 chemistry;chemistry;Chemistry affects the strength of certain skills. Chemistry increases if ducks have the same team: \n[race] (+1)The color of the covenant (+1)\n[covenant] (+1);#58b8cb
 attribute;attribute;Attributes are numeric values that reflect a character's strengths and weaknesses. There are 4 attributes: [health], [strength], [dexterity] and [intelligence].  The base attribute value is from 1 to 10, but you can use items and skills to go beyond that.;
-covenant;covenant;The organization to which the duck belongs. [chemistry] ducks are increased by +2 for each duck belonging to the same covenant. By +1 if only the color of the covenant matches.;
+covenant;covenant;The organization to which the duck belongs. [chemistry] ducks are increased by +2 for each duck belonging to the same covenant. By +1 if only the color of the covenant matches. Covenant determines the [reaction] to the use of [ability_dice];
 health;health;Health is an [attribute] that determines the number of health points and the character's resistance to many negative effects.;#d86463
 strength;strength;Strength is an [attribute] that determines the damage of many physical skills.;#d4dc5f
 dexterity;dexterity;Dexterity is an [attribute] that determines the probability of dodging or hitting. The damage of many skills also depends on dexterity.;#73a35c
 intelligence;intelligence;Intelligence is an [attribute] that determines magical power and psychological stability.;#b777af
-race;race;The duck's race can endow it with special properties and effects. A duck gets +1 [chemistry] bonus for each duck of the same race in the team.\n Race determines the [reaction] to the use of [ability_dice];
+race;race;The duck's race can endow it with special properties and effects. A duck gets +1 [chemistry] bonus for each duck of the same race in the team.\n ;
 reaction;reaction;By applying [ability], the [ability_dice] of the ducks in your team changes its value. The type and magnitude of the change is influenced by the [race] of the duck.;
 ability_dice;ability dice;A dice that determines which [ability] the duck will use. All ducks roll at the beginning of the turn. If a duck from your team performs its action, [reaction] can change the value on your dice.;
 ability;ability;An action that can be applied by a duck. Each duck can have up to 6 abilities. At the beginning of the turn, the duck rolls a [ability_dice], the value of which determines which skill it will use. This value can change when another duck from your team uses his ability.;
+passive_effect;passive effect;Passive effects are permanent, automatic benefits or modifications that are applied to a character. The value indicates the number of moves after which the effect will end (if there is no value, then the number of moves is more than 10).;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+armor;armor;Blocks all damage once;
+axid;axid;You can't use [armor];
+slippery;slippery;Prevents you from using [armor] with a 50% chance. The chance is reduced by [dexterity];
+stun;stun;You cannot perform an action;
+=;=;=;
+fire_attack_100;fire attack super buff;The damage of your fire attacks has been increased by 100%;
+fire_defence_100;fire immunity;All received fire damage is 0;
+physical_attack_50;physical attack buff;The damage of your physical attacks has been increased by 50%;
+physical_attack_50_negative;physical attack fine;The damage of your physical attacks has been reduced by 50%;
+physical_defence_50;physical resistance;All received physical damage reduced by 50%;
+physical_defence_50_negative;physical vulnerability;All received physical damage increased by 50%;

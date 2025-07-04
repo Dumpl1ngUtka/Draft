@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb7a96a56204cbdb14d14096ab32db0, type: 3}
   m_Name: FireHit
   m_EditorClassIdentifier: 
-  Name: Sword Hit
+  Name: Fire Hit
   Icon: {fileID: 0}
   TargetFilter:
     IsSelfTarget: 0
@@ -37,6 +37,7 @@ MonoBehaviour:
   Effects:
   - Effect: {fileID: 11400000, guid: a3748913b4e94214db50051bcdc7f107, type: 2}
     TurnCount: 3
+    IsCasterEffect: 0
     Probability:
       _baseHitProbability: 1
       _casterAttributType: 1

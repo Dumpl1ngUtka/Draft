@@ -15,14 +15,14 @@ MonoBehaviour:
   _minLineIndex: 0
   _maxLineIndex: 5
   _frontLinePreset:
-    LeftPreset: {fileID: 11400000, guid: b64d7f29f65683349a545dc19671c943, type: 2}
-    MidlePreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
+    LeftPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    MidlePreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    RightPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
   _midleLinePreset:
-    LeftPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    MidlePreset: {fileID: 11400000, guid: b64d7f29f65683349a545dc19671c943, type: 2}
-    RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
+    LeftPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    MidlePreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    RightPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
   _backLinePreset:
-    LeftPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    MidlePreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
-    RightPreset: {fileID: 11400000, guid: 16e851cadad93614d91fd49bf7c65ede, type: 2}
+    LeftPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    MidlePreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}
+    RightPreset: {fileID: 11400000, guid: c258721a2d6b2f94497d9944618c379d, type: 2}

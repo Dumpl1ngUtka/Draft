@@ -94,12 +94,21 @@ namespace Services.SaveLoadSystem
                         continue;
 
                     var panelName = "";
-                    try { panelName = data[1];}
-                    catch {;}
+                    try
+                    {
+                        panelName = data[1];
+                    }
+                    catch
+                    {
+                        continue;
+                    }
                     
                     var description = "";
                     try { description = data[2];}
-                    catch {;}
+                    catch
+                    {
+                        continue;
+                    }
                     
                     var color = "#3D372B";
                     try
@@ -109,7 +118,7 @@ namespace Services.SaveLoadSystem
                     catch {;}
                     
                     var panelData = new PanelData(panelName, description, color);
-                    cache.Add(data[0], panelData);
+                    cache.TryAdd(data[0], panelData);
                 }
             }
 

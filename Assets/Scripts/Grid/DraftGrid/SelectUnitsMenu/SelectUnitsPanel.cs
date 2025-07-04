@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Services.PanelService.Panels;
 using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Grid.DraftGrid.SelectUnitsMenu
 {
     public class SelectUnitsPanel : MonoBehaviour, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private SelectUnitsCell _selectUnitsCellPrefab;
+        [FormerlySerializedAs("_selectUnitsCellPrefab")] [SerializeField] private CardInfoPanel _cardInfoPanelPrefab;
         [SerializeField] private Transform _container;
         [Header("Animation")]
         [SerializeField] private RectTransform _animatedBody;
@@ -17,13 +19,13 @@ namespace Grid.DraftGrid.SelectUnitsMenu
         [SerializeField] private AnimationCurve _heightCurve;
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private float _cellMoveSpeed;
-        private List<SelectUnitsCell> _selectUnitsCells = new List<SelectUnitsCell>();
+        private List<CardInfoPanel> _selectUnitsCells = new List<CardInfoPanel>();
         private List<Unit> _units;
         private int _selectedUnitIndex;
         private DraftGridController _controller;
         private Vector2 _delta;
         private Vector2 _center;
-        private SelectUnitsCell _cellOnTop => _selectUnitsCells[_selectedUnitIndex];
+        private CardInfoPanel _cellOnTop => _selectUnitsCells[_selectedUnitIndex];
 
         public void Init(DraftGridController draftController)
         {
@@ -74,10 +76,10 @@ namespace Grid.DraftGrid.SelectUnitsMenu
             _selectUnitsCells[_selectedUnitIndex].transform.SetAsLastSibling();
         }
         
-        private SelectUnitsCell CreateCellInstance(int index, int maxIndex, Unit unit)
+        private CardInfoPanel CreateCellInstance(int index, int maxIndex, Unit unit)
         {
-            var instance = Instantiate(_selectUnitsCellPrefab, _container);
-            instance.Init(index, maxIndex, unit);
+            var instance = Instantiate(_cardInfoPanelPrefab, _container);
+            instance.Init(unit, index, maxIndex);
             return instance;
         }
 

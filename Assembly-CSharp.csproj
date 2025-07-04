@@ -74,7 +74,6 @@
     <Compile Include="Assets\Scripts\Battle\Grid\CardParameter\ValueParameter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
-    <Compile Include="Assets\Scripts\Grid\DraftGrid\SelectUnitsMenu\SelectUnitsCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battle\PassiveEffects\ListOfEffects\ApplyDamage.cs" />
     <Compile Include="Assets\Scripts\Grid\ProfileGrid\ProfileGridView.cs" />

@@ -678,18 +678,20 @@ MonoBehaviour:
     _covenantImage: {fileID: 4277826582199067144}
     _raceImage: {fileID: 4890151978136938616}
   _healthInteractor:
-    _health: {fileID: 0}
-    _armor: {fileID: 0}
+    _value: {fileID: 0}
+    _bar: {fileID: 0}
   _diceInteractor:
     _diceIcon: {fileID: 8580326283524031401}
-    _additionalValueText: {fileID: 5472781901105180862}
-    _additionalValueImage: {fileID: 4985061158459135606}
+    _upgradeIcon: {fileID: 0}
+    _downgradedIcon: {fileID: 0}
+    _upgradeColor: {r: 0, g: 0, b: 0, a: 0}
+    _downgradedColor: {r: 0, g: 0, b: 0, a: 0}
   _overTextInteractor:
     _overText: {fileID: 3249455532983646117}
   _overPanelInteractor:
-    _animationImage: {fileID: 5419581382735740065}
     _animator: {fileID: 4495458366390885892}
-    _defaultImage: {fileID: 21300000, guid: 11a0acdfde5faed4cb2991b28aa9824f, type: 3}
+    _effectAnimationPrefab: {fileID: 0}
+    _frontEffectContainer: {fileID: 0}
   _sizeInteractor:
     _transform: {fileID: 7421837362807884559}
 --- !u!1 &6694006417119736652
@@ -1287,28 +1289,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6694048158970444199, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
   m_PrefabInstance: {fileID: 8664221745910784005}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4985061158459135606 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4400862858359338611, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
-  m_PrefabInstance: {fileID: 8664221745910784005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5472781901105180862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3732997974892318907, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}
-  m_PrefabInstance: {fileID: 8664221745910784005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8580326283524031401 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1093827764800185260, guid: 0c1c92da6bd8e1e41877e1eae7cc587d, type: 3}

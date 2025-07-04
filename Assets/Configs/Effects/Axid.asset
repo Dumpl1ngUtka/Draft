@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8dc1442f1924c7db9f7ba1de02ee804, type: 3}
   m_Name: Axid
   m_EditorClassIdentifier: 
+  _dbKey: axid
   _icon: {fileID: 21300000, guid: bcf7a90a113b1974dbf217284bfb1d24, type: 3}
   _color: {r: 0.036736816, g: 0.5999999, b: 0, a: 1}
-  _turnCount: 3
   _addClip: {fileID: 0}
   _turnClip: {fileID: 0}
   _destroyClip: {fileID: 0}

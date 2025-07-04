@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697551837991942981}
-  m_LocalRotation: {x: -0, y: -0, z: 0.01213079, w: 0.99992645}
+  m_LocalRotation: {x: -0, y: -0, z: -0.021672362, w: 0.99976516}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: level
+  m_text: health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -743,10 +743,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "The higher the duck's level, the greater its power\\n+1 to the main characteristic
-    for every 5 levels\\n+1 to the secondary characteristic for every 10 levels\\n+1
-    to the rest of the stats for every 20 <link = \"asasd\"><color=#ffffff>word</color></link>
-    levels\r"
+  m_text: Health is an <link="attribute"><color=#3D372B>attribute</color></link>
+    that determines the number of health points and the character's resistance to
+    many negative effects.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}

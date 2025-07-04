@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96edbec0dd6945c49fa670877939ed47, type: 3}
   m_Name: Physical50Attack
   m_EditorClassIdentifier: 
+  _dbKey: physical_attack_50
   _icon: {fileID: 1355261925, guid: f605505c6e3653e4e99af411e039595d, type: 3}
   _color: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 1}
   _addClip: {fileID: 0}

@@ -6,6 +6,7 @@ namespace Battle.PassiveEffects
 {
     public abstract class PassiveEffect : ScriptableObject
     {
+        [SerializeField] private string _dbKey;
         [SerializeField] protected Sprite _icon;
         [SerializeField] protected Color _color = Color.white;
         [Header("Animation Clips")]
@@ -17,6 +18,7 @@ namespace Battle.PassiveEffects
         protected UnitStats Owner;
         private int _turnCount;
         
+        public string DBKey => _dbKey;
         public int TurnCount => _turnCount;
         public Sprite Icon => _icon;
         public Color Color => _color;
@@ -57,6 +59,7 @@ namespace Battle.PassiveEffects
         public PassiveEffect GetInstance(UnitStats caster, UnitStats owner, int turnCount)
         {
             var instance = CreateInstance(caster, owner);
+            instance._dbKey = _dbKey;
             instance._turnCount = turnCount;
             instance._icon = _icon;
             instance._color = _color;
